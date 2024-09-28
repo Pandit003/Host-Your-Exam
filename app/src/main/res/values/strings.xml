@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Host Your Exam</string>
+    <!--    <string name="app_name">Test Master</string>-->
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="question">In the following question, select the related word pair from the given alternatives: \nTuberculosis:Lungs :: Typhoid : ?</string>
+    <string name="about_overview">Welcome to the Exam Hosting App, a platform designed for educators and learners to create, share, and participate in multiple-choice question (MCQ) exams. Our app enables users to host exams, track performance, and analyze results in an efficient and user-friendly environment.</string>
+    <string name="about_keyfeature1"><b>Host Exams:</b> Users can create and host their own MCQ exams with customizable questions.</string>
+    <string name="about_keyfeature2"><b>Share Exam IDs:</b> Easily share your unique exam ID with participants to invite them to take your exam.</string>
+    <string name="about_keyfeature3"><b>Search Functionality:</b> Quickly find exams by entering the exam ID in the search option.</string>
+    <string name="about_keyfeature4"><b>Exam Results:</b> After completing an exam, participants can view their results immediately.</string>
+    <string name="about_keyfeature5"><b>History Section:</b> Keep track of all your exam attempts, including scores and feedback.</string>
+    <string name="about_analysis1"><b>Analyze Performance:</b> Get insights into your performance with detailed results and statistics for each exam.</string>
+    <string name="about_analysis2"><b>Reattempt Exams:</b> Participants can reattempt exams to improve their scores or understanding of the material.</string>
+    <string name="about_Ques_management1"><b>Save Questions:</b> Users can save questions for future reference or study.</string>
+    <string name="about_Ques_management2"><b>Report Questions:</b> If you encounter any issues with a question, you can easily report it for review.</string>
+    <string name="about_Ques_management3"><b>Review User Reports:</b> As an exam host, view reports submitted by users regarding your questions for quality control.</string>
+    <string name="about_profile">Edit Profile: Users can manage their profiles, update personal information, and customize settings for a better experience.</string>
+    <string name="about_support">We are committed to continuously improving our app. If you have any feedback or need assistance, please reach out to our support team through the app.</string>
+
+</resources>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/ll_result_status"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="5dp"
+        android:layout_marginStart="5dp"
+        android:elevation="10dp"
+        android:background="@drawable/red_left_corner_background">
+        <TextView
+            android:id="@+id/tv_result_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="FAIL"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginVertical="5dp"
+        android:layout_marginEnd="5dp"
+        android:elevation="10dp"
+        android:background="@drawable/right_corner_gradient"
+        android:padding="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3.5">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Date : "
+            android:paddingStart="5dp"
+            android:textSize="14dp"
+            android:layout_weight=".5"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/attempt_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="24/08/2024"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="1dp"
+            android:text="Completed in :"
+            android:layout_weight="1.2"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/completedIn_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:text="02:56 hrs"
+            android:layout_weight=".8"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginHorizontal="5dp"
+        android:background="#C8C9CC"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Appear by : "
+            android:paddingStart="5dp"
+            android:layout_weight=".55"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/appear_by"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:layout_weight="1.45"
+            android:text="Rohit Pandit"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Subject : "
+            android:paddingStart="5dp"
+            android:layout_weight=".55"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/subject_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1.45"
+            android:text="Computer Application"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2.3">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pr_markScored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:progress="20"
+            android:max="50"
+            app:indicatorColor="@color/blue"
+            app:trackColor="#DCDBDB"/>
+        <TextView
+            android:id="@+id/tv_exam_mark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="20/50"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:layout_weight=".5"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tv_view_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="View"
+            android:paddingStart="5dp"
+            android:layout_weight=".3"
+            android:textColor="@color/blue_link"/>
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

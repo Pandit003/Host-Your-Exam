@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".RegisterActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register Page"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:layout_marginHorizontal="20dp"
+        android:hint="User Name"/>
+    <EditText
+        android:id="@+id/tv_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:inputType="textEmailAddress"
+        android:layout_marginHorizontal="20dp"
+        android:hint="Email ID"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/tv_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:inputType="textPassword"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:hint="Password"/>
+        <ImageView
+            android:id="@+id/show_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_remove_red_eye_24"
+            app:tint="@color/darkgray"
+            android:layout_alignEnd="@+id/tv_password"
+            android:layout_alignBottom="@+id/tv_password"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="5dp"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="40dp"
+        android:text="Register"
+        android:textSize="20dp"
+        android:layout_marginHorizontal="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account?"
+            android:textColor="@color/black"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Sign in."
+            android:textColor="@color/blue"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_verify"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Please verify your email before logging in."
+        android:textSize="16dp"
+        android:textColor="@color/red"
+        android:layout_gravity="center"/>
+</LinearLayout>

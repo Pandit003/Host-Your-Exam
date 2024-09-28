@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_marked"
+        android:title="Mark"
+        android:icon="@drawable/baseline_star_24"
+        android:iconTint="@color/black"/>
+    <item android:id="@+id/menu_report"
+        android:title="Report"
+        android:icon="@drawable/baseline_warning_amber_24"/>
+    <item android:id="@+id/menu_saved"
+        android:title="Save"
+        android:icon="@drawable/baseline_bookmark_24"/>
+</menu>

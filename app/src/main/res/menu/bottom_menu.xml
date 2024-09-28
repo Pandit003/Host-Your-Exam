@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home"
+       />
+    <item android:id="@+id/nav_create_exam"
+        android:icon="@drawable/baseline_create_24"
+        android:title="Create Exam"
+        />
+    <item android:id="@+id/nav_history"
+        android:icon="@drawable/baseline_history_24"
+        android:title="History"
+        />
+    <item android:id="@+id/nav_result"
+        android:icon="@drawable/baseline_assignment_24"
+        android:title="Leaderboard"
+        />
+</menu>

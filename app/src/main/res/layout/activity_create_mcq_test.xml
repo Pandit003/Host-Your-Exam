@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateMcqTest">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Create MCQ Exam"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subject Name"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:id="@+id/subject_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_active_backgroung"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:minHeight="10dp"
+                android:layout_marginTop="10dp"
+                android:overScrollMode="always"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                android:textSize="16dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Enter Your Questions And Options"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/tv_question_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Q1. "
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/main_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_active_backgroung"
+                android:gravity="top"
+                android:hint="Enter Your Question"
+                android:inputType="textMultiLine"
+                android:maxLines="10"
+                android:minHeight="60dp"
+                android:textColorHint="@color/gray"
+                android:overScrollMode="always"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A ."
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/opt_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/edittext_active_backgroung"
+                android:gravity="top"
+                android:hint="Option A"
+                android:inputType="textMultiLine"
+                android:textColorHint="@color/gray"
+                android:maxLines="3"
+                android:minHeight="10dp"
+                android:overScrollMode="always"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B ."
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/opt_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/edittext_active_backgroung"
+                android:gravity="top"
+                android:hint="Option B"
+                android:textColorHint="@color/gray"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:minHeight="10dp"
+                android:overScrollMode="always"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C ."
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/opt_c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/edittext_active_backgroung"
+                android:gravity="top"
+                android:hint="Option C"
+                android:textColorHint="@color/gray"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:minHeight="10dp"
+                android:overScrollMode="always"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D ."
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/opt_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/edittext_active_backgroung"
+                android:gravity="top"
+                android:hint="Option D"
+                android:textColorHint="@color/gray"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:minHeight="10dp"
+                android:overScrollMode="always"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ans"
+                    android:textColor="@color/black" />
+
+               <Spinner
+                   android:id="@+id/spinner_answer"
+                   android:layout_width="match_parent"
+                   android:layout_height="30dp"
+                   android:spinnerMode="dropdown"
+                   android:background="@drawable/box_outline"
+                   android:layout_marginStart="5dp"
+                   android:paddingVertical="5dp"
+                   android:paddingEnd="5dp"
+                   android:hint="Answer" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:weightSum="3">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_previous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:background="@drawable/orange_gradient">
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:paddingStart="8dp"-->
+<!--                        android:src="@drawable/baseline_keyboard_arrow_left_24"-->
+<!--                        app:tint="@color/white" />-->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="15dp"
+                        android:text="Previous"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:id="@+id/tv_clear_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/light_blue_gradient"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="15dp"
+                    android:text="Clear"
+                    android:textColor="@color/white" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/green_gradient"
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="15dp"
+                        android:paddingEnd="10dp"
+                        android:text="Save &amp; Next"
+                        android:textColor="@color/white" />
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:paddingEnd="8dp"-->
+<!--                        android:src="@drawable/baseline_keyboard_arrow_right_24"-->
+<!--                        app:tint="@color/white" />-->
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+            <Switch
+                android:id="@+id/set_time_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Set Exam Time"
+                android:layout_marginTop="15dp"
+                android:textOff="OFF"
+                android:textOn="ON"
+                android:textStyle="bold"
+                android:thumbTint="@color/switch_thumb_color"
+                android:trackTint="@color/switch_track_color"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <LinearLayout
+                android:id="@+id/ll_set_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2.1">
+                <LinearLayout
+                    android:id="@+id/set_start_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_outline"
+                    android:padding="10dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="end">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_calendar_month_24"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Start Time"
+                            android:layout_marginStart="10dp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tv_start_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Set Date And Time"
+                            android:gravity="center"
+                            android:textSize="12dp"
+                            android:textColor="@color/black"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/black"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight=".1"/>
+                <LinearLayout
+                    android:id="@+id/set_end_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="@drawable/box_outline"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="end">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/baseline_calendar_month_24"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="End Time"
+                            android:layout_marginStart="10dp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tv_end_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:hint="Set Date And Time"
+                            android:gravity="center"
+                            android:textColor="@color/black"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/black"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_total_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Exam Availability Period"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_total_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0 Day 0:0 hrs"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Exam Duration"
+                android:textColor="@color/black"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <NumberPicker
+                    android:id="@+id/np_exam_duration_hrs"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/tv_exm_hrs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0 hours"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/tv_exm_min"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="0 min"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"/>
+                <NumberPicker
+                    android:id="@+id/np_exam_duration_mins"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Positive mark"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"/>
+                <EditText
+                    android:id="@+id/et_pos_mark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="i.e 2"
+                    android:paddingStart="5dp"
+                    android:paddingVertical="5dp"
+                    android:textColorHint="@color/gray"
+                    android:inputType="numberDecimal"
+                    android:background="@drawable/box_outline"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Negative mark ( - )"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"/>
+                    <EditText
+                        android:id="@+id/et_neg_mark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="i.e 0.5"
+                        android:paddingStart="5dp"
+                        android:textColorHint="@color/gray"
+                        android:paddingVertical="5dp"
+                        android:inputType="numberDecimal"
+                        android:background="@drawable/box_outline"
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Passing mark"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"/>
+                <EditText
+                    android:id="@+id/et_pass_mark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="i.e 30"
+                    android:paddingStart="5dp"
+                    android:textColorHint="@color/gray"
+                    android:paddingVertical="5dp"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/finishLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:layout_gravity="bottom">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/host_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/blue_gradient"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="HOST"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

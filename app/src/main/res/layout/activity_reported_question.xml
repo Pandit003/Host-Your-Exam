@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_blue">
+        <ImageView
+            android:id="@+id/iv_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_home_24"
+            app:tint="@color/white"/>
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Report Questions"
+            android:layout_marginStart="30dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/ll_down_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#E6EAF1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="User reported Questions"
+                        android:textColor="@color/black"
+                        android:padding="14dp"
+                        android:textSize="18dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:id="@+id/iv_down_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_keyboard_arrow_down_24"
+                        android:padding="14dp"/>
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_user_reported_quesions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+                    android:visibility="gone"
+                    android:paddingTop="5dp"
+                    android:background="@drawable/home_gradient" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:paddingHorizontal="10dp"
+                android:background="@color/primary_blue" />
+                <LinearLayout
+                    android:id="@+id/ll_down_your"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#E6EAF1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Your reported Questions"
+                        android:textColor="@color/black"
+                        android:padding="14dp"
+                        android:textSize="18dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:id="@+id/iv_down_your"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_keyboard_arrow_down_24"
+                        android:padding="14dp"/>
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_your_reported_quesions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
+                    android:visibility="gone"
+                    android:paddingTop="5dp"
+                    android:background="@drawable/home_gradient" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

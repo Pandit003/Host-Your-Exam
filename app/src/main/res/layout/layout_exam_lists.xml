@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:background="@drawable/box_gradient"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Date : "
+            android:paddingStart="5dp"
+            android:layout_weight=".5"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/host_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight=".8"
+            android:text="00/00/0000"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/full_mark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Full Mark : 00"
+            android:gravity="end"
+            android:paddingStart="5dp"
+            android:layout_weight=".7"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginHorizontal="5dp"
+        android:background="#C8C9CC"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Hosted by : "
+            android:paddingStart="5dp"
+            android:layout_weight=".5"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/user_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1.5"
+            android:text="Rohit Pandit"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Subject : "
+            android:paddingStart="5dp"
+            android:layout_weight=".5"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/subject_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1.5"
+            android:text="Computer Application"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="7dp"
+            android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/start_exam_btn"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/blue_gradient"
+                android:gravity="center"
+                android:text="Start Exam"
+                android:padding="3dp"
+                android:textColor="@color/white"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</LinearLayout>

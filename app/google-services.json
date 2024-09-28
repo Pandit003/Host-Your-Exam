@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "613809680312",
+    "project_id": "exam-master-c0355",
+    "storage_bucket": "exam-master-c0355.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613809680312:android:dbac56d70306339fa8294d",
+        "android_client_info": {
+          "package_name": "com.example.testmaster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGOlvquVF3DoPgdgSBIoyTneunkiv47WU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

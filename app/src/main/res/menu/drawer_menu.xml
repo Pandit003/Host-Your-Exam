@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/hosted_exam"
+    android:title="Hosted Test"
+    android:icon="@drawable/baseline_sensors_24"
+    android:iconTint="@color/black"/>
+    <item android:id="@+id/menu_saved"
+    android:title="Saved Questions"
+    android:icon="@drawable/baseline_bookmark_24"/>
+    <item android:id="@+id/menu_report"
+    android:title="Report Questions"
+    android:icon="@drawable/baseline_report_24"/>
+<!--    <item android:id="@+id/manu_doubt"-->
+<!--    android:title="Doubt"-->
+<!--    android:icon="@drawable/baseline_quiz_24"/>-->
+<!--    <item android:id="@+id/menu_download"-->
+<!--    android:title="Download"-->
+<!--    android:icon="@drawable/baseline_download_24"/>-->
+    <item android:id="@+id/menu_feedback"
+    android:title="Feedback"
+    android:icon="@drawable/baseline_feedback_24"/>
+<!--    <item android:id="@+id/setting"-->
+<!--    android:title="Setting"-->
+<!--    android:icon="@drawable/baseline_settings_24"/>-->
+    <item android:id="@+id/logout"
+    android:title="Logout"
+    android:icon="@drawable/baseline_logout_24"/>
+    <item android:id="@+id/info"
+    android:title="Info"
+    android:icon="@drawable/baseline_info_24"/>
+</menu>

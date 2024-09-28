@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:elevation="10dp"
+        android:background="@drawable/green_box_gradient"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3.5">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Date : "
+                android:paddingStart="5dp"
+                android:layout_weight=".5"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/host_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="24/08/2024"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingEnd="5dp"
+                android:padding="1dp"
+                android:text="Duration :"
+                android:layout_weight="1.2"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/exam_duration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:text="02:56 hrs"
+                android:layout_weight=".8"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="#C8C9CC"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:weightSum="2.2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Subject : "
+                android:paddingStart="5dp"
+                android:layout_weight=".5"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/subject_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1.5"
+                android:text="English "
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:weightSum="2.2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Exam ID : "
+                android:paddingStart="5dp"
+                android:layout_weight=".5"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/exam_Id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1.3"
+                android:text="000000"
+                android:textColor="@color/black"/>
+            <ImageView
+                android:id="@+id/iv_copy"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".2"
+                android:src="@drawable/baseline_content_copy_24"/>
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".2"
+                android:src="@drawable/baseline_delete_24"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
