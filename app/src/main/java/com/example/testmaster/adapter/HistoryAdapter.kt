@@ -4,8 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.icu.text.CaseMap.Title
-import android.util.Log
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +13,13 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testmaster.Analysis_Exam
-import com.example.testmaster.Attempt_Exam
+import com.example.testmaster.activities.Analysis_Exam
+import com.example.testmaster.activities.Attempt_Exam
 import com.example.testmaster.R
 import com.example.testmaster.model.AnswerKey
 import com.example.testmaster.model.CreateQuestions
+import com.example.testmaster.util.CustomDialogUtils
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -69,27 +69,23 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
         holder.tv_exam_mark.text = "$mark_scored/$total_marks"
         holder.no_of_attempt.text = examDataList.get(position).no_of_attempt
         holder.tv_reattempt.setOnClickListener {
-            getReattempQuestion(examDataList[position].exam_id.toString()) {
-                val dialog = Dialog(context)
-                dialog.setContentView(R.layout.dialog_box_confirmation)
-                dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT)
-                dialog.setCancelable(false)
-                dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
-                val dialogTitle = dialog.findViewById<TextView>(R.id.title)
-                val dialogMessage = dialog.findViewById<TextView>(R.id.message)
-                val btnYes = dialog.findViewById<Button>(R.id.btn_yes)
-                val btnNo = dialog.findViewById<Button>(R.id.btn_no)
-                dialogTitle.text = "Confirmation"
-                dialogMessage.text = "Are you sure you want to reattempt this exam?"
-                btnYes.setOnClickListener {
-                    dialog.dismiss()
-                    val intent = Intent(context, Attempt_Exam::class.java)
-                    intent.putExtra("examData", questionData)
-                    intent.putExtra("Paused_Answer_Key", examDataList.get(position)) ////
-                    context.startActivity(intent)
+            if (!isInternetAvailable(context)) {
+                showNoInternetDialog()
+            }else {
+                getReattempQuestion(examDataList[position].exam_id.toString()) {
+                    CustomDialogUtils.showConfirm(
+                        activity = context as android.app.Activity,
+                        title = "Confirmation",
+                        message = "Are you sure you want to reattempt this exam?",
+                        onPositive = {
+                            val intent = Intent(context, Attempt_Exam::class.java)
+                            intent.putExtra("examData", questionData)
+                            intent.putExtra("Paused_Answer_Key", examDataList[position])
+                            context.startActivity(intent)
+                        }
+                    )
+
                 }
-                btnNo.setOnClickListener { dialog.dismiss() }
-                dialog.show()
             }
         }
         holder.tv_analysis.setOnClickListener{
@@ -143,5 +139,23 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
             .addOnFailureListener {
                 Toast.makeText(context, "Error fetching exam questions", Toast.LENGTH_SHORT).show()
             }
+    }
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun showNoInternetDialog() {
+        CustomDialogUtils.showAlert(
+            activity = context as android.app.Activity,
+            title = "No Internet Connection",
+            message = "Please check your internet connection and try again.",
+
+        )
     }
 }

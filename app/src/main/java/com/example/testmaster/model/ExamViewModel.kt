@@ -1,8 +1,6 @@
-package com.example.testmaster
+package com.example.testmaster.model
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.testmaster.model.QuestionWithAns
 
 class ExamViewModel : ViewModel() {
     val questionWithAnsList: MutableList<QuestionWithAns> = mutableListOf()

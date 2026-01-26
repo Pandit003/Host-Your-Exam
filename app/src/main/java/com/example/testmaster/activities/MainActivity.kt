@@ -1,4 +1,4 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.content.Context
 import android.content.DialogInterface
@@ -10,7 +10,6 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -24,7 +23,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import android.provider.Settings
-
+import com.example.testmaster.fragments.CreateTestFragment
+import com.example.testmaster.fragments.HistoryFragment
+import com.example.testmaster.fragments.HomeFragment
+import com.example.testmaster.fragments.LeaderBoardFragment
+import com.example.testmaster.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -78,11 +81,11 @@ class MainActivity : AppCompatActivity() {
             showInternetSettingsDialog()
         }
         search_id.setOnClickListener{
-            val intent = Intent(this,SearchExamId::class.java)
+            val intent = Intent(this, SearchExamId::class.java)
             startActivity(intent)
         }
         ib_notification.setOnClickListener{
-            startActivity(Intent(this,NotificationActivity::class.java))
+            startActivity(Intent(this, NotificationActivity::class.java))
         }
 
 //        loadFragment(HomeFragment(), "Home")
@@ -169,7 +172,7 @@ class MainActivity : AppCompatActivity() {
         view_profile = headerView.findViewById(R.id.view_profile)
         iv_userimage = headerView.findViewById(R.id.iv_userimage)
         view_profile.setOnClickListener{
-            startActivity(Intent(this,EditProfileActivity::class.java))
+            startActivity(Intent(this, EditProfileActivity::class.java))
         }
         if (userId != null) {
             db.collection("personalDetails").document(userId)

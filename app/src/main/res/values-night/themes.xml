@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.TestMaster" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+         <item name="colorPrimary">@color/primary_blue</item>
         <item name="android:statusBarColor">@color/primary_blue</item>
+        <item name="colorAccent">@color/primary_blue</item>
     </style>
 </resources>

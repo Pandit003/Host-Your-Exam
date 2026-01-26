@@ -3,8 +3,7 @@ package com.example.testmaster.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.testmaster.FragmentAnalysis
-import com.example.testmaster.FragmentQuestion
+import com.example.testmaster.fragments.FragmentAnalysis
 import com.example.testmaster.model.QuestionWithAns
 
 class AnalysisPagerAdapter(

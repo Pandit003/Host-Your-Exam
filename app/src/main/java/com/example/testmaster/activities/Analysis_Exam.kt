@@ -1,4 +1,4 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
+import com.example.testmaster.fragments.FragmentAnalysis
+import com.example.testmaster.R
 import com.example.testmaster.adapter.AnalysisPagerAdapter
 import com.example.testmaster.model.AnswerKey
 import com.example.testmaster.model.QuestionWithAns
@@ -135,7 +137,7 @@ class Analysis_Exam : AppCompatActivity(), FragmentAnalysis.OnQuestionInteractio
             drawer_layout.openDrawer(GravityCompat.END)
         }
         btn_submit.setOnClickListener{
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

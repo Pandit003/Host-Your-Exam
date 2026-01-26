@@ -1,4 +1,4 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testmaster.R
 import com.example.testmaster.adapter.ExamDetailsAdapter
 import com.example.testmaster.model.AnswerKey
 import com.example.testmaster.model.CreateQuestions

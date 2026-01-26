@@ -1,23 +1,23 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.ImageView
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.testmaster.R
 import com.example.testmaster.adapter.HostedTestAdapter
-import com.example.testmaster.model.AnswerKey
 import com.example.testmaster.model.CreateQuestions
+import com.example.testmaster.util.CustomDialogUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class HostedTest : AppCompatActivity() {
@@ -40,7 +40,7 @@ class HostedTest : AppCompatActivity() {
         user = firebaseAuth.currentUser?.uid.toString()
         hostedTestAdapter = HostedTestAdapter(this,hostedTestList)
         iv_home.setOnClickListener {
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -50,7 +50,10 @@ class HostedTest : AppCompatActivity() {
         getHostedList()
     }
     fun getHostedList(){
-
+        if (!isInternetAvailable(this)) {
+            showNoInternetDialog()
+            return
+        }
         db.collection("CreatedQuestion").document(user).collection("QuestionsDetails")
             .addSnapshotListener { documents, error ->
                 if (error != null) {
@@ -79,5 +82,31 @@ class HostedTest : AppCompatActivity() {
                     swipeRefreshLayout.isRefreshing = false
                 }
             }
+    }
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun showNoInternetDialog() {
+        CustomDialogUtils.showConfirm(
+            activity = this,
+            title = "No Internet Connection",
+            message = "Please check your internet connection and try again.",
+            positiveText = "Retry",
+            negativeText = "Exit",
+            onPositive = {
+                getHostedList()
+            },
+            onNegative = {
+                finish()
+            }
+
+        )
     }
 }

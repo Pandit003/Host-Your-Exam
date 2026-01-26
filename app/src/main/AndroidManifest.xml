@@ -17,10 +17,10 @@
         android:theme="@style/Theme.TestMaster"
         tools:targetApi="31">
         <activity
-            android:name=".AboutActivity"
+            android:name=".activities.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".activities.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,49 +29,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FeedbackActivity"
+            android:name=".activities.FeedbackActivity"
             android:exported="false" />
         <activity
-            android:name=".NotificationActivity"
+            android:name=".activities.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".ReportedQuestion"
+            android:name=".activities.ReportedQuestion"
             android:exported="false" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".activities.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".activities.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".SavedQuestions"
+            android:name=".activities.SavedQuestions"
             android:exported="false" />
         <activity
-            android:name=".HostedTest"
+            android:name=".activities.HostedTest"
             android:exported="false" />
         <activity
-            android:name=".Analysis_Exam"
+            android:name=".activities.Analysis_Exam"
             android:exported="false" />
         <activity
-            android:name=".ResultActivity"
+            android:name=".activities.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchExamId"
+            android:name=".activities.SearchExamId"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Attempt_Exam"
+            android:name=".activities.Attempt_Exam"
             android:exported="false" />
         <activity
-            android:name=".CreateMcqTest"
+            android:name=".activities.CreateMcqTest"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
 
 <!--             <intent-filter>-->

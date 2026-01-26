@@ -1,5 +1,6 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -16,10 +17,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import com.example.testmaster.R
 import com.github.mikephil.charting.data.LineRadarDataSet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,6 +37,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btn_login: Button
     private lateinit var show_password : ImageView
     private lateinit var ll_verify : LinearLayout
+    private lateinit var ll_register : LinearLayout
+    private lateinit var pb_login : ProgressBar
     val db = FirebaseFirestore.getInstance()
     private var timer: CountDownTimer? = null
     private val handler = Handler(Looper.getMainLooper())
@@ -51,6 +57,9 @@ class LoginActivity : AppCompatActivity() {
         tv_countdown = findViewById(R.id.tv_countdown)
         btn_login = findViewById(R.id.btn_login)
         show_password=findViewById<ImageView>(R.id.show_password)
+        pb_login=findViewById<ProgressBar>(R.id.pb_login)
+        pb_login.visibility = View.GONE
+        ll_register=findViewById<LinearLayout>(R.id.ll_register)
         ll_verify=findViewById<LinearLayout>(R.id.ll_verify)
         register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -120,6 +129,8 @@ class LoginActivity : AppCompatActivity() {
                 btn_login.isEnabled = true
                 Toast.makeText(this, "Please enter the password", Toast.LENGTH_SHORT).show()
             } else {
+                pb_login.visibility = View.VISIBLE
+                ll_register.isVisible = false
                 firebaseAuth.signInWithEmailAndPassword(
                     et_email.text.toString(),
                     et_password.text.toString()
@@ -137,10 +148,12 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(this, "Email not verified yet. Please check your inbox.", Toast.LENGTH_SHORT).show()
                         }
                     } else {
+                        pb_login.visibility = View.GONE
+                        ll_register.isVisible = true
                         btn_login.isEnabled = true
                         Toast.makeText(
                             this@LoginActivity,
-                            "Invalid user and password",
+                            "Please enter valid credentials",
                             Toast.LENGTH_LONG
                         ).show()
                         Log.e("Login", "Authentication failed: ${task.exception?.message}")

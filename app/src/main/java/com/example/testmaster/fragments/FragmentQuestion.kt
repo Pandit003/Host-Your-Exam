@@ -1,26 +1,24 @@
-package com.example.testmaster
+package com.example.testmaster.fragments
 
 import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import com.example.testmaster.R
+import com.example.testmaster.model.Question
 import com.example.testmaster.model.QuestionWithAns
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentAnalysis.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FragmentAnalysis : Fragment() {
+
+class FragmentQuestion : Fragment() {
 
     private var listener: OnQuestionInteractionListener? = null
 
 
+    private var questionTimeInMillis: Long = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,7 +28,6 @@ class FragmentAnalysis : Fragment() {
             throw RuntimeException("$context must implement OnQuestionInteractionListener")
         }
     }
-
     lateinit var option_a : LinearLayout
     lateinit var option_b : LinearLayout
     lateinit var option_c : LinearLayout
@@ -40,12 +37,9 @@ class FragmentAnalysis : Fragment() {
     lateinit var tv_option_b : TextView
     lateinit var tv_option_c : TextView
     lateinit var tv_option_d : TextView
-    lateinit var choosenAnswer : String
-    lateinit var correctAnswer : String
 
     var selected_option : String? = null
-    var position : Int = 0
-    lateinit var questions : QuestionWithAns
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,67 +56,56 @@ class FragmentAnalysis : Fragment() {
         tv_option_d = view.findViewById(R.id.tv_option_d)
         tv_question = view.findViewById(R.id.tv_question)
 
-        questions = (arguments?.getSerializable("question") as? QuestionWithAns)!!
-        questions = (arguments?.getSerializable("question") as? QuestionWithAns)!!
-        var totalQuestions = (arguments?.getInt("totalQuestions"))?:0
-        position = (arguments?.getInt("position"))?:0
-        choosenAnswer = questions.choosen_answer.toString()
-        correctAnswer = questions.correct_answer.toString()
+        val questions = arguments?.getSerializable("question") as? Question
 
-
-        if(questions == null){
-            Toast.makeText(view.context,"Unable To Take Re-attempt Exam",Toast.LENGTH_SHORT).show()
-        }
-
-        tv_question.setText(questions.question_text)
-        tv_option_a.setText(questions.option_a)
-        tv_option_b.setText(questions.option_b)
-        tv_option_c.setText(questions.option_c)
-        tv_option_d.setText(questions.option_d)
+        tv_question.setText(questions?.question_text)
+        tv_option_a.setText(questions?.option_a)
+        tv_option_b.setText(questions?.option_b)
+        tv_option_c.setText(questions?.option_c)
+        tv_option_d.setText(questions?.option_d)
 
         option_a.setOnClickListener{
+            selectOption("option_a")
             selected_option = "A"
-            setCorrectAnswer()
             listener?.onOptionSelected()
         }
         option_b.setOnClickListener{
+            selectOption("option_b")
             selected_option = "B"
-            setCorrectAnswer()
             listener?.onOptionSelected()
-
         }
         option_c.setOnClickListener{
+            selectOption("option_c")
             selected_option = "C"
-            setCorrectAnswer()
             listener?.onOptionSelected()
-
         }
         option_d.setOnClickListener{
+            selectOption("option_d")
             selected_option = "D"
-            setCorrectAnswer()
             listener?.onOptionSelected()
         }
-        return view
-    }
-    fun setCorrectAnswer(){
-        if(selected_option == correctAnswer){
-            selectOption("option_" + correctAnswer.toLowerCase())
-        }else if(selected_option == choosenAnswer){
-            selectWrongOption("option_" + selected_option?.toLowerCase())
-            selectOption("option_" + correctAnswer.toLowerCase())
-        }else if (selected_option != correctAnswer && selected_option != choosenAnswer){
-            selectWrongOption("option_" + selected_option?.toLowerCase())
-            yourChoosenAnswer("option_" + choosenAnswer.toLowerCase())
-            selectOption("option_" + correctAnswer.toLowerCase())
-        }
 
+        return view
     }
 
 
     interface OnQuestionInteractionListener {
+        fun onClearOptions()
         fun onNextQuestion()
         fun onPreviousQuestion()
+        fun onUpdateQuestionTimer(seconds: Long, minutes: Long)
         fun onOptionSelected()
+    }
+
+    fun getQuestionDetails(): QuestionWithAns {
+        return QuestionWithAns(
+            question_text = tv_question.text.toString(),
+            option_a = tv_option_a.text.toString(),
+            option_b = tv_option_b.text.toString(),
+            option_c = tv_option_c.text.toString(),
+            option_d = tv_option_d.text.toString(),
+//            choosen_answer = selected_option
+        )
     }
 
     fun clearOption(){
@@ -133,22 +116,10 @@ class FragmentAnalysis : Fragment() {
         selected_option = "N"
     }
     fun selectOption(option : String){
-        when(option){
-            "option_a" -> option_a.setBackgroundResource(R.drawable.green_box_outline)
-            "option_b" -> option_b.setBackgroundResource(R.drawable.green_box_outline)
-            "option_c" -> option_c.setBackgroundResource(R.drawable.green_box_outline)
-            "option_d" -> option_d.setBackgroundResource(R.drawable.green_box_outline)
-        }
-    }
-    fun selectWrongOption(option : String){
-        when(option){
-            "option_a" -> option_a.setBackgroundResource(R.drawable.red_box_outline)
-            "option_b" -> option_b.setBackgroundResource(R.drawable.red_box_outline)
-            "option_c" -> option_c.setBackgroundResource(R.drawable.red_box_outline)
-            "option_d" -> option_d.setBackgroundResource(R.drawable.red_box_outline)
-        }
-    }
-    fun yourChoosenAnswer(option : String){
+        option_a.setBackgroundResource(R.drawable.box_outline)
+        option_b.setBackgroundResource(R.drawable.box_outline)
+        option_c.setBackgroundResource(R.drawable.box_outline)
+        option_d.setBackgroundResource(R.drawable.box_outline)
         when(option){
             "option_a" -> option_a.setBackgroundResource(R.drawable.blue_box_outline)
             "option_b" -> option_b.setBackgroundResource(R.drawable.blue_box_outline)
@@ -156,6 +127,7 @@ class FragmentAnalysis : Fragment() {
             "option_d" -> option_d.setBackgroundResource(R.drawable.blue_box_outline)
         }
     }
+
     fun restoreSelectedOption(choosenAnswer: String?) {
         if (choosenAnswer != null && choosenAnswer!="N") {
             selectOption("option_"+choosenAnswer.toLowerCase())
@@ -176,10 +148,10 @@ class FragmentAnalysis : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(questionwithans: QuestionWithAns, position: Int, totalQuestions: Int): FragmentAnalysis {
-            val fragment = FragmentAnalysis()
+        fun newInstance(question: Question, position: Int, totalQuestions: Int): FragmentQuestion {
+            val fragment = FragmentQuestion()
             val args = Bundle()
-            args.putSerializable("question", questionwithans)
+            args.putSerializable("question", question)
             args.putInt("position", position)
             args.putInt("totalQuestions", totalQuestions)
             fragment.arguments = args

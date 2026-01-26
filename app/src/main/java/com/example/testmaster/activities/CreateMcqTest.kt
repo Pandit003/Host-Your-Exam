@@ -1,15 +1,21 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import com.example.testmaster.R
 import com.example.testmaster.model.CreateQuestions
 import com.example.testmaster.model.Question
+import com.example.testmaster.util.CustomDialogUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
@@ -61,7 +67,9 @@ class CreateMcqTest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_mcq_test)
-
+        onBackPressedDispatcher.addCallback(this) {
+            showConfirmation()
+        }
         val spinnerOption = arrayOf("Select The Answer","A","B","C","D")
 
         currentCalendar = Calendar.getInstance()
@@ -234,6 +242,10 @@ class CreateMcqTest : AppCompatActivity() {
         }
 
         host_btn.setOnClickListener {
+            if (!isInternetAvailable(this)) {
+                showNoInternetDialog()
+                return@setOnClickListener
+            }
             // Disable the button to prevent multiple clicks
             host_btn.isEnabled = false
 
@@ -306,7 +318,7 @@ class CreateMcqTest : AppCompatActivity() {
                                                                 "Exam Created",
                                                                 Toast.LENGTH_LONG
                                                             ).show()
-                                                            startActivity(Intent(this,HostedTest::class.java))
+                                                            startActivity(Intent(this, HostedTest::class.java))
                                                             finish()
                                                         }
                                                         .addOnFailureListener { e ->
@@ -461,4 +473,37 @@ class CreateMcqTest : AppCompatActivity() {
             }
     }
 
+    private fun showConfirmation() {
+        CustomDialogUtils.showConfirm(
+            activity = this,
+            title = "Confirmation",
+            message = "Are you sure you want to exit? All unsaved data will be lost.",
+            onPositive = {
+                finish()
+            }
+        )
+    }
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun showNoInternetDialog() {
+        CustomDialogUtils.showConfirm(
+            activity = this,
+            title = "No Internet Connection",
+            message = "Please check your internet connection and try again.",
+            positiveText = "Retry",
+            negativeText = "Exit",
+            onPositive = {
+                host_btn.performClick()
+            },
+
+        )
+    }
 }

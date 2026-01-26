@@ -60,10 +60,10 @@ class LeaderBoardAdapter(var context: Context, var leaderBoardList : List<Answer
         holder.pr_markScored.setProgress(mark_scored.toInt()?:0,true)
         holder.pr_markScored.max=total_marks
         if(leaderBoardList.get(position).pass_mark?.toDouble()!! <= mark_scored.toDouble()){
-            holder.tv_result_status.text = "PASS"
+            holder.tv_result_status.text = "P\nA\nS\nS"
             holder.ll_result_status.setBackgroundResource(R.drawable.green_left_corner_background)
         }else {
-            holder.tv_result_status.text = "FAIL"
+            holder.tv_result_status.text = "F\nA\nI\nL"
             holder.ll_result_status.setBackgroundResource(R.drawable.red_left_corner_background)
         }
 

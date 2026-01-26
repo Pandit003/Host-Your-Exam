@@ -1,4 +1,4 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.content.Context
 import android.content.Intent
@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.testmaster.R
 import com.example.testmaster.model.personalDetail
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -44,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
         username = et_username.text.toString()
         signin=findViewById(R.id.signin)
         signin.setOnClickListener{
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }

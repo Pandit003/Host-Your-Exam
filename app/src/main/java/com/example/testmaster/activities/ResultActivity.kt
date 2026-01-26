@@ -1,15 +1,14 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.testmaster.adapter.ExamDetailsAdapter
+import com.example.testmaster.R
+import com.example.testmaster.activities.Analysis_Exam
 import com.example.testmaster.model.AnswerKey
 import com.example.testmaster.model.CreateQuestions
 import com.google.firebase.auth.FirebaseAuth
@@ -56,12 +55,12 @@ class ResultActivity : AppCompatActivity() {
         percentage.text = ": "+String.format("%.2f", accuracyPercent.toFloat()) + "%"
 
         btn_analysis.setOnClickListener{
-            val intent = Intent(this@ResultActivity,Analysis_Exam::class.java)
+            val intent = Intent(this@ResultActivity, Analysis_Exam::class.java)
             intent.putExtra("Answer_Key", answerKey)
             startActivity(intent)
         }
         ib_home.setOnClickListener{
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
         firebaseAuth = FirebaseAuth.getInstance()
@@ -82,7 +81,7 @@ class ResultActivity : AppCompatActivity() {
                 Toast.makeText(this, "Unable To Take Re-attempt", Toast.LENGTH_SHORT).show()
             }
         tv_reattempt.setOnClickListener{
-            val intent = Intent(this,Attempt_Exam::class.java)
+            val intent = Intent(this, Attempt_Exam::class.java)
             intent.putExtra("examData",examData)
             startActivity(intent)
             finish()

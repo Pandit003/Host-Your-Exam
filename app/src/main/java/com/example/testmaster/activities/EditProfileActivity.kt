@@ -1,9 +1,12 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
@@ -11,7 +14,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.testmaster.R
 import com.example.testmaster.model.personalDetail
+import com.example.testmaster.util.CustomDialogUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -58,8 +63,12 @@ class EditProfileActivity : AppCompatActivity() {
             showDatePicker()
         }
         btn_submit.setOnClickListener {
-            btn_submit.isEnabled = false
-            uploadImageToFirebase()
+            if (!isInternetAvailable(this)) {
+                showNoInternetDialog()
+            }else {
+                btn_submit.isEnabled = false
+                uploadImageToFirebase()
+            }
         }
         if (userId != null) {
             db.collection("personalDetails").document(userId).get()
@@ -159,5 +168,30 @@ class EditProfileActivity : AppCompatActivity() {
             iv_personimage.setImageURI(imageUri)
         }
     }
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun showNoInternetDialog() {
+        CustomDialogUtils.showConfirm(
+            activity = this,
+            title = "No Internet Connection",
+            message = "Please check your internet connection and try again.",
+            positiveText = "Retry",
+            negativeText = "Exit",
+            onPositive = {
+                btn_submit.performClick()
+            },
+            onNegative = {
+                finish()
+            }
+
+        )
+    }
 }

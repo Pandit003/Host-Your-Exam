@@ -1,4 +1,4 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -21,10 +21,13 @@ import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
+import com.example.testmaster.fragments.FragmentQuestion
+import com.example.testmaster.R
 import com.example.testmaster.adapter.QuestionsPagerAdapter
 import com.example.testmaster.model.AnswerKey
 import com.example.testmaster.model.CreateQuestions
@@ -32,6 +35,7 @@ import com.example.testmaster.model.Question
 import com.example.testmaster.model.QuestionWithAns
 import com.example.testmaster.model.model_reportedQuestion
 import com.example.testmaster.model.model_savedQuestion
+import com.example.testmaster.util.CustomDialogUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -106,7 +110,9 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attempt_exam)
-
+        onBackPressedDispatcher.addCallback(this) {
+            showConfirmation()
+        }
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         user = firebaseAuth.currentUser?.uid.toString()
@@ -862,13 +868,13 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
         }
     }
     fun resetMarkedAndSavedBtn(){
-        iv_marked.setColorFilter(ContextCompat.getColor(this,R.color.darkgray))
+        iv_marked.setColorFilter(ContextCompat.getColor(this, R.color.darkgray))
         isMarked=false
 
-        iv_report.setColorFilter(ContextCompat.getColor(this,R.color.darkgray))
+        iv_report.setColorFilter(ContextCompat.getColor(this, R.color.darkgray))
         isReported=false
 
-        iv_saved.setColorFilter(ContextCompat.getColor(this,R.color.darkgray))
+        iv_saved.setColorFilter(ContextCompat.getColor(this, R.color.darkgray))
         isSaved=false
     }
 
@@ -894,9 +900,16 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
         saveCurrentQuestionDetails()
     }
 
-    override fun onBackPressed() {
-        exam_status = "I"
-        btn_submit.performClick()
-        super.onBackPressed()
+    private fun showConfirmation() {
+        CustomDialogUtils.showConfirm(
+            activity = this,
+            title = "Confirmation",
+            message = "Are you sure you want to close this exam?",
+            onPositive = {
+                exam_status = "I"
+                btn_submit.performClick()
+                finish()
+            }
+        )
     }
 }

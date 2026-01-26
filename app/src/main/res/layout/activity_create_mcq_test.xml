@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateMcqTest">
+    tools:context=".activities.CreateMcqTest">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -341,7 +341,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="Set Exam Time"
+                android:text="Set Exam Date &amp; Time"
                 android:layout_marginTop="15dp"
                 android:textOff="OFF"
                 android:textOn="ON"

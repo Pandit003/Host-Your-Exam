@@ -9,7 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Analysis_Exam"
+        tools:context=".activities.Analysis_Exam"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar

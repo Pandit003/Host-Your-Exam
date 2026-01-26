@@ -1,4 +1,4 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testmaster.R
 import com.example.testmaster.adapter.UserReportedQuestion
 import com.example.testmaster.adapter.YourReportedQuestion
 import com.example.testmaster.model.model_reportedQuestion
@@ -47,7 +48,7 @@ class ReportedQuestion : AppCompatActivity() {
         user = firebaseAuth.currentUser?.uid.toString()
 
         iv_home.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
         ll_down_user.setOnClickListener {

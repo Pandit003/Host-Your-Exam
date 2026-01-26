@@ -1,14 +1,19 @@
-package com.example.testmaster
+package com.example.testmaster.activities
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testmaster.R
 import com.example.testmaster.adapter.SavedQuestionsAdapter
 import com.example.testmaster.model.model_savedQuestion
+import com.example.testmaster.util.CustomDialogUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -31,11 +36,42 @@ class SavedQuestions : AppCompatActivity() {
         getSavedQuestions()
         savedQuestionsAdapter = SavedQuestionsAdapter(this,SavedQuestionsList)
         iv_home.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    private fun showNoInternetDialog() {
+        CustomDialogUtils.showConfirm(
+            activity = this,
+            title = "No Internet Connection",
+            message = "Please check your internet connection and try again.",
+            positiveText = "Retry",
+            negativeText = "Exit",
+            onPositive = {
+                getSavedQuestions()
+            },
+            onNegative = {
+                finish()
+            }
+
+        )
+    }
+
     fun getSavedQuestions() {
+        if (!isInternetAvailable(this)) {
+            showNoInternetDialog()
+            return
+        }
         db.collection("SavedQuestion").document(user)
             .addSnapshotListener { documentSnapshot, error ->
                 if (error != null) {
@@ -87,6 +123,5 @@ class SavedQuestions : AppCompatActivity() {
                 }
             }
     }
-
 
 }
