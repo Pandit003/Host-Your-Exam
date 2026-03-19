@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
@@ -22,23 +23,22 @@ class SavedQuestions : AppCompatActivity() {
     lateinit var db : FirebaseFirestore
     lateinit var user : String
     private lateinit var rv_saved_quesions : RecyclerView
-    private lateinit var iv_home : ImageView
     var SavedQuestionsList : MutableList<model_savedQuestion> = mutableListOf()
     lateinit var savedQuestionsAdapter : SavedQuestionsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saved_questions)
         rv_saved_quesions = findViewById(R.id.rv_saved_quesions)
-        iv_home = findViewById(R.id.iv_home)
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         user = firebaseAuth.currentUser?.uid.toString()
         getSavedQuestions()
         savedQuestionsAdapter = SavedQuestionsAdapter(this,SavedQuestionsList)
-        iv_home.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.navigationIcon?.setTint(getColor(R.color.white))
     }
     fun isInternetAvailable(context: Context): Boolean {
         val connectivityManager =
@@ -123,5 +123,8 @@ class SavedQuestions : AppCompatActivity() {
                 }
             }
     }
-
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
+    }
 }

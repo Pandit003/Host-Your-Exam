@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.testmaster.R
 import com.example.testmaster.model.personalDetail
 import com.example.testmaster.util.CustomDialogUtils
@@ -53,6 +54,11 @@ class EditProfileActivity : AppCompatActivity() {
         iv_personimage = findViewById(R.id.iv_personimage)
         firebaseAuth = FirebaseAuth.getInstance()
         storageReference = FirebaseStorage.getInstance()
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.navigationIcon?.setTint(getColor(R.color.white))
         val userId = firebaseAuth.currentUser?.uid
         iv_edit.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -193,5 +199,9 @@ class EditProfileActivity : AppCompatActivity() {
             }
 
         )
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

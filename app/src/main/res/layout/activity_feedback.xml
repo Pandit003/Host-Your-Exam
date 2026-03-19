@@ -5,7 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.FeedbackActivity"
+    android:background="@drawable/statusbar_background"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -13,23 +20,9 @@
         android:background="@color/primary_blue"
         android:theme="@style/CustomSearchViewTheme"
         app:popupTheme="@style/CustomSearchViewTheme"
+        android:text="Feedback"
+        app:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/iv_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_home_24"
-            app:tint="@color/white"/>
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Feedback"
-            android:layout_marginStart="30dp"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
 
     </androidx.appcompat.widget.Toolbar>
     <com.google.android.material.textfield.TextInputLayout
@@ -75,4 +68,5 @@
         android:textColor="@color/white"
         android:textSize="20dp"
         android:text="Submit"/>
+    </LinearLayout>
 </LinearLayout>

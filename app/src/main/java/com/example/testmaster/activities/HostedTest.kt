@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -28,22 +29,21 @@ class HostedTest : AppCompatActivity() {
     var hostedTestList : MutableList<CreateQuestions> = mutableListOf()
     lateinit var hostedTestAdapter : HostedTestAdapter
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    lateinit var iv_home: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hosted_test)
         rv_hosted_test = findViewById(R.id.rv_hosted_test)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
-        iv_home = findViewById(R.id.iv_home)
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         user = firebaseAuth.currentUser?.uid.toString()
         hostedTestAdapter = HostedTestAdapter(this,hostedTestList)
-        iv_home.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Your Hosted Exams"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.navigationIcon?.setTint(getColor(R.color.white))
         swipeRefreshLayout.setOnRefreshListener {
             getHostedList()
         }
@@ -108,5 +108,9 @@ class HostedTest : AppCompatActivity() {
             }
 
         )
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

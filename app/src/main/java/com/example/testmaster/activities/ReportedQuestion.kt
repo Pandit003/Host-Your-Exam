@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
@@ -22,7 +23,6 @@ class ReportedQuestion : AppCompatActivity() {
     lateinit var user : String
     private lateinit var rv_user_reported_quesions : RecyclerView
     private lateinit var rv_your_reported_quesions : RecyclerView
-    private lateinit var iv_home : ImageView
     private lateinit var iv_down_user : ImageView
     private lateinit var iv_down_your : ImageView
     private lateinit var ll_down_user : LinearLayout
@@ -38,7 +38,6 @@ class ReportedQuestion : AppCompatActivity() {
         setContentView(R.layout.activity_reported_question)
         rv_user_reported_quesions = findViewById(R.id.rv_user_reported_quesions)
         rv_your_reported_quesions = findViewById(R.id.rv_your_reported_quesions)
-        iv_home = findViewById(R.id.iv_home)
         iv_down_user = findViewById(R.id.iv_down_user)
         iv_down_your = findViewById(R.id.iv_down_your)
         ll_down_user = findViewById(R.id.ll_down_user)
@@ -46,11 +45,11 @@ class ReportedQuestion : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         user = firebaseAuth.currentUser?.uid.toString()
-
-        iv_home.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.navigationIcon?.setTint(getColor(R.color.white))
         ll_down_user.setOnClickListener {
             if (!isDown_user){
                 isDown_user = !isDown_user
@@ -187,5 +186,8 @@ class ReportedQuestion : AppCompatActivity() {
                 }
             }
     }
-
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
+    }
 }

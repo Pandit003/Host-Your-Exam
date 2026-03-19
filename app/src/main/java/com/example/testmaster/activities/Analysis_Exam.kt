@@ -15,6 +15,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testmaster.fragments.FragmentAnalysis
@@ -67,7 +69,11 @@ class Analysis_Exam : AppCompatActivity(), FragmentAnalysis.OnQuestionInteractio
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_analysis_exam)
-
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_view)) { view, insets ->
+            val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            view.setPadding(0, topInset, 0, 0)
+            insets
+        }
         question_no = findViewById(R.id.question_no)
         tv_positive_mark = findViewById(R.id.positive_marks)
         tv_negative_mark = findViewById(R.id.negative_marks)

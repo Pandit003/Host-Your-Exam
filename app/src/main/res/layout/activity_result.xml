@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ResultActivity"
+    android:background="@drawable/statusbar_background"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -33,6 +35,11 @@
                 android:textColor="@android:color/white"
                 android:textSize="20dp" />
         </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -256,5 +263,5 @@
                 android:textColor="@color/white"/>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-
+    </LinearLayout>
 </LinearLayout>

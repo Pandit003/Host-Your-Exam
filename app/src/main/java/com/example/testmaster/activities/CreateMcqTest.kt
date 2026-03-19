@@ -18,6 +18,7 @@ import com.example.testmaster.model.Question
 import com.example.testmaster.util.CustomDialogUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import androidx.appcompat.widget.Toolbar
 import java.util.*
 
 
@@ -107,6 +108,12 @@ class CreateMcqTest : AppCompatActivity() {
         et_neg_mark = findViewById(R.id.et_neg_mark)
         et_pass_mark = findViewById(R.id.et_pass_mark)
         host_btn = findViewById(R.id.host_btn)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.navigationIcon?.setTint(getColor(R.color.white))
 
         np_exam_duration_hrs.minValue=0
         np_exam_duration_hrs.maxValue=4
@@ -505,5 +512,9 @@ class CreateMcqTest : AppCompatActivity() {
             },
 
         )
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

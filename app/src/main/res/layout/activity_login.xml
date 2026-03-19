@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
+    android:background="@drawable/statusbar_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.LoginActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/white">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login Page"
+        android:text="Login"
         android:textSize="20dp"
         android:textColor="@color/black"
         android:layout_gravity="center"/>
@@ -111,6 +117,7 @@
         android:text="00.00"
         android:textStyle="bold"
         android:visibility="gone" />
+    </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

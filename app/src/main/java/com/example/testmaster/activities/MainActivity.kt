@@ -23,6 +23,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import android.provider.Settings
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.testmaster.fragments.CreateTestFragment
 import com.example.testmaster.fragments.HistoryFragment
 import com.example.testmaster.fragments.HomeFragment

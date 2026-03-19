@@ -24,6 +24,8 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testmaster.fragments.FragmentQuestion
@@ -110,6 +112,11 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attempt_exam)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_view)) { view, insets ->
+            val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            view.setPadding(0, topInset, 0, 0)
+            insets
+        }
         onBackPressedDispatcher.addCallback(this) {
             showConfirmation()
         }

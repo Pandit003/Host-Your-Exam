@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/statusbar_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.CreateMcqTest">
 
     <androidx.appcompat.widget.Toolbar
@@ -13,16 +15,10 @@
         android:background="@color/primary_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:text="Create MCQ Exam"
+        app:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Create MCQ Exam"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -30,6 +26,7 @@
         android:layout_height="0dp"
         android:paddingBottom="20dp"
         android:clipToPadding="false"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

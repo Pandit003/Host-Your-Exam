@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.example.testmaster.R
 import com.example.testmaster.util.CustomDialogUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,13 @@ class FeedbackActivity : AppCompatActivity() {
         et_msg = findViewById(R.id.et_msg)
         btn_feedback_submit = findViewById(R.id.btn_feedback_submit)
         firebaseAuth = FirebaseAuth.getInstance()
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.navigationIcon?.setTint(getColor(R.color.white))
+
         val userId = firebaseAuth.currentUser?.uid
         btn_feedback_submit.setOnClickListener {
             if (!isInternetAvailable(this)) {
@@ -85,5 +93,9 @@ class FeedbackActivity : AppCompatActivity() {
             }
 
         )
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

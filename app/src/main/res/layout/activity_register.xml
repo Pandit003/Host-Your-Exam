@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
+    android:background="@drawable/statusbar_background"
+    android:fitsSystemWindows="true"
     tools:context=".activities.RegisterActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/white">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Page"
+        android:text="Register"
         android:textSize="20dp"
         android:textColor="@color/black"
         android:layout_gravity="center"/>
@@ -95,4 +101,5 @@
         android:textSize="16dp"
         android:textColor="@color/red"
         android:layout_gravity="center"/>
+    </LinearLayout>
 </LinearLayout>

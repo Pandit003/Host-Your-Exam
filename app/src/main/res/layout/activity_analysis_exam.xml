@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.Analysis_Exam"
+        android:background="@drawable/statusbar_background"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -67,6 +69,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
             android:paddingBottom="10dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
             android:paddingHorizontal="15dp">
             <androidx.cardview.widget.CardView
@@ -156,12 +159,14 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:layout_weight="1"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:paddingHorizontal="15dp"
+            android:paddingBottom="15dp"
             android:weightSum="2">
 
             <androidx.cardview.widget.CardView
