@@ -18,4 +18,6 @@
     <string name="about_profile">Edit Profile: Users can manage their profiles, update personal information, and customize settings for a better experience.</string>
     <string name="about_support">We are committed to continuously improving our app. If you have any feedback or need assistance, please reach out to our support team through the app.</string>
 
+    <!-- Google Sign-In Web Client ID - In a real app, this comes from the Google Services JSON -->
+    <string name="default_web_client_id">613809680312-qlnteiq0cfgtp98f909s04cah09tm480.apps.googleusercontent.com</string>
 </resources>

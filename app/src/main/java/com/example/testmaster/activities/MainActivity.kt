@@ -32,6 +32,8 @@ import com.example.testmaster.fragments.HistoryFragment
 import com.example.testmaster.fragments.HomeFragment
 import com.example.testmaster.fragments.LeaderBoardFragment
 import com.example.testmaster.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 
 class MainActivity : AppCompatActivity() {
@@ -138,7 +140,9 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.logout -> {
                     firebaseAuth.signOut()
-
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                    val googleSignInClient = GoogleSignIn.getClient(this, gso)
+                    googleSignInClient.signOut()
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)

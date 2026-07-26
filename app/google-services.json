@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "613809680312",
+    "firebase_url": "https://exam-master-c0355-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "exam-master-c0355",
     "storage_bucket": "exam-master-c0355.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.testmaster"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "613809680312-dduidss10qk0acs00ji5p8vj6uotme3m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.testmaster",
+            "certificate_hash": "d36b563d20561de320d0f422efbd8f959d88a8c3"
+          }
+        },
+        {
+          "client_id": "613809680312-qlnteiq0cfgtp98f909s04cah09tm480.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAGOlvquVF3DoPgdgSBIoyTneunkiv47WU"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613809680312-qlnteiq0cfgtp98f909s04cah09tm480.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

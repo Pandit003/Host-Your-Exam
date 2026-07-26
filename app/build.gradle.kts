@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.example.testmaster"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.testmaster"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
@@ -51,15 +50,11 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     implementation("com.google.firebase:firebase-storage:21.0.0")
     implementation("com.google.firebase:firebase-crashlytics:19.1.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation ("com.google.android.material:material:1.2.1")
-
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation ("com.github.yalantis:ucrop:2.2.8")
     implementation ("com.facebook.shimmer:shimmer:0.5.0")

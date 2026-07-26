@@ -5,19 +5,26 @@ import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.example.testmaster.R
 import com.example.testmaster.model.personalDetail
 import com.example.testmaster.util.CustomDialogUtils
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -26,25 +33,32 @@ import java.util.Calendar
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var firebaseAuth : FirebaseAuth
-    val db = FirebaseFirestore.getInstance()
-    lateinit var et_username : TextView
-    lateinit var et_email : TextView
-    lateinit var et_phone_no : TextView
-    lateinit var et_dob : TextView
-    lateinit var btn_submit : Button
-    lateinit var iv_edit : ImageView
-    lateinit var iv_personimage : ImageView
+    private val db = FirebaseFirestore.getInstance()
+    private lateinit var et_username : TextInputEditText
+    private lateinit var til_username : TextInputLayout
+    private lateinit var et_email : TextInputEditText
+    private lateinit var et_phone_no : TextInputEditText
+    private lateinit var et_dob : TextInputEditText
+    private lateinit var btn_submit : Button
+    private lateinit var iv_edit : ImageView
+    private lateinit var iv_personimage : ImageView
     private lateinit var storageReference: FirebaseStorage
     private val IMAGE_PICK_CODE = 1000
     private var imageUri: Uri? = null
-    var name = "N/A"
-    var email = "N/A"
-    var phone = "N/A"
-    var dob = "N/A"
-    var imageUrl = ""
+    
+    private var originalName = ""
+    private var email = ""
+    private var imageUrl = ""
+
+    private var isUsernameUnique = true
+    private val checkHandler = Handler(Looper.getMainLooper())
+    private var checkRunnable: Runnable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
+        
+        til_username = findViewById(R.id.til_username)
         et_username = findViewById(R.id.et_username)
         et_email = findViewById(R.id.et_email)
         et_phone_no = findViewById(R.id.et_phone_no)
@@ -52,59 +66,155 @@ class EditProfileActivity : AppCompatActivity() {
         btn_submit = findViewById(R.id.btn_submit)
         iv_edit = findViewById(R.id.iv_edit)
         iv_personimage = findViewById(R.id.iv_personimage)
+        
         firebaseAuth = FirebaseAuth.getInstance()
         storageReference = FirebaseStorage.getInstance()
+        
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon?.setTint(getColor(R.color.white))
+        toolbar.navigationIcon?.setTint(ContextCompat.getColor(this, R.color.white))
+        
         val userId = firebaseAuth.currentUser?.uid
+        
         iv_edit.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, IMAGE_PICK_CODE)
         }
+        
+        til_username.setEndIconOnClickListener {
+            et_username.isEnabled = true
+            et_username.requestFocus()
+            et_username.setSelection(et_username.text?.length ?: 0)
+            setupUsernameRealTimeCheck()
+            Toast.makeText(this, "You can now edit your username", Toast.LENGTH_SHORT).show()
+        }
+        
+
         et_dob.setOnClickListener {
             showDatePicker()
         }
+        
         btn_submit.setOnClickListener {
             if (!isInternetAvailable(this)) {
                 showNoInternetDialog()
-            }else {
+            } else if (et_username.text.toString().trim().isEmpty()) {
+                et_username.error = "Username is required"
+            } else if (!isUsernameUnique) {
+                Toast.makeText(this, "Please choose a unique username", Toast.LENGTH_SHORT).show()
+            } else {
                 btn_submit.isEnabled = false
-                uploadImageToFirebase()
+                updateProfile()
             }
         }
+        
         if (userId != null) {
             db.collection("personalDetails").document(userId).get()
                 .addOnSuccessListener { document ->
-                    if (document != null) {
-                        name = document.getString("name").toString()
-                        email = document.getString("email").toString()
-                        phone = document.getString("phone_no").toString()
-                        dob = document.getString("dob").toString()
-                        imageUrl = document.getString("imageUrl").toString()
-                        et_username.text = name
-                        et_email.text = email
-                        if(!phone.equals("null")){
-                            et_phone_no.text = phone
+                    if (document != null && document.exists()) {
+                        originalName = document.getString("name") ?: ""
+                        email = document.getString("email") ?: ""
+                        val phone = document.getString("phone_no") ?: ""
+                        val dob = document.getString("dob") ?: ""
+                        imageUrl = document.getString("imageUrl") ?: ""
+                        
+                        et_username.setText(originalName)
+                        et_email.setText(email)
+                        
+                        if (phone != "null" && phone.isNotEmpty()) {
+                            et_phone_no.setText(phone)
                         }
-                        if(!dob.equals("null")){
-                            et_dob.text = dob
+                        if (dob != "null" && dob.isNotEmpty()) {
+                            et_dob.setText(dob)
                         }
-                        if (imageUrl != null && imageUrl.isNotEmpty()) {
+                        if (imageUrl.isNotEmpty()) {
                             Picasso.get()
                                 .load(imageUrl).fit()
                                 .into(iv_personimage)
                         }
                     }
                 }
-                .addOnFailureListener {
-
-                }
         }
     }
+
+    private fun setupUsernameRealTimeCheck() {
+        et_username.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                checkRunnable?.let { checkHandler.removeCallbacks(it) }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val username = s.toString().trim()
+                if (username.isEmpty()) {
+                    updateUsernameUI(null)
+                    isUsernameUnique = false
+                    return
+                }
+                
+                if (username == originalName) {
+                    updateUsernameUI(true)
+                    isUsernameUnique = true
+                    return
+                }
+
+                checkRunnable = Runnable {
+                    checkUsernameUniqueness(username)
+                }
+                checkHandler.postDelayed(checkRunnable!!, 1000)
+            }
+        })
+    }
+
+    private fun checkUsernameUniqueness(username: String) {
+        db.collection("personalDetails")
+            .whereEqualTo("name", username)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    updateUsernameUI(false)
+                    isUsernameUnique = false
+                } else {
+                    updateUsernameUI(true)
+                    isUsernameUnique = true
+                }
+            }
+            .addOnFailureListener {
+                updateUsernameUI(null)
+                isUsernameUnique = false
+            }
+    }
+
+    private fun updateUsernameUI(isAvailable: Boolean?) {
+        val color = when (isAvailable) {
+            true -> ContextCompat.getColor(this, R.color.green)
+            false -> ContextCompat.getColor(this, R.color.red)
+            else -> ContextCompat.getColor(this, R.color.darkgray)
+        }
+        
+        val colorStateList = ColorStateList.valueOf(color)
+        til_username.setBoxStrokeColorStateList(colorStateList)
+        tilUsernameToHintColor(colorStateList)
+        
+        if (isAvailable == false) {
+            til_username.error = "Username already taken"
+            til_username.isErrorEnabled = true
+        } else if (isAvailable == true) {
+            til_username.isErrorEnabled = false
+            til_username.helperText = "Username available"
+        } else {
+            til_username.isErrorEnabled = false
+            til_username.helperText = null
+        }
+    }
+
+    private fun tilUsernameToHintColor(colorStateList: ColorStateList) {
+        til_username.defaultHintTextColor = colorStateList
+        til_username.hintTextColor = colorStateList
+    }
+
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -115,58 +225,64 @@ class EditProfileActivity : AppCompatActivity() {
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
                 val formattedDate = String.format("%02d/%02d/%04d", selectedMonth + 1, selectedDay, selectedYear)
-                et_dob.text = formattedDate
+                et_dob.setText(formattedDate)
             },
             year, month, day
         )
         datePickerDialog.show()
     }
-    private fun uploadImageToFirebase() {
-        val pd = ProgressDialog(this)
-        pd.setMessage("Uploading")
-        pd.show()
-        if (imageUri != null) {
-            val userId = firebaseAuth.currentUser?.uid
-            val storageRef = storageReference.reference.child("images/$userId/profile.jpg")
 
+    private fun updateProfile() {
+        val pd = ProgressDialog(this)
+        pd.setMessage("Updating Profile...")
+        pd.setCancelable(false)
+        pd.show()
+
+        val userId = firebaseAuth.currentUser?.uid ?: return
+        
+        if (imageUri != null) {
+            val storageRef = storageReference.reference.child("images/$userId/profile.jpg")
             storageRef.putFile(imageUri!!)
                 .addOnSuccessListener {
-
                     storageRef.downloadUrl.addOnSuccessListener { uri ->
-                        val imageUrl = uri.toString()
-
-                        val personalDetail = personalDetail(
-                            name = et_username.text.toString(),
-                            email = et_email.text.toString(),
-                            phone_no = et_phone_no.text.toString(),
-                            dob = et_dob.text.toString(),
-                            imageUrl = imageUrl
-                        )
-
-                        db.collection("personalDetails").document(userId!!)
-                            .set(personalDetail)
-                            .addOnSuccessListener {
-                                pd.dismiss()
-                                Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
-                                pd.dismiss()
-                                btn_submit.isEnabled = true
-                            }
+                        saveProfileToFirestore(uri.toString(), pd)
                     }
                 }
                 .addOnFailureListener {
-                    Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
                     pd.dismiss()
+                    Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
                     btn_submit.isEnabled = true
                 }
         } else {
-            Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
-            pd.dismiss()
-            btn_submit.isEnabled = true
+            saveProfileToFirestore(imageUrl, pd)
         }
     }
+
+    private fun saveProfileToFirestore(newImageUrl: String, pd: ProgressDialog) {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+        val updatedDetail = personalDetail(
+            name = et_username.text.toString().trim(),
+            email = et_email.text.toString().trim(),
+            phone_no = et_phone_no.text.toString().trim(),
+            dob = et_dob.text.toString().trim(),
+            imageUrl = newImageUrl
+        )
+
+        db.collection("personalDetails").document(userId)
+            .set(updatedDetail)
+            .addOnSuccessListener {
+                pd.dismiss()
+                Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                originalName = updatedDetail.name ?: ""
+                finish()
+            }
+            .addOnFailureListener {
+                pd.dismiss()
+                Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                btn_submit.isEnabled = true
+            }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK) {
@@ -174,13 +290,11 @@ class EditProfileActivity : AppCompatActivity() {
             iv_personimage.setImageURI(imageUri)
         }
     }
-    fun isInternetAvailable(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
-
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
@@ -197,11 +311,16 @@ class EditProfileActivity : AppCompatActivity() {
             onNegative = {
                 finish()
             }
-
         )
     }
+    
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
+    }
+    
+    override fun onDestroy() {
+        checkRunnable?.let { checkHandler.removeCallbacks(it) }
+        super.onDestroy()
     }
 }

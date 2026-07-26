@@ -225,6 +225,8 @@ class HomeFragment : Fragment() {
                     }
 
                     totalGivenExam = recentExamApearList.size
+                    ll_test_appear.visibility = View.VISIBLE
+                    rv_testApear.visibility = View.VISIBLE
                     setData()
                     if (recentExamApearList.size > 5) {
                         recentExamApearList = recentExamApearList.takeLast(5).toMutableList()
@@ -232,6 +234,8 @@ class HomeFragment : Fragment() {
                     testappearAdapter.notifyDataSetChanged()
                 } else {
                     Log.d("Firestore", "No data found")
+                    ll_test_appear.visibility = View.GONE
+                    rv_testApear.visibility = View.GONE
                 }
             }
     }
