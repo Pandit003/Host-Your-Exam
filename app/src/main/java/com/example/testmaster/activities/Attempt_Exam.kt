@@ -256,7 +256,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                 var marked = pauseAnswerKey?.questionsWithAns?.get(i)?.marked
                 val questionCircle = questionCircles[i]
                 if (pre_choseAns?.choosen_answer != "N" && marked != "Y") {
-                    question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.blue))
+                    question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.primary))
                     questionCircle.setBackgroundResource(R.drawable.attempt_circle_background)
                     questionCircle.setTextColor(ContextCompat.getColor(this, R.color.white))
                 } else if (pre_choseAns?.question_time != "0" && marked != "Y") {
@@ -264,7 +264,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                     questionCircle.setBackgroundResource(R.drawable.unattempt_circle_background)
                     questionCircle.setTextColor(ContextCompat.getColor(this, R.color.white))
                 } else if (pre_choseAns?.choosen_answer != "N" && marked == "Y") {
-                    question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.blue))
+                    question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.primary))
                     questionCircle.setBackgroundResource(R.drawable.attempt_with_star)
                     questionCircle.setTextColor(ContextCompat.getColor(this, R.color.white))
                 } else if (pre_choseAns?.choosen_answer != "0" && marked == "Y") {
@@ -431,7 +431,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
         }
         iv_saved.setOnClickListener{
             isSaved = !isSaved
-            iv_saved.setColorFilter(ContextCompat.getColor(this, if (isSaved) R.color.primary_blue else R.color.darkgray))
+            iv_saved.setColorFilter(ContextCompat.getColor(this, if (isSaved) R.color.primary else R.color.darkgray))
             saveCurrentQuestionDetails()
         }
         submit_quesion_btn.setOnClickListener{
@@ -751,7 +751,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
 
             val questionCircle = questionCircles[viewPager.currentItem]
             if (currentQuestionDetails.choosen_answer != "N" && currentQuestionDetails.marked!="Y") {
-                question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.blue))
+                question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.primary))
                 questionCircle.setBackgroundResource(R.drawable.attempt_circle_background)
                 questionCircle.setTextColor(ContextCompat.getColor(this, R.color.white))
             } else if (currentQuestionDetails.question_time != "0" && currentQuestionDetails.marked!="Y") {
@@ -759,7 +759,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                 questionCircle.setBackgroundResource(R.drawable.unattempt_circle_background)
                 questionCircle.setTextColor(ContextCompat.getColor(this, R.color.white))
             } else if (currentQuestionDetails.choosen_answer != "N" && currentQuestionDetails.marked=="Y") {
-                question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.blue))
+                question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.primary))
                 questionCircle.setBackgroundResource(R.drawable.attempt_with_star)
                 questionCircle.setTextColor(ContextCompat.getColor(this, R.color.white))
             } else if (currentQuestionDetails.choosen_answer != "0" && currentQuestionDetails.marked=="Y") {
@@ -783,7 +783,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
         handler.removeCallbacks(runnable)
         handler.post(runnable)
         if(currentQuestionDetails.choosen_answer!="N"){
-            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.blue))
+            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.primary))
         }else{
             question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.darkgray))
         }
@@ -794,7 +794,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
         iv_report.setColorFilter(ContextCompat.getColor(this, if (isReported) R.color.red else R.color.darkgray))
 
         isSaved = currentQuestionDetails.saved == "Y"
-        iv_saved.setColorFilter(ContextCompat.getColor(this, if (isSaved) R.color.primary_blue else R.color.darkgray))
+        iv_saved.setColorFilter(ContextCompat.getColor(this, if (isSaved) R.color.primary else R.color.darkgray))
 
         handler.postDelayed({
             val currentFragment = supportFragmentManager.findFragmentByTag("f${viewPager.currentItem}") as? FragmentQuestion

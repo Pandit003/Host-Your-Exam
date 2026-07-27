@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +30,7 @@ class LeaderBoardFragment : Fragment() {
     var newleaderBoardList : MutableList<AnswerKey> = mutableListOf()
     private lateinit var adapter: LeaderBoardAdapter
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    lateinit var iv_notfound: ImageView
+    lateinit var iv_notfound: LinearLayout
     private lateinit var firebaseAuth: FirebaseAuth
     lateinit var db : FirebaseFirestore
     lateinit var user : String

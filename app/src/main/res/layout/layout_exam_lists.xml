@@ -18,7 +18,7 @@
             android:text="Date : "
             android:paddingStart="5dp"
             android:layout_weight=".5"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/host_date"
             android:layout_width="0dp"
@@ -26,7 +26,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight=".8"
             android:text="00/00/0000"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/full_mark"
             android:layout_width="0dp"
@@ -35,7 +35,7 @@
             android:gravity="end"
             android:paddingStart="5dp"
             android:layout_weight=".7"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
 
     </LinearLayout>
     <View
@@ -43,7 +43,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
         android:layout_marginHorizontal="5dp"
-        android:background="#C8C9CC"/>
+        android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             android:text="Hosted by : "
             android:paddingStart="5dp"
             android:layout_weight=".5"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/user_id"
             android:layout_width="0dp"
@@ -63,7 +63,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="1.5"
             android:text="Rohit Pandit"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
             android:text="Subject : "
             android:paddingStart="5dp"
             android:layout_weight=".5"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/subject_name"
             android:layout_width="0dp"
@@ -83,7 +83,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="1.5"
             android:text="Computer Application"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -97,7 +97,8 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/start_exam_btn"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:background="@drawable/blue_gradient"
                 android:gravity="center"
                 android:text="Start Exam"

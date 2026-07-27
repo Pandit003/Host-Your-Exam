@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Report Questions"
         app:titleTextColor="@android:color/white"
-        android:background="@color/primary_blue">
+        android:background="@color/primary">
 
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
@@ -21,26 +21,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/background"
             android:orientation="vertical">
                 <LinearLayout
                     android:id="@+id/ll_down_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#E6EAF1">
+                    android:background="@color/gray">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="User reported Questions"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_primary"
                         android:padding="14dp"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:layout_weight="1" />
                     <ImageView
                         android:id="@+id/iv_down_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/baseline_keyboard_arrow_down_24"
+                        app:tint="@color/text_secondary"
                         android:padding="14dp"/>
 
                 </LinearLayout>
@@ -56,25 +57,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:paddingHorizontal="10dp"
-                android:background="@color/primary_blue" />
+                android:background="@color/primary" />
                 <LinearLayout
                     android:id="@+id/ll_down_your"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#E6EAF1">
+                    android:background="@color/gray">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Your reported Questions"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_primary"
                         android:padding="14dp"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:layout_weight="1" />
                     <ImageView
                         android:id="@+id/iv_down_your"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/baseline_keyboard_arrow_down_24"
+                        app:tint="@color/text_secondary"
                         android:padding="14dp"/>
 
                 </LinearLayout>

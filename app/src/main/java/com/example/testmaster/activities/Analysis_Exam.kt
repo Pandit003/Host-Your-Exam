@@ -234,11 +234,11 @@ class Analysis_Exam : AppCompatActivity(), FragmentAnalysis.OnQuestionInteractio
         answer = answerKey.questionsWithAns?.get(viewPager.currentItem)!!
         question_no.text = "${viewPager.currentItem + 1}"
         if(answer.choosen_answer == answer.correct_answer){
-            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.primary))
         }else if(answer.choosen_answer == "N"){
             question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.darkgray))
         }else{
-            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.red))
+            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.error))
         }
         val seconds = (answer.question_time?.toLong()?.div(1000))?.rem(60)
         val minutes = (answer.question_time?.toLong()?.div(1000*60))?.rem(60)
@@ -247,7 +247,7 @@ class Analysis_Exam : AppCompatActivity(), FragmentAnalysis.OnQuestionInteractio
 
         iv_marked.setColorFilter(ContextCompat.getColor(this, if (answer.marked == "Y") R.color.red else R.color.darkgray))
         iv_report.setColorFilter(ContextCompat.getColor(this, if (answer.report == "Y") R.color.red else R.color.darkgray))
-        iv_saved.setColorFilter(ContextCompat.getColor(this, if (answer.saved == "Y") R.color.primary_blue else R.color.darkgray))
+        iv_saved.setColorFilter(ContextCompat.getColor(this, if (answer.saved == "Y") R.color.primary else R.color.darkgray))
 
     }
 

@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_blue"
+        android:background="@color/primary"
         app:title="Edit Profile"
         app:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/background"
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
@@ -61,7 +61,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:padding="5dp"
-                            android:background="@color/blue"
+                            android:background="@color/primary"
                             android:src="@drawable/baseline_photo_camera_24"
                             app:tint="@color/white" />
                     </androidx.cardview.widget.CardView>
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +104,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
-                    android:enabled="false" />
+                    android:enabled="false"
+                    android:textColor="@color/text_primary" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -121,6 +122,7 @@
                     android:id="@+id/et_phone_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
                     android:inputType="phone"
                     android:maxLength="10" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -139,6 +141,7 @@
                     android:id="@+id/et_dob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
                     android:focusable="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="30dp"
-                android:background="@color/primary_blue"
+                android:background="@color/primary"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:text="Update Profile" />

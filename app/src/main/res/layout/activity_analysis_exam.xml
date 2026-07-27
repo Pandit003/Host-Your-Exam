@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_blue"
+            android:background="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -27,12 +27,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start">
-<!--                <ImageView-->
-<!--                    android:id="@+id/pauseAndResume"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:src="@drawable/baseline_pause_circle_outline_24"/>-->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,9 +107,9 @@
                 android:gravity="center"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="3dp"
-                android:background="#C1EAC1"
+                android:background="@color/success_bg"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/darkgray"/>
+                android:textColor="@color/success_text"/>
             <TextView
                 android:id="@+id/negative_marks"
                 android:layout_width="wrap_content"
@@ -124,9 +118,9 @@
                 android:gravity="center"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="3dp"
-                android:background="#EDCACA"
+                android:background="@color/error_bg"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/darkgray"/>
+                android:textColor="@color/error_text"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -194,25 +188,6 @@
                         android:textColor="@color/black" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginEnd="5dp"-->
-<!--                android:layout_weight="1"-->
-<!--                app:cardCornerRadius="10dp">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/clear_options"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:background="@drawable/light_blue_gradient"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingHorizontal="10dp"-->
-<!--                    android:paddingVertical="15dp"-->
-<!--                    android:text="Clear"-->
-<!--                    android:textColor="@color/white" />-->
-<!--            </androidx.cardview.widget.CardView>-->
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
@@ -300,7 +275,7 @@
                     android:layout_height="18dp"
                     android:layout_weight=".5"
                     android:src="@drawable/baseline_star_24"
-                    app:tint="#F44336"/>
+                    app:tint="@color/red"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -353,7 +328,7 @@
                     android:layout_gravity="center"
                     android:layout_weight=".5"
                     android:src="@drawable/baseline_circle_24"
-                    app:tint="#2196F3"/>
+                    app:tint="@color/primary"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -378,7 +353,7 @@
                     android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:src="@drawable/baseline_star_24"
-                    app:tint="#F44336"/>
+                    app:tint="@color/red"/>
                 <TextView
                     android:id="@+id/marked_count"
                     android:layout_width="wrap_content"
@@ -393,7 +368,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="20dp"
                     android:src="@drawable/baseline_circle_24"
-                    app:tint="#2196F3"/>
+                    app:tint="@color/primary"/>
                 <TextView
                     android:id="@+id/attempt_count"
                     android:layout_width="wrap_content"

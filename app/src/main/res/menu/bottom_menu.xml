@@ -2,18 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/nav_home"
         android:icon="@drawable/baseline_home_24"
-        android:title="Home"
-       />
+        android:title="Home" />
     <item android:id="@+id/nav_create_exam"
         android:icon="@drawable/baseline_create_24"
-        android:title="Create Exam"
-        />
+        android:title="Create" />
+    <item android:id="@+id/nav_progress"
+        android:icon="@drawable/baseline_assessment_24"
+        android:title="Progress" />
     <item android:id="@+id/nav_history"
         android:icon="@drawable/baseline_history_24"
-        android:title="History"
-        />
+        android:title="History" />
     <item android:id="@+id/nav_result"
         android:icon="@drawable/baseline_assignment_24"
-        android:title="Leaderboard"
-        />
+        android:title="Leaderboard" />
 </menu>

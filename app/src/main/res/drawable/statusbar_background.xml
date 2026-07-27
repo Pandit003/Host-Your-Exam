@@ -3,13 +3,13 @@
 
     <item android:height="150dp">
         <shape>
-            <solid android:color="@color/primary_blue"/>
+            <solid android:color="@color/primary"/>
         </shape>
     </item>
 
     <item android:top="150dp">
         <shape>
-            <solid android:color="@color/white"/>
+            <solid android:color="@color/background"/>
         </shape>
     </item>
 

@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/statusbar_background"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:text="About the Application"
         app:titleTextColor="@android:color/white"
-        android:background="@color/primary_blue">
+        android:background="@color/primary">
 
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
@@ -22,26 +23,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1. Overview"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/darkgray"
+        android:background="@color/secondary"
         android:layout_marginHorizontal="10dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_overview"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:layout_marginTop="5dp"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="10dp"/>
@@ -49,15 +52,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2. Key Features"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/darkgray"
+        android:background="@color/secondary"
         android:layout_marginHorizontal="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,13 +73,13 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_keyfeature1"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,13 +92,13 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_keyfeature2"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -108,13 +111,13 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_keyfeature3"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -127,13 +130,13 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_keyfeature4"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -146,27 +149,27 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_keyfeature5"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="3. Exam Analysis and Retakes"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/darkgray"
+        android:background="@color/secondary"
         android:layout_marginHorizontal="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -179,13 +182,13 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_analysis1"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -198,27 +201,27 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_analysis2"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="4. Question Management"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/darkgray"
+        android:background="@color/secondary"
         android:layout_marginHorizontal="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -231,13 +234,13 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_Ques_management1"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -250,13 +253,13 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_Ques_management2"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -269,27 +272,27 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_Ques_management3"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="5. Profile Management"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/darkgray"
+        android:background="@color/secondary"
         android:layout_marginHorizontal="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -302,33 +305,33 @@
             android:layout_gravity="top"
             android:layout_marginTop="7dp"
             android:src="@drawable/baseline_circle_24"
-            app:tint="@color/black"/>
+            app:tint="@color/text_primary"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/about_profile"
-            android:textColor="@color/black" />
+            android:textColor="@color/text_primary" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="6. Support and Feedback"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/darkgray"
+        android:background="@color/secondary"
         android:layout_marginHorizontal="10dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_support"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:layout_marginTop="5dp"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="10dp"/>

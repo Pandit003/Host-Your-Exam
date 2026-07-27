@@ -40,16 +40,16 @@
             android:layout_height="wrap_content"
             android:text="Date : "
             android:paddingStart="5dp"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:layout_weight=".5"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/attempt_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="24/08/2024"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             android:padding="1dp"
             android:text="Completed in :"
             android:layout_weight="1.2"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/completedIn_time"
             android:layout_width="0dp"
@@ -65,7 +65,7 @@
             android:padding="1dp"
             android:text="02:56 hrs"
             android:layout_weight=".8"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
 
     </LinearLayout>
     <View
@@ -73,7 +73,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="2dp"
         android:layout_marginHorizontal="5dp"
-        android:background="#C8C9CC"/>
+        android:background="@color/gray"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:text="Appear by : "
             android:paddingStart="5dp"
             android:layout_weight=".55"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/appear_by"
             android:layout_width="0dp"
@@ -94,7 +94,7 @@
             android:textStyle="bold"
             android:layout_weight="1.45"
             android:text="Rohit Pandit"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
 
     </LinearLayout>
     <LinearLayout
@@ -107,7 +107,7 @@
             android:text="Subject : "
             android:paddingStart="5dp"
             android:layout_weight=".55"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/subject_name"
             android:layout_width="0dp"
@@ -115,7 +115,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="1.45"
             android:text="Computer Application"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -133,8 +133,8 @@
             android:layout_marginBottom="5dp"
             android:progress="20"
             android:max="50"
-            app:indicatorColor="@color/blue"
-            app:trackColor="#DCDBDB"/>
+            app:indicatorColor="@color/primary"
+            app:trackColor="@color/progress_track"/>
         <TextView
             android:id="@+id/tv_exam_mark"
             android:layout_width="0dp"
@@ -143,7 +143,7 @@
             android:layout_marginStart="10dp"
             android:textStyle="bold"
             android:layout_weight=".5"
-            android:textColor="@color/black"/>
+            android:textColor="@color/text_primary"/>
         <TextView
             android:id="@+id/tv_view_info"
             android:layout_width="0dp"
@@ -151,7 +151,7 @@
             android:text="View"
             android:paddingStart="5dp"
             android:layout_weight=".3"
-            android:textColor="@color/blue_link"/>
+            android:textColor="@color/primary"/>
     </LinearLayout>
 </LinearLayout>
 </LinearLayout>

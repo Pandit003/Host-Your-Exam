@@ -9,44 +9,50 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="8dp"
-        android:elevation="10dp"
+        android:elevation="4dp"
         android:background="@drawable/gray_box_gradient"
-        android:padding="10dp">
+        android:padding="16dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subject : "
+                android:textStyle="bold"
                 android:paddingStart="5dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/text_primary"/>
             <TextView
                 android:id="@+id/subject_name"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="English "
-                android:textColor="@color/black"/>
+                android:text="English"
+                android:textColor="@color/text_primary"/>
             <ImageView
                 android:id="@+id/iv_delete"
                 android:visibility="visible"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/baseline_delete_24"/>
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:src="@drawable/baseline_delete_24"
+                android:contentDescription="Delete question"
+                app:tint="@color/error"
+                xmlns:app="http://schemas.android.com/apk/res-auto"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp">
+            android:layout_marginTop="8dp">
             <TextView
                 android:id="@+id/question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Question"
                 android:paddingStart="5dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/text_secondary"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

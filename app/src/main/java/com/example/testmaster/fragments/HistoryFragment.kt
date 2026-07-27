@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,7 +31,7 @@ class HistoryFragment : Fragment() {
     lateinit var rv_exam_history:RecyclerView
     lateinit var adapter: HistoryAdapter
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    lateinit var iv_notfound: ImageView
+    lateinit var iv_notfound: LinearLayout
 
     override fun onResume() {
         getHistoryList()

@@ -1,180 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_margin="5dp"
-    android:background="@drawable/box_gradient"
-    android:padding="10dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Date : "
-            android:paddingStart="5dp"
-            android:layout_weight=".55"
-            android:textColor="@color/black"/>
-        <TextView
-            android:id="@+id/attempt_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight=".75"
-            android:text="24/08/2024"
-            android:textColor="@color/black"/>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="7dp"
-            android:layout_weight=".7">
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/subject_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/exam_status"
+                android:text="Computer Application"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/exam_status"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="1dp"
-                android:text="Uncompleted"
-                android:background="@drawable/green_gradient"
-                android:textColor="@color/white"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/bg_status_badge"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="Completed"
+                android:textColor="@color/success_text"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginHorizontal="5dp"
-        android:background="#C8C9CC"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Hosted by : "
-            android:paddingStart="5dp"
-            android:layout_weight=".55"
-            android:textColor="@color/black"/>
         <TextView
             android:id="@+id/hosted_by"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1.45"
-            android:text="Rohit Pandit"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
+            android:layout_marginTop="4dp"
+            android:text="Hosted by Rohit Pandit"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Subject : "
-            android:paddingStart="5dp"
-            android:layout_weight=".55"
-            android:textColor="@color/black"/>
-        <TextView
-            android:id="@+id/subject_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1.45"
-            android:text="Computer Application"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Attempt No : "
-            android:paddingStart="5dp"
-            android:layout_weight=".55"
-            android:textColor="@color/black"/>
-        <TextView
-            android:id="@+id/no_of_attempt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1.45"
-            android:text="0"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2">
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/baseline_history_24"
+                app:tint="@color/text_secondary" />
+
+            <TextView
+                android:id="@+id/attempt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="24 Aug 2024"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_exam_mark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="42/50"
+                android:textColor="@color/primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/pr_markScored"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:layout_marginTop="7dp"
-            android:layout_marginStart="5dp"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="5dp"
-            android:progress="20"
-            android:max="50"
-            app:indicatorColor="@color/blue"
-            app:trackColor="#DCDBDB"/>
-        <TextView
-            android:id="@+id/tv_exam_mark"
-            android:layout_width="0dp"
+            android:layout_marginTop="12dp"
+            android:progress="84"
+            app:indicatorColor="@color/primary"
+            app:trackColor="@color/gray"
+            app:trackCornerRadius="4dp"
+            app:trackThickness="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="20/50"
-            android:layout_marginStart="10dp"
-            android:layout_weight=".5"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:weightSum="2">
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            app:cardCornerRadius="7dp"
-            android:layout_weight="1">
-            <TextView
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tv_analysis"
-                android:layout_width="match_parent"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/orange_gradient"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="Analysis"
-                android:textColor="@color/white"/>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="7dp"
-            android:layout_marginHorizontal="30dp"
-            android:layout_weight="1">
-            <TextView
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="View Result"
+                app:cornerRadius="12dp" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tv_reattempt"
-                android:layout_width="match_parent"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/light_blue_gradient"
-                android:gravity="center"
-                android:text="Re-Attempt"
-                android:padding="3dp"
-                android:textColor="@color/white"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="Re-attempt"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/no_of_attempt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="Attempt #1"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp" />
+
     </LinearLayout>
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

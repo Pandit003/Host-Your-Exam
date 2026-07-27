@@ -18,7 +18,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_blue"
+        android:background="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -70,7 +70,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
         android:gravity="center_vertical"
-        android:background="@color/white"
+        android:background="@color/background"
         android:paddingHorizontal="15dp">
         <androidx.cardview.widget.CardView
             android:layout_width="28dp"
@@ -113,9 +113,9 @@
             android:gravity="center"
             android:paddingHorizontal="7dp"
             android:paddingVertical="3dp"
-            android:background="#C1EAC1"
+            android:background="@color/success_bg"
             android:layout_marginStart="10dp"
-            android:textColor="@color/darkgray"/>
+            android:textColor="@color/success_text"/>
         <TextView
             android:id="@+id/negative_marks"
             android:layout_width="wrap_content"
@@ -124,9 +124,9 @@
             android:gravity="center"
             android:paddingHorizontal="7dp"
             android:paddingVertical="3dp"
-            android:background="#EDCACA"
+            android:background="@color/error_bg"
             android:layout_marginStart="10dp"
-            android:textColor="@color/darkgray"/>
+            android:textColor="@color/error_text"/>
         <LinearLayout
             android:id="@+id/ll_icons_container"
             android:layout_width="match_parent"
@@ -168,14 +168,14 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/surface"
         android:layout_weight="1"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="15dp"
         android:paddingBottom="15dp"
-        android:background="@color/white"
+        android:background="@color/surface"
         android:weightSum="3">
 
         <androidx.cardview.widget.CardView
@@ -202,7 +202,7 @@
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="15dp"
                     android:text="Previous"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/text_primary" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -221,7 +221,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="15dp"
                 android:text="Clear"
-                android:textColor="@color/black" />
+                android:textColor="@color/text_primary" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -269,7 +269,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="@color/white"
+            android:background="@color/surface"
             android:orientation="vertical">
 
                 <LinearLayout
@@ -288,7 +288,7 @@
                         android:layout_height="wrap_content"
                         android:text="View Instruction"
                         android:layout_marginStart="15dp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_primary"
                         android:gravity="center_vertical"
                         android:textSize="20dp"/>
                 </LinearLayout>
@@ -310,14 +310,14 @@
                         android:layout_height="18dp"
                         android:layout_weight=".5"
                         android:src="@drawable/baseline_star_24"
-                        app:tint="#F44336"/>
+                        app:tint="@color/red"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Marked"
                         android:layout_weight="1.5"
                         android:gravity="center_vertical"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/text_primary" />
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
@@ -331,7 +331,7 @@
                         android:text="Unattempted"
                         android:layout_weight="1.5"
                         android:gravity="center_vertical"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/text_primary" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -356,21 +356,21 @@
                         android:text="Unseen"
                         android:layout_weight="1.5"
                         android:gravity="center_vertical"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/text_primary" />
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:layout_weight=".5"
                         android:src="@drawable/baseline_circle_24"
-                        app:tint="#2196F3"/>
+                        app:tint="@color/primary"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Attempted"
                         android:layout_weight="1.5"
                         android:gravity="center_vertical"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/text_primary" />
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -388,7 +388,7 @@
                         android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:src="@drawable/baseline_star_24"
-                        app:tint="#F44336"/>
+                        app:tint="@color/red"/>
                     <TextView
                         android:id="@+id/marked_count"
                         android:layout_width="wrap_content"
@@ -396,14 +396,14 @@
                         android:text="0"
                         android:gravity="center"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/text_primary" />
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="20dp"
                         android:src="@drawable/baseline_circle_24"
-                        app:tint="#2196F3"/>
+                        app:tint="@color/primary"/>
                     <TextView
                         android:id="@+id/attempt_count"
                         android:layout_width="wrap_content"
@@ -411,7 +411,7 @@
                         android:text="0"
                         android:layout_marginStart="10dp"
                         android:gravity="center_vertical"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/text_primary" />
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
@@ -426,7 +426,7 @@
                         android:text="0"
                         android:layout_marginStart="10dp"
                         android:gravity="center_vertical"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/text_primary" />
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
@@ -441,7 +441,7 @@
                         android:layout_weight="1.5"
                         android:layout_marginStart="10dp"
                         android:gravity="center_vertical"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/text_primary" />
                 </LinearLayout>
                 <ScrollView
                     android:layout_width="match_parent"

@@ -14,7 +14,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testmaster.adapter.ViewPagerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,14 +22,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import android.provider.Settings
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.testmaster.fragments.CreateTestFragment
 import com.example.testmaster.fragments.HistoryFragment
 import com.example.testmaster.fragments.HomeFragment
 import com.example.testmaster.fragments.LeaderBoardFragment
+import com.example.testmaster.fragments.ProgressFragment
 import com.example.testmaster.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -70,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main)
 
         drawerLayout = findViewById(R.id.drawerlayout)
@@ -94,19 +90,19 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, NotificationActivity::class.java))
         }
 
-//        loadFragment(HomeFragment(), "Home")
-
         viewPager = findViewById(R.id.viewPager)
 
         val fragmentList = listOf(
             HomeFragment(),
             CreateTestFragment(),
+            ProgressFragment(),
             HistoryFragment(),
             LeaderBoardFragment()
         )
 
         val adapter = ViewPagerAdapter(this, fragmentList)
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 5
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -115,8 +111,9 @@ class MainActivity : AppCompatActivity() {
                 toolbarTitle.text = when (position) {
                     0 -> "Home"
                     1 -> "Create Exam"
-                    2 -> "History"
-                    3 -> "Leaderboard"
+                    2 -> "Progress"
+                    3 -> "History"
+                    4 -> "Leaderboard"
                     else -> "Home"
                 }
             }
@@ -126,8 +123,9 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> viewPager.currentItem = 0
                 R.id.nav_create_exam -> viewPager.currentItem = 1
-                R.id.nav_history -> viewPager.currentItem = 2
-                R.id.nav_result -> viewPager.currentItem = 3
+                R.id.nav_progress -> viewPager.currentItem = 2
+                R.id.nav_history -> viewPager.currentItem = 3
+                R.id.nav_result -> viewPager.currentItem = 4
             }
             true
         }
@@ -220,12 +218,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment, title: String) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
-            .commit()
-        toolbarTitle.text = title
-    }
     private fun isConnectedToInternet(): Boolean {
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

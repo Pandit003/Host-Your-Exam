@@ -26,7 +26,8 @@
                 android:id="@+id/iv_stu_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/baseline_person_24"/>
+                android:src="@drawable/baseline_person_24"
+                app:tint="@color/text_secondary" />
         </androidx.cardview.widget.CardView>
         <TextView
             android:id="@+id/tv_username"
@@ -35,24 +36,25 @@
             android:text="Rohit Pandit"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"/>
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="xxxxx@gmail.com"
             android:layout_marginTop="5dp"
-            android:textColor="@color/black"
-            android:textSize="16dp"/>
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/total_examAnd_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="( Total Exam 13 / Average 87% )"
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"/>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -64,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="Cancel"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:gravity="center"
             android:textColor="@color/white"
             android:background="@drawable/blue_gradient" />

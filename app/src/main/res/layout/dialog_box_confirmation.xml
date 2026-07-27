@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:background="@color/surface">
 
         <!-- Title -->
         <TextView
@@ -23,7 +24,7 @@
             android:text="Confirmation"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:layout_gravity="center_horizontal"/>
 
         <!-- Message -->
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="Are you sure you want to continue?"
             android:textSize="14sp"
-            android:textColor="#666666"
+            android:textColor="@color/text_secondary"
             android:layout_marginTop="12dp"
             android:gravity="center"/>
 
@@ -47,12 +48,14 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_no"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
                 android:textAllCaps="false"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="10dp"
+                app:strokeColor="@color/primary"
+                android:textColor="@color/primary"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_yes"
@@ -60,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:text="Yes"
                 android:textAllCaps="false"
-                android:backgroundTint="@color/primary_blue"
+                android:backgroundTint="@color/primary"
                 android:textColor="@color/white"/>
 
         </LinearLayout>

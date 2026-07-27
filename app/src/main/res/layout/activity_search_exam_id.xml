@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_blue"
+        android:background="@color/primary"
         android:theme="@style/CustomSearchViewTheme"
         app:popupTheme="@style/CustomSearchViewTheme"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +26,7 @@
         android:clipToPadding="false"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
-        android:background="@color/white"
+        android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
