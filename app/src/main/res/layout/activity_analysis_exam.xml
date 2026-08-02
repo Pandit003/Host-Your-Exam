@@ -5,14 +5,15 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.Analysis_Exam"
-        android:background="@drawable/statusbar_background"
+        android:background="@color/background"
         android:fitsSystemWindows="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".activities.Analysis_Exam">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -27,125 +28,150 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/tv_exam_timer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="00:50:39"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/onPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/subject_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
                         android:text="General Awareness"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/onPrimary"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
             </LinearLayout>
+
             <ImageButton
                 android:id="@+id/sumit_quesion_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/baseline_format_align_right_24"
                 android:layout_gravity="end"
                 android:layout_marginEnd="15dp"
                 android:background="@android:color/transparent"
-                app:tint="@color/white"/>
+                android:src="@drawable/baseline_format_align_right_24"
+                app:tint="@color/onPrimary" />
         </androidx.appcompat.widget.Toolbar>
 
+        <!-- Question meta bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingBottom="10dp"
-            android:background="@color/white"
+            android:background="@color/surface"
             android:gravity="center_vertical"
-            android:paddingHorizontal="15dp">
+            android:paddingHorizontal="15dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="12dp">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 app:cardCornerRadius="20dp">
+
                 <TextView
                     android:id="@+id/question_no"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="0"
+                    android:background="@color/onSurfaceVariant"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    android:background="@color/darkgray"
-                    android:textSize="16dp"/>
+                    android:text="0"
+                    android:textColor="@color/surfaceVariant"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
+
             <View
-                android:layout_width="2dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/gray"
+                android:layout_marginStart="10dp"
                 android:layout_marginVertical="3dp"
-                android:layout_marginStart="10dp"/>
+                android:background="@color/outline" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/baseline_access_time_24"
-                app:tint="@color/darkgray"
-                android:layout_marginStart="10dp"/>
+                app:tint="@color/onSurfaceVariant" />
+
             <TextView
                 android:id="@+id/tv_question_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="00:00"
-                android:textColor="@color/darkgray"/>
+                android:textColor="@color/onSurfaceVariant"
+                android:textSize="13sp" />
+
             <TextView
                 android:id="@+id/positive_marks"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:text="+ 0.0"
-                android:gravity="center"
-                android:paddingHorizontal="5dp"
-                android:paddingVertical="3dp"
-                android:background="@color/success_bg"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/success_text"/>
+                android:background="@color/success_bg"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="+ 0.0"
+                android:textColor="@color/success_text"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/negative_marks"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:text="- 0.0"
-                android:gravity="center"
-                android:paddingHorizontal="5dp"
-                android:paddingVertical="3dp"
+                android:layout_marginStart="8dp"
                 android:background="@color/error_bg"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/error_text"/>
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="- 0.0"
+                android:textColor="@color/error_text"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end">
+
                 <ImageView
                     android:id="@+id/iv_marked"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="12dp"
                     android:src="@drawable/baseline_star_24"
-                    app:tint="@color/darkgray"/>
+                    app:tint="@color/onSurfaceVariant" />
+
                 <ImageView
                     android:id="@+id/iv_report"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="12dp"
                     android:src="@drawable/baseline_warning_amber_24"
-                    app:tint="@color/darkgray"/>
+                    app:tint="@color/onSurfaceVariant" />
+
                 <ImageView
                     android:id="@+id/iv_saved"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="12dp"
                     android:src="@drawable/baseline_bookmark_24"
-                    app:tint="@color/darkgray"/>
+                    app:tint="@color/onSurfaceVariant" />
             </LinearLayout>
         </LinearLayout>
 
@@ -153,12 +179,14 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@color/surface" />
+
+        <!-- Nav buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/surface"
             android:paddingHorizontal="15dp"
             android:paddingBottom="15dp"
             android:weightSum="2">
@@ -166,277 +194,328 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1">
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="14dp">
 
                 <LinearLayout
                     android:id="@+id/ll_previous"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/blue_box_outline">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingEnd="8dp"
-                        android:src="@drawable/baseline_keyboard_arrow_left_24" />
+                    android:background="@drawable/box_outline"
+                    android:gravity="center">
+
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:paddingVertical="15dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp"
+                        android:drawableStart="@drawable/baseline_keyboard_arrow_left_24"
+                        android:drawableTint="@color/onSurface"
                         android:text="Previous"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/onSurface"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
                 android:layout_weight="1"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="14dp">
 
                 <LinearLayout
                     android:id="@+id/ll_next"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/light_blue_gradient"
-                    android:gravity="end">
+                    android:background="@color/onPrimary"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_next"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center"
                         android:paddingHorizontal="10dp"
-                        android:paddingVertical="15dp"
-                        android:paddingEnd="10dp"
+                        android:paddingVertical="10dp"
                         android:text="Next"
-                        android:textColor="@color/white" />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingEnd="8dp"
-                        android:src="@drawable/baseline_keyboard_arrow_right_24"
-                        app:tint="@color/white" />
+                        android:drawableRight="@drawable/baseline_keyboard_arrow_right_24"
+                        android:drawableTint="@color/primary"
+                        android:textColor="@color/primary"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </LinearLayout>
+
+    <!-- Question palette drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         app:menu="@menu/drawer_menu">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="@color/white"
+            android:background="@color/surface"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="18dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/baseline_info_24"
-                    app:tint="@color/darkgray"/>
+                    app:tint="@color/onSurfaceVariant" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="View Instruction"
-                    android:layout_marginStart="15dp"
-                    android:textColor="@color/black"
+                    android:layout_marginStart="14dp"
                     android:gravity="center_vertical"
-                    android:textSize="20dp"/>
+                    android:text="View Instruction"
+                    android:textColor="@color/onSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginHorizontal="5dp"
-                android:background="@color/gray"/>
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:alpha="0.5"
+                android:background="@color/outline" />
 
+            <!-- Legend -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="5dp"
-
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight=".5"
                     android:src="@drawable/baseline_star_24"
-                    app:tint="@color/red"/>
+                    app:tint="@color/red" />
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Marked"
+                    android:layout_marginStart="6dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"
-                    android:textColor="@color/black" />
+                    android:text="Marked"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="12sp" />
+
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight=".5"
                     android:src="@drawable/baseline_circle_24"
-                    app:tint="@color/darkgray"/>
+                    app:tint="@color/outline" />
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Unattempted"
+                    android:layout_marginStart="6dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"
-                    android:textColor="@color/black" />
+                    android:text="Unattempted"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="12sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="5dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <LinearLayout
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:gravity="center"
-                    android:layout_weight=".5">
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight=".5"
+                    android:gravity="center">
+
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/circle_outline"/>
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@drawable/circle_outline"
+                        app:tint="@color/onSurfaceVariant" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Unseen"
+                    android:layout_marginStart="6dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"
-                    android:textColor="@color/black" />
+                    android:text="Unseen"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="12sp" />
+
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight=".5"
                     android:src="@drawable/baseline_circle_24"
-                    app:tint="@color/primary"/>
+                    app:tint="@color/accent" />
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Attempted"
+                    android:layout_marginStart="6dp"
                     android:layout_weight="1.5"
                     android:gravity="center_vertical"
-                    android:textColor="@color/black" />
+                    android:text="Attempted"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="12sp" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginHorizontal="10dp"
-                android:background="@color/gray"/>
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:alpha="0.5"
+                android:background="@color/outline" />
+
+            <!-- Counts row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical">
+
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
                     android:src="@drawable/baseline_star_24"
-                    app:tint="@color/red"/>
+                    app:tint="@color/red" />
+
                 <TextView
                     android:id="@+id/marked_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:layout_marginStart="6dp"
                     android:gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/black" />
+                    android:text="0"
+                    android:textColor="@color/onSurface"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="16dp"
                     android:src="@drawable/baseline_circle_24"
-                    app:tint="@color/primary"/>
+                    app:tint="@color/accent" />
+
                 <TextView
                     android:id="@+id/attempt_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="6dp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/black" />
+                    android:text="0"
+                    android:textColor="@color/onSurface"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="16dp"
                     android:src="@drawable/baseline_circle_24"
-                    app:tint="@color/darkgray"/>
+                    app:tint="@color/outline" />
+
                 <TextView
                     android:id="@+id/unattempt_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="6dp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/black" />
+                    android:text="0"
+                    android:textColor="@color/onSurface"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/circle_outline" />
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/circle_outline"
+                    app:tint="@color/onSurfaceVariant" />
+
                 <TextView
                     android:id="@+id/unseen_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:layout_weight="1.5"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="6dp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/black" />
+                    android:text="0"
+                    android:textColor="@color/onSurface"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginVertical="15dp"
+                android:layout_marginVertical="16dp"
                 android:layout_weight="1">
+
                 <GridLayout
                     android:id="@+id/grid_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_weight="1"
+                    android:layout_marginHorizontal="8dp"
                     android:columnCount="5"
                     android:gravity="center" />
             </ScrollView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:orientation="vertical">
-                <androidx.appcompat.widget.AppCompatButton
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_submit"
+                    style="@style/Widget.Material3.Button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="52dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="16dp"
                     android:text="Finish"
+                    android:textColor="@color/primary"
                     android:textStyle="bold"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/blue_gradient"/>
+                    app:backgroundTint="@color/onPrimary"
+                    app:cornerRadius="14dp" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>

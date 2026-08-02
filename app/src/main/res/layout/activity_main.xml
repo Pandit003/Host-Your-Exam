@@ -16,5 +16,6 @@ tools:openDrawer="start">
     app:menu="@menu/drawer_menu"
     app:headerLayout="@layout/header_layout"
     app:itemIconPadding="30dp"
+    android:background="@color/background"
     android:layout_gravity="start"/>
 </androidx.drawerlayout.widget.DrawerLayout>

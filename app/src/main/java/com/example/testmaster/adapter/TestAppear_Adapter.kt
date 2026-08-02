@@ -43,10 +43,7 @@ class TestAppear_Adapter(var context: Context, var recentExamApearList : List<An
         val progress = if (total_marks > 0) (mark_scored / total_marks * 100).toInt() else 0
         holder.pr_markScored.setProgress(progress, true)
         holder.subject_name.text = exam.sub_nm ?: "Untitled Exam"
-        
-        holder.btnViewResult.setOnClickListener {
-            // Existing logic to view result
-        }
+
     }
 
     override fun getItemCount() = recentExamApearList.size
@@ -57,6 +54,5 @@ class TestAppear_Adapter(var context: Context, var recentExamApearList : List<An
         var subject_name : TextView = view.findViewById(R.id.subject_name)
         var exam_status : TextView = view.findViewById(R.id.exam_status)
         var pr_markScored : LinearProgressIndicator = view.findViewById(R.id.pr_markScored)
-        var btnViewResult : MaterialButton = view.findViewById(R.id.btn_view_result)
     }
 }

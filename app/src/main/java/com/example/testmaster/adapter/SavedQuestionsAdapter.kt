@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
 import com.example.testmaster.model.model_savedQuestion
+import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -144,7 +145,7 @@ class SavedQuestionsAdapter(var context : Context, var savedQuestionsList: List<
         var subject_name : TextView
         var iv_delete : ImageView
         var question : TextView
-        var ll_save_question : LinearLayout
+        var ll_save_question : MaterialCardView
         init {
             subject_name = view.findViewById(R.id.subject_name)
             iv_delete = view.findViewById(R.id.iv_delete)

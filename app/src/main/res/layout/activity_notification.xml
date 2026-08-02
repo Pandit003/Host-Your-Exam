@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_home_24"
-            app:tint="@color/white"/>
+            app:tint="@color/onPrimary"/>
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
@@ -30,8 +30,9 @@
             android:layout_gravity="center_vertical"
             android:text="Notification"
             android:layout_marginStart="30dp"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textColor="@color/onPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:layout_width="match_parent"

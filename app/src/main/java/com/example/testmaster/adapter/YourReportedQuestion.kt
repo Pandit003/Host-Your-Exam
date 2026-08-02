@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
 import com.example.testmaster.model.model_reportedQuestion
+import com.google.android.material.card.MaterialCardView
 
 class YourReportedQuestion(var context : Context, var yourReportedQuestionsList : List<model_reportedQuestion>) : RecyclerView.Adapter<YourReportedQuestion.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YourReportedQuestion.ViewHolder {
@@ -78,7 +79,7 @@ class YourReportedQuestion(var context : Context, var yourReportedQuestionsList 
         var subject_name : TextView
         var tv_report_title : TextView
         var tv_report_description : TextView
-        var ll_report_question : LinearLayout
+        var ll_report_question : MaterialCardView
         init {
             subject_name = view.findViewById(R.id.subject_name)
             tv_report_title = view.findViewById(R.id.tv_report_title)

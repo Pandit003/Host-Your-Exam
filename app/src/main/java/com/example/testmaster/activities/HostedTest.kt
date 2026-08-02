@@ -43,7 +43,7 @@ class HostedTest : AppCompatActivity() {
         supportActionBar?.title = "Your Hosted Exams"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon?.setTint(getColor(R.color.white))
+        toolbar.navigationIcon?.setTint(getColor(R.color.onPrimary))
         swipeRefreshLayout.setOnRefreshListener {
             getHostedList()
         }

@@ -21,7 +21,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/baseline_assignment_24"
-            app:tint="@color/primary" />
+            app:tint="@color/onSurfaceVariant" />
 
         <TextView
             android:id="@+id/stat_value"

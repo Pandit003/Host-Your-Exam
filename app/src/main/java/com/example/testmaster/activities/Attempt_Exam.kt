@@ -361,39 +361,39 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                 val dialog = Dialog(this)
                 dialog.setContentView(R.layout.popup_report_question)
                 dialog.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-                var tv_wrong: TextView = dialog.findViewById(R.id.tv_wrong)
-                var tv_error: TextView = dialog.findViewById(R.id.tv_error)
-                var tv_incorrect_ans: TextView = dialog.findViewById(R.id.tv_incorrect_ans)
-                var tv_notvisible: TextView = dialog.findViewById(R.id.tv_notvisible)
-                var tv_spellingmistake: TextView = dialog.findViewById(R.id.tv_spellingmistake)
-                var tv_other: TextView = dialog.findViewById(R.id.tv_other)
-                var et_report_description: EditText =
+                val ll_wrong: View = dialog.findViewById(R.id.ll_wrong)
+                val ll_error: View = dialog.findViewById(R.id.ll_error)
+                val ll_incorrect_ans: View = dialog.findViewById(R.id.ll_incorrect_ans)
+                val ll_notvisible: View = dialog.findViewById(R.id.ll_notvisible)
+                val ll_spellingmistake: View = dialog.findViewById(R.id.ll_spellingmistake)
+                val ll_other: View = dialog.findViewById(R.id.ll_other)
+                val et_report_description: EditText =
                     dialog.findViewById(R.id.et_report_description)
-                var iv_report_send: ImageView = dialog.findViewById(R.id.iv_report_send)
-                var iv_close_report: ImageView = dialog.findViewById(R.id.iv_close_report)
+                val iv_report_send: ImageView = dialog.findViewById(R.id.iv_report_send)
+                val btn_close_report: View = dialog.findViewById(R.id.btn_close_report)
                 dialog.setCancelable(false)
-                tv_wrong.setOnClickListener {
-                    tv_wrong.isSelected = !tv_wrong.isSelected
+                ll_wrong.setOnClickListener {
+                    ll_wrong.isSelected = !ll_wrong.isSelected
                     report_title = "Wrong Question"
                 }
-                tv_error.setOnClickListener {
-                    tv_error.isSelected = !tv_error.isSelected
+                ll_error.setOnClickListener {
+                    ll_error.isSelected = !ll_error.isSelected
                     report_title = "Grammatical Error"
                 }
-                tv_incorrect_ans.setOnClickListener {
-                    tv_incorrect_ans.isSelected = !tv_incorrect_ans.isSelected
+                ll_incorrect_ans.setOnClickListener {
+                    ll_incorrect_ans.isSelected = !ll_incorrect_ans.isSelected
                     report_title = "Incorrect answer options"
                 }
-                tv_notvisible.setOnClickListener {
-                    tv_notvisible.isSelected = !tv_notvisible.isSelected
+                ll_notvisible.setOnClickListener {
+                    ll_notvisible.isSelected = !ll_notvisible.isSelected
                     report_title = "Question not visible"
                 }
-                tv_spellingmistake.setOnClickListener {
-                    tv_spellingmistake.isSelected = !tv_spellingmistake.isSelected
+                ll_spellingmistake.setOnClickListener {
+                    ll_spellingmistake.isSelected = !ll_spellingmistake.isSelected
                     report_title = "Spelling mistake"
                 }
-                tv_other.setOnClickListener {
-                    tv_other.isSelected = !tv_other.isSelected
+                ll_other.setOnClickListener {
+                    ll_other.isSelected = !ll_other.isSelected
                     report_title = "other"
                 }
                 et_report_description.setOnClickListener {
@@ -403,7 +403,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                     report_description = et_report_description.text.toString().trim()
                     val wordCount =
                         report_description.split("\\s+".toRegex()).filter { it.isNotEmpty() }.size
-                    if (!tv_wrong.isSelected && !tv_error.isSelected && !tv_incorrect_ans.isSelected && !tv_notvisible.isSelected && !tv_spellingmistake.isSelected && !tv_other.isSelected) {
+                    if (!ll_wrong.isSelected && !ll_error.isSelected && !ll_incorrect_ans.isSelected && !ll_notvisible.isSelected && !ll_spellingmistake.isSelected && !ll_other.isSelected) {
                         Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show()
                     } else if (wordCount < 7) {
                         Toast.makeText(
@@ -411,7 +411,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                             "Write at least 7-8 words about the report",
                             Toast.LENGTH_SHORT
                         ).show()
-                    } else if (tv_wrong.isSelected || tv_error.isSelected || tv_incorrect_ans.isSelected || tv_notvisible.isSelected || tv_spellingmistake.isSelected || tv_other.isSelected && wordCount >= 7) {
+                    } else if (ll_wrong.isSelected || ll_error.isSelected || ll_incorrect_ans.isSelected || ll_notvisible.isSelected || ll_spellingmistake.isSelected || ll_other.isSelected && wordCount >= 7) {
                         isReported = !isReported
                         iv_report.setColorFilter(
                             ContextCompat.getColor(
@@ -423,7 +423,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                         dialog.dismiss()
                     }
                 }
-                iv_close_report.setOnClickListener {
+                btn_close_report.setOnClickListener {
                     dialog.dismiss()
                 }
                 dialog.show()

@@ -32,7 +32,7 @@ class FeedbackActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon?.setTint(getColor(R.color.white))
+        toolbar.navigationIcon?.setTint(getColor(R.color.onPrimary))
 
         val userId = firebaseAuth.currentUser?.uid
         btn_feedback_submit.setOnClickListener {

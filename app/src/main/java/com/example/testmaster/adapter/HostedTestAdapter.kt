@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
@@ -122,7 +123,7 @@ class HostedTestAdapter(var context: Context,var HostedTestList : List<CreateQue
         var exam_duration : TextView
         var subject_name : TextView
         var exam_Id : TextView
-        var iv_copy : ImageView
+        var iv_copy : LinearLayout
         var iv_delete : ImageView
         init {
             host_date = view.findViewById(R.id.host_date)

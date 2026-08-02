@@ -49,7 +49,7 @@ class ReportedQuestion : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon?.setTint(getColor(R.color.white))
+        toolbar.navigationIcon?.setTint(getColor(R.color.onPrimary))
         ll_down_user.setOnClickListener {
             if (!isDown_user){
                 isDown_user = !isDown_user

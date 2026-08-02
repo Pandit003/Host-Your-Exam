@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="@color/surface"
     app:cardCornerRadius="20dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/white">
+    app:cardElevation="0dp"
+    app:strokeColor="@color/outline"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,8 +27,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/exam_status"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="Computer Application"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/onSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -51,13 +54,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Hosted by Rohit Pandit"
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/onSurfaceVariant"
             android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="10dp"
+            android:alpha="0.4"
+            android:background="@color/outline" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -65,7 +74,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/baseline_history_24"
-                app:tint="@color/text_secondary" />
+                app:tint="@color/onSurfaceVariant" />
 
             <TextView
                 android:id="@+id/attempt_date"
@@ -73,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="24 Aug 2024"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/onSurfaceVariant"
                 android:textSize="12sp" />
 
             <View
@@ -82,11 +91,20 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/no_of_attempt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Attempt #1"
+                android:textColor="@color/onSurfaceVariant"
+                android:textSize="12sp" />
+
+            <TextView
                 android:id="@+id/tv_exam_mark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="42/50"
-                android:textColor="@color/primary"
+                android:textColor="@color/onSurface"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -97,25 +115,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:progress="84"
-            app:indicatorColor="@color/primary"
-            app:trackColor="@color/gray"
+            app:indicatorColor="@color/accent"
+            app:trackColor="@color/surfaceVariant"
             app:trackCornerRadius="4dp"
             app:trackThickness="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tv_analysis"
-                style="@style/Widget.Material3.Button.TonalButton"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:text="View Result"
+                android:textColor="@color/primary"
+                app:backgroundTint="@color/onPrimary"
                 app:cornerRadius="12dp" />
 
             <com.google.android.material.button.MaterialButton
@@ -126,19 +146,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="Re-attempt"
-                app:cornerRadius="12dp" />
+                android:textColor="@color/onSurface"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/outline" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/no_of_attempt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:text="Attempt #1"
-            android:textColor="@color/text_secondary"
-            android:textSize="10sp" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

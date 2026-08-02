@@ -1,58 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_save_question"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="5dp"
+    android:layout_marginBottom="10dp"
+    app:strokeColor="@color/outline"
+    app:strokeWidth="1dp">
 
     <LinearLayout
-        android:id="@+id/ll_save_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="8dp"
-        android:elevation="4dp"
-        android:background="@drawable/gray_box_gradient"
-        android:padding="16dp">
+        android:padding="15dp">
+
+        <!-- Top Header Row: Subject Badge & Delete Button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Subject : "
-                android:textStyle="bold"
-                android:paddingStart="5dp"
-                android:textColor="@color/text_primary"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Subject Chip / Pill -->
             <TextView
                 android:id="@+id/subject_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:text="English"
-                android:textColor="@color/text_primary"/>
-            <ImageView
-                android:id="@+id/iv_delete"
-                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:src="@drawable/baseline_delete_24"
+                android:background="@drawable/bg_card_rounded"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/primary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="English" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!-- Delete Action Icon Button -->
+            <ImageButton
+                android:id="@+id/iv_delete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Delete question"
-                app:tint="@color/error"
-                xmlns:app="http://schemas.android.com/apk/res-auto"/>
+                android:src="@drawable/baseline_delete_24"
+                app:tint="@color/error_text" />
         </LinearLayout>
-        <LinearLayout
+
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-            <TextView
-                android:id="@+id/question"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Question"
-                android:paddingStart="5dp"
-                android:textColor="@color/text_secondary"/>
-        </LinearLayout>
+            android:layout_marginVertical="10dp"
+            android:alpha="0.15"
+            app:dividerColor="@color/outline" />
+
+        <!-- Question Label Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.05"
+            android:text="Question"
+            android:textAllCaps="true"
+            android:textColor="@color/onSurfaceVariant"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <!-- Question Body Text -->
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/onSurface"
+            android:textSize="14sp"
+            tools:text="Select the most appropriate synonym for the word 'ABUNDANT' from the given options." />
+
     </LinearLayout>
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

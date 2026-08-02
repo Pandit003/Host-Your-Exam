@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="24dp"
     app:cardElevation="8dp"
     app:cardUseCompatPadding="true">
 
@@ -54,17 +54,21 @@
                 android:text="Cancel"
                 android:textAllCaps="false"
                 android:layout_marginEnd="10dp"
-                app:strokeColor="@color/primary"
-                android:textColor="@color/primary"/>
+                android:textColor="@color/onPrimary"
+                app:strokeColor="@color/onPrimary"
+                app:cornerRadius="12dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_yes"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Yes"
                 android:textAllCaps="false"
-                android:backgroundTint="@color/primary"
-                android:textColor="@color/white"/>
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                app:backgroundTint="@color/onPrimary"
+                app:cornerRadius="12dp"/>
 
         </LinearLayout>
 

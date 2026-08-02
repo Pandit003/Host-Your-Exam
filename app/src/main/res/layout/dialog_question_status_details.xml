@@ -5,206 +5,281 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="20dp"
-    android:background="@color/background"
-    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
-        android:layout_marginHorizontal="5dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_info_24"
-            app:tint="@color/text_secondary"/>
-        <TextView
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View Instruction"
-            android:layout_marginStart="15dp"
-            android:textColor="@color/text_primary"
             android:gravity="center_vertical"
-            android:textSize="20sp"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginHorizontal="5dp"
-        android:background="@color/gray"/>
+            android:orientation="horizontal"
+            android:padding="20dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="5dp"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Question Palette"
+                android:textColor="@color/onSurface"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_weight=".5"
-            android:src="@drawable/baseline_star_24"
-            app:tint="@color/red"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Marked"
-            android:layout_weight="1.5"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_primary" />
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center"
-            android:layout_weight=".5"
-            android:src="@drawable/baseline_circle_24"
-            app:tint="@color/darkgray"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Unattempted"
-            android:layout_weight="1.5"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_primary" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="5dp"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:gravity="center"
-            android:layout_weight=".5">
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/circle_outline"
-                app:tint="@color/text_secondary"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_surface_variant"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/baseline_info_24"
+                    app:tint="@color/onSurfaceVariant" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="Instructions"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Unseen"
-            android:layout_weight="1.5"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_primary" />
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center"
-            android:layout_weight=".5"
-            android:src="@drawable/baseline_circle_24"
-            app:tint="@color/primary"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Attempted"
-            android:layout_weight="1.5"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_primary" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/gray"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center"
-            android:src="@drawable/baseline_star_24"
-            app:tint="@color/red"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/text_primary" />
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/baseline_circle_24"
-            app:tint="@color/primary"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_primary" />
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/baseline_circle_24"
-            app:tint="@color/darkgray"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_primary" />
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/circle_outline"
-            app:tint="@color/text_secondary"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2"
-            android:layout_weight="1.5"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_primary" />
-    </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginVertical="15dp"
-        android:layout_weight="1">
-        <GridLayout
-            android:id="@+id/grid_layout"
+        <!-- Progress summary -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_progress_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="4 of 7 answered"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_progress_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="57%"
+                    android:textColor="@color/onSurface"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/pr_overall_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:progress="57"
+                app:indicatorColor="@color/accent"
+                app:trackColor="@color/surfaceVariant"
+                app:trackCornerRadius="4dp"
+                app:trackThickness="6dp" />
+        </LinearLayout>
+
+        <!-- Stat tiles -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_surface_variant"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="12dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/baseline_star_24"
+                    app:tint="@color/red" />
+
+                <TextView
+                    android:id="@+id/marked_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="1"
+                    android:textColor="@color/onSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Marked"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_surface_variant"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="12dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/baseline_circle_24"
+                    app:tint="@color/accent" />
+
+                <TextView
+                    android:id="@+id/attempt_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="2"
+                    android:textColor="@color/onSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Attempted"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_surface_variant"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="12dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/baseline_circle_24"
+                    app:tint="@color/outline" />
+
+                <TextView
+                    android:id="@+id/unattempt_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="2"
+                    android:textColor="@color/onSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unattempted"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_surface_variant"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="12dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/circle_outline"
+                    app:tint="@color/onSurfaceVariant" />
+
+                <TextView
+                    android:id="@+id/unseen_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="2"
+                    android:textColor="@color/onSurface"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unseen"
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Question grid -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
             android:layout_weight="1"
-            android:columnCount="5"
-            android:gravity="center" />
-    </ScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-        <androidx.appcompat.widget.AppCompatButton
+            android:background="@drawable/bg_card_surface_variant"
+            android:padding="12dp">
+
+            <GridLayout
+                android:id="@+id/grid_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="5"
+                android:gravity="center" />
+        </ScrollView>
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0.5"
+            android:background="@color/outline" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_margin="20dp"
             android:text="Submit Test"
+            android:textColor="@color/primary"
             android:textStyle="bold"
-            android:layout_marginBottom="15dp"
-            android:textColor="@color/white"
-            android:background="@drawable/blue_gradient"/>
+            app:backgroundTint="@color/onPrimary"
+            app:cornerRadius="14dp" />
     </LinearLayout>
-</LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

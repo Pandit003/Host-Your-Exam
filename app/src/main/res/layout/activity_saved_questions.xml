@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/statusbar_background"
+    android:background="@color/background"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+
+    <!-- App Bar / Top Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Saved Questions"
-        app:titleTextColor="@android:color/white"
-        android:background="@color/primary">
-        <ImageView
-            android:id="@+id/iv_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_home_24"
-            app:tint="@color/white"/>
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="30dp"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-    </androidx.appcompat.widget.Toolbar>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_saved_quesions"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="5dp"
-            android:paddingTop="5dp"
-            android:background="@drawable/home_gradient"
-            android:clipToPadding="false"
-            android:paddingBottom="100dp"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
+            app:title="Saved Questions"
+            app:titleTextColor="@color/onPrimary"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_saved_quesions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="88dp"
+        tools:listitem="@layout/layout_saved_questions" />
+
 </LinearLayout>

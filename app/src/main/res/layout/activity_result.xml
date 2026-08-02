@@ -156,11 +156,16 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_analysis"
+                    style="@style/Widget.Material3.Button"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:text="Detailed Analysis"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/onPrimary"
                     app:cornerRadius="16dp"
-                    app:icon="@drawable/baseline_assessment_24" />
+                    app:icon="@drawable/baseline_assessment_24"
+                    app:iconTint="@color/primary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/tv_reattempt"
@@ -169,6 +174,9 @@
                     android:layout_height="56dp"
                     android:layout_marginTop="12dp"
                     android:text="Re-attempt Exam"
+                    android:textColor="@color/onPrimary"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/primary_variant"
                     app:cornerRadius="16dp" />
 
             </LinearLayout>

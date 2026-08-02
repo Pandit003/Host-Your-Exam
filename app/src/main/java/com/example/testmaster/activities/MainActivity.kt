@@ -22,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import android.provider.Settings
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.testmaster.fragments.CreateTestFragment
 import com.example.testmaster.fragments.HistoryFragment
 import com.example.testmaster.fragments.HomeFragment
@@ -65,10 +68,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPref.getBoolean("DarkMode", false)
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
         super.onCreate(savedInstanceState)
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main)
-
         drawerLayout = findViewById(R.id.drawerlayout)
         navigationView = findViewById(R.id.navigation_view)
         menuDrawer = findViewById(R.id.menudrawer)
@@ -136,15 +145,9 @@ class MainActivity : AppCompatActivity() {
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.logout -> {
-                    firebaseAuth.signOut()
-                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-                    val googleSignInClient = GoogleSignIn.getClient(this, gso)
-                    googleSignInClient.signOut()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                R.id.setting -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
-                    finish()
                 }
                 R.id.hosted_exam -> {
                     val intent = Intent(this, HostedTest::class.java)

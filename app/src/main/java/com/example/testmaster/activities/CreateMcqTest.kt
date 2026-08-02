@@ -113,7 +113,7 @@ class CreateMcqTest : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon?.setTint(getColor(R.color.white))
+        toolbar.navigationIcon?.setTint(getColor(R.color.onPrimary))
 
         np_exam_duration_hrs.minValue=0
         np_exam_duration_hrs.maxValue=4

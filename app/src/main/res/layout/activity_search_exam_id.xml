@@ -7,29 +7,91 @@
     android:background="@drawable/statusbar_background"
     android:fitsSystemWindows="true"
     tools:context=".activities.SearchExamId">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+
+    <FrameLayout
+        android:id="@+id/search_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
-        android:theme="@style/CustomSearchViewTheme"
-        app:popupTheme="@style/CustomSearchViewTheme"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:background="@drawable/bg_card_surface_variant"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:id="@+id/search_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
 
-    </androidx.appcompat.widget.Toolbar>
+            <!-- Left back arrow -->
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:contentDescription="back"
+                android:padding="4dp"
+                android:src="@drawable/baseline_keyboard_arrow_left_24"
+                app:tint="@color/onPrimary" />
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:contentDescription="back"
+                android:padding="4dp"
+                android:src="@drawable/baseline_search_24"
+                android:visibility="gone"
+                app:tint="@color/onPrimary" />
+
+            <!-- Editable text area (use Material if you want) -->
+            <AutoCompleteTextView
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Search"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <!-- Clear / cross icon (hidden by default) -->
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:contentDescription="clear"
+                android:padding="8dp"
+                android:src="@drawable/baseline_close_24"
+                android:visibility="gone"
+                app:tint="#484848" />
+
+        </LinearLayout>
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_exam_data"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/background"
         android:clipToPadding="false"
         android:paddingHorizontal="5dp"
         android:paddingTop="5dp"
-        android:background="@color/background"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/search_wrapper" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
     android:layout_marginVertical="4dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/white">
+    app:cardBackgroundColor="@color/surface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_height="40dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/success_bg">
+            app:cardBackgroundColor="@color/surfaceVariant">
 
             <ImageView
                 android:id="@+id/iv_explore_icon"
@@ -28,7 +28,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_assignment_24"
-                app:tint="@color/success_text" />
+                app:tint="@color/onSurfaceVariant" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView

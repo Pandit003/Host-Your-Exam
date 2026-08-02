@@ -1,15 +1,21 @@
 package com.example.testmaster.activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
@@ -39,69 +45,61 @@ class SearchExamId : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("search_history", MODE_PRIVATE)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        val root: View = findViewById(R.id.search_root)
+        val etSearch: AutoCompleteTextView = findViewById(R.id.et_search)
+        val ivClear: ImageView = findViewById(R.id.iv_clear)
+        val ivBack: ImageView = findViewById(R.id.iv_back)
 
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white))
-        loadSearchHistory()
-    }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-
-        val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
-        val searchView = searchItem?.actionView as? SearchView  // Safe cast to SearchView
-
-
-        searchView?.queryHint = "Search Exam Id e.g. 111111"
-
-
-        // Customize SearchView
-        searchView?.setBackgroundColor(resources.getColor(android.R.color.transparent))
-
-        // Find and customize the SearchAutoComplete
-        val searchAutoComplete = searchView?.findViewById<androidx.appcompat.widget.SearchView.SearchAutoComplete>(androidx.appcompat.R.id.search_src_text)
-        searchAutoComplete?.setTextColor(resources.getColor(android.R.color.white))
-        searchAutoComplete?.setHintTextColor(resources.getColor(android.R.color.white))
-
-        searchAutoComplete?.setAdapter(searchHistoryAdapter)
-
-        searchAutoComplete?.setOnItemClickListener { parent, view, position, id ->
-            val query = parent.getItemAtPosition(position) as String
-            searchView.setQuery(query, true)  // Set the query and submit it
+        etSearch.requestFocus()
+        root.setOnClickListener {
+            etSearch.requestFocus()
+            showKeyboard(etSearch)
         }
 
-        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    saveSearchQuery(it)
-                    searchExams(it) }
-                return false
+        ivBack.setOnClickListener {
+            if (this is Activity) finish()
+            else {
+                // or call your nav controller popBackStack()
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let {
-                    searchHistoryAdapter.filter.filter(newText)
-                    searchExams(it)
-                }
-                return false
+        }
+        ivClear.setOnClickListener {
+            etSearch.text?.clear()
+            ivClear.visibility = View.GONE
+        }
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val hasText = !s.isNullOrEmpty()
+                saveSearchQuery(s.toString())
+                searchExams(s.toString())
+                ivClear.visibility = if (hasText) View.VISIBLE else View.GONE
             }
+            override fun afterTextChanged(s: Editable?) {}
         })
-        searchItem?.expandActionView()
-        searchView?.requestFocus()
+        etSearch.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val query = etSearch.text.toString().trim()
+                searchExams(query)
+                hideKeyboard(etSearch)
+                true
+            } else false
+        }
+        etSearch?.setOnItemClickListener { parent, view, position, id ->
+            val query = parent.getItemAtPosition(position) as String
+            searchExams(query)
+        }
+        loadSearchHistory()
+        etSearch?.setAdapter(searchHistoryAdapter)
+    }
+    fun showKeyboard(view: View) {
+        view.requestFocus()
+        val imm = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
 
-        searchItem?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-            override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
-                // Do something when the search view is expanded
-                return true
-            }
-
-            override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
-                onBackPressed()
-                return true
-            }
-        })
-        return super.onCreateOptionsMenu(menu)
+    fun hideKeyboard(view: View) {
+        val imm = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
     }
     override fun onBackPressed() {
         super.onBackPressed()

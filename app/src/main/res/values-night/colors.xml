@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Professional Emerald & Slate Palette (Dark Mode) -->
-    <color name="primary">#34D399</color> <!-- Emerald 400 -->
-    <color name="primary_variant">#10B981</color>
-    <color name="onPrimary">#064E3B</color>
-    <color name="primaryContainer">#064E3B</color> <!-- Emerald 900 -->
-    <color name="onPrimaryContainer">#D1FAE5</color>
+    <!-- Neutral Slate Palette (Dark Mode) -->
+    <color name="primary">#1E293B</color> <!-- Slate 800 -->
+    <color name="primary_variant">#0F172A</color>
+    <color name="onPrimary">#F8FAFC</color>
+    <color name="primaryContainer">#334155</color>
+    <color name="onPrimaryContainer">#F1F5F9</color>
 
     <color name="secondary">#94A3B8</color> <!-- Slate 400 -->
     <color name="secondary_variant">#64748B</color>
     <color name="onSecondary">#0F172A</color>
-    <color name="secondaryContainer">#334155</color> <!-- Slate 800 -->
+    <color name="secondaryContainer">#334155</color>
     <color name="onSecondaryContainer">#F1F5F9</color>
 
     <color name="background">#0F172A</color> <!-- Slate 900 -->
@@ -18,35 +18,35 @@
 
     <color name="surface">#1E293B</color> <!-- Slate 800 -->
     <color name="onSurface">#F8FAFC</color>
-    <color name="surfaceVariant">#334155</color> <!-- Slate 800 -->
+    <color name="surfaceVariant">#334155</color>
     <color name="onSurfaceVariant">#CBD5E1</color>
 
     <color name="error">#F87171</color> <!-- Red 400 -->
     <color name="onError">#7F1D1D</color>
-    <color name="errorContainer">#991B1B</color> <!-- Red 900 -->
+    <color name="errorContainer">#991B1B</color>
     <color name="onErrorContainer">#FEE2E2</color>
 
-    <color name="outline">#475569</color> <!-- Slate 600 -->
+    <color name="outline">#475569</color>
 
     <color name="text_primary">#F8FAFC</color>
     <color name="text_secondary">#CBD5E1</color>
     <color name="text_hint">#64748B</color>
 
-    <color name="accent">#34D399</color>
+    <color name="accent">#CBD5E1</color>
 
     <!-- Legacy/Compatibility mapping -->
-    <color name="primary_blue">#34D399</color>
-    <color name="blue">#34D399</color>
-    <color name="blue_link">#34D399</color>
+    <color name="primary_blue">#CBD5E1</color>
+    <color name="blue">#CBD5E1</color>
+    <color name="blue_link">#CBD5E1</color>
 
     <color name="gray">#334155</color>
     <color name="darkgray">#94A3B8</color>
     <color name="red">#F87171</color>
-    <color name="green">#34D399</color>
+    <color name="green">#4ADE80</color>
 
     <!-- Status Colors -->
     <color name="success_bg">#064E3B</color>
-    <color name="success_text">#34D399</color>
+    <color name="success_text">#4ADE80</color>
     <color name="warning_bg">#713F12</color>
     <color name="warning_text">#FEF08A</color>
     <color name="error_bg">#7F1D1D</color>
@@ -54,5 +54,9 @@
 
     <!-- Progress Specific -->
     <color name="progress_track">#334155</color>
-    <color name="progress_fill">#34D399</color>
+    <color name="progress_fill">#CBD5E1</color>
+
+    <!-- Custom Blue Shades -->
+    <color name="sky_blue">#01579B</color>
+    <color name="dark_blue">#0288D1</color>
 </resources>

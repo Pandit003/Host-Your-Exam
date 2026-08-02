@@ -1,0 +1,5 @@
+- [x] Modernize `activity_about.xml` UI
+    - [x] Update Toolbar to Emerald & Slate style
+    - [x] Group content into Material Cards
+    - [x] Apply new typography and spacing
+- [x] Create walkthrough

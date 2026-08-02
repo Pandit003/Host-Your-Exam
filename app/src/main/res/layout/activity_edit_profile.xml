@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/primary"
         app:title="Edit Profile"
-        app:titleTextColor="@android:color/white"
+        app:titleTextColor="@color/onPrimary"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
@@ -145,16 +145,19 @@
                     android:focusable="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_submit"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="30dp"
-                android:background="@color/primary"
-                android:textColor="@color/white"
+                android:text="Update Profile"
+                android:textColor="@color/primary"
                 android:textSize="18sp"
-                android:text="Update Profile" />
+                android:textStyle="bold"
+                app:backgroundTint="@color/onPrimary"
+                app:cornerRadius="16dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

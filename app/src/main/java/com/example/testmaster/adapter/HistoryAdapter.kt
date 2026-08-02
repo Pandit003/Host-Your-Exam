@@ -63,11 +63,13 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
             holder.exam_status.text = "Completed"
             holder.exam_status.setBackgroundResource(R.drawable.green_gradient)
         }else{
-            holder.exam_status.text = "Incompleted"
-            holder.exam_status.setBackgroundResource(R.drawable.red_gradient)
+            holder.exam_status.text = "Paused"
+            // Use a different badge color if available
+            holder.exam_status.setBackgroundResource(R.drawable.bg_status_badge)
+            holder.exam_status.setTextColor(context.getColor(R.color.warning_text))
         }
         holder.tv_exam_mark.text = "$mark_scored/$total_marks"
-        holder.no_of_attempt.text = examDataList.get(position).no_of_attempt
+        holder.no_of_attempt.text = "Attempt #"+examDataList.get(position).no_of_attempt
         holder.tv_reattempt.setOnClickListener {
             if (!isInternetAvailable(context)) {
                 showNoInternetDialog()

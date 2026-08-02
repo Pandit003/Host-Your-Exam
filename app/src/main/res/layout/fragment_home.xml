@@ -23,51 +23,72 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                app:cardBackgroundColor="@color/surface"
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp">
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/primary"
                     android:orientation="vertical"
-                    android:padding="28dp">
+                    android:padding="24dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_pill_surface_variant"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✦ Welcome back"
+                            android:textColor="@color/onSurfaceVariant"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:text="Ready to Excel?"
-                        android:textColor="@color/white"
-                        android:textSize="28sp"
+                        android:textColor="@color/onSurface"
+                        android:textSize="26sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:alpha="0.85"
+                        android:layout_marginTop="6dp"
                         android:text="Join an exam or create your own to start learning today."
-                        android:textColor="@color/white"
+                        android:textColor="@color/onSurfaceVariant"
                         android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
+                        android:layout_marginTop="24dp"
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_join_exam"
-                            style="@style/Widget.Material3.Button.ElevatedButton"
+                            style="@style/Widget.Material3.Button"
                             android:layout_width="0dp"
                             android:layout_height="54dp"
                             android:layout_marginEnd="8dp"
                             android:layout_weight="1"
                             android:text="Join Exam"
                             android:textColor="@color/primary"
-                            app:backgroundTint="@color/white"
-                            app:cornerRadius="16dp" />
+                            app:backgroundTint="@color/onPrimary"
+                            app:cornerRadius="16dp"
+                            app:icon="@drawable/baseline_assignment_24"
+                            app:iconGravity="textStart"
+                            app:iconTint="@color/primary" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_create_exam"
@@ -77,9 +98,10 @@
                             android:layout_marginStart="8dp"
                             android:layout_weight="1"
                             android:text="Create"
-                            android:textColor="@color/white"
+                            android:textColor="@color/onSurface"
                             app:cornerRadius="16dp"
-                            app:strokeColor="@color/white" />
+                            app:strokeColor="@color/outline"
+                            app:strokeWidth="1.5dp" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -102,14 +124,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
-
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"/>
                 <include
                     android:id="@+id/card_highest_score"
                     layout="@layout/layout_stat_card"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
-
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"/>
                 <include
                     android:id="@+id/card_avg_score"
                     layout="@layout/layout_stat_card"
@@ -123,43 +149,53 @@
                 android:id="@+id/layout_empty_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/bg_card_surface_variant"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="20dp"
+                android:padding="28dp"
                 android:visibility="visible">
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:alpha="0.5"
-                    android:src="@drawable/baseline_assignment_24"
-                    app:tint="@color/primary" />
+                <FrameLayout
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/bg_circle_surface">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/baseline_assignment_24"
+                        app:tint="@color/onSurfaceVariant" />
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:text="No Exam History Yet"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
+                    android:textColor="@color/onSurface"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:gravity="center"
                     android:text="You haven't attempted any exams. Join an exam to get started!"
-                    android:textColor="@color/text_secondary" />
+                    android:textColor="@color/onSurfaceVariant" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_join_first"
+                    style="@style/Widget.Material3.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:text="Join Your First Exam"
-                    app:cornerRadius="12dp" />
+                    android:textColor="@color/primary"
+                    app:backgroundTint="@color/onPrimary"
+                    app:cornerRadius="14dp" />
             </LinearLayout>
 
             <!-- Recent Activity -->
@@ -181,7 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Recent Activity"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/onSurface"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -190,8 +226,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="History"
-                        android:textColor="@color/primary"
+                        android:text="History →"
+                        android:textColor="@color/accent"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -214,7 +250,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="32dp"
                 android:text="New Announcements"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/onSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -235,7 +271,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="32dp"
                 android:text="Explore Features"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/onSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -256,7 +292,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="32dp"
                 android:text="App Features"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/onSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

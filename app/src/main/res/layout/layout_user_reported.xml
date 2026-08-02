@@ -1,68 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_report_question"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/background"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="8dp"
+    app:strokeColor="@color/outline"
+    app:strokeWidth="1dp">
 
     <LinearLayout
-        android:id="@+id/ll_report_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="8dp"
-        android:elevation="4dp"
-        android:background="@drawable/blue_box_gradient"
         android:padding="16dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Subject : "
-                android:paddingStart="5dp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"/>
-            <TextView
-                android:id="@+id/subject_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:text="English"
-                android:textColor="@color/text_primary"/>
-        </LinearLayout>
+
+        <!-- Top Header Row: Subject Badge & Title Tag -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Subject Chip / Badge -->
             <TextView
+                android:id="@+id/subject_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Report title : "
-                android:paddingStart="5dp"
+                android:background="@drawable/bg_card_rounded"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:gravity="center"
+                android:textColor="@color/primary"
+                android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="@color/text_primary"/>
+                tools:text="English" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <!-- Report Status / Title Badge -->
             <TextView
                 android:id="@+id/tv_report_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="wrong question"
-                android:layout_weight="1"
-                android:paddingStart="5dp"
-                android:textColor="@color/text_primary"/>
+                android:background="@drawable/red_box_outline"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/error_text"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Wrong Question" />
         </LinearLayout>
-        <LinearLayout
+
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp">
+            android:layout_marginVertical="12dp"
+            app:dividerColor="@color/outline"
+            android:alpha="0.2" />
 
-            <TextView
-                android:id="@+id/tv_report_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="wrong question description"
-                android:paddingStart="5dp"
-                android:textColor="@color/text_secondary"/>
-        </LinearLayout>
+        <!-- Description Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Issue Description"
+            android:textColor="@color/onSurfaceVariant"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.05" />
+
+        <TextView
+            android:id="@+id/tv_report_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/onSurface"
+            android:textSize="14sp"
+            tools:text="The options given in question 4 are incorrect according to the latest syllabus. Option B and C are identical." />
+
     </LinearLayout>
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

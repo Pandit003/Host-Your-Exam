@@ -5,60 +5,62 @@
 
     <!-- Professional Emerald & Slate Palette (Light Mode) -->
     <!-- Primary: Emerald 600 -->
-    <color name="primary">#059669</color>
-    <color name="primary_variant">#047857</color>
-    <color name="onPrimary">#FFFFFF</color>
-    <color name="primaryContainer">#D1FAE5</color>
-    <color name="onPrimaryContainer">#064E3B</color>
+    <color name="primary">#FFFFFF</color>
+    <color name="primary_variant">#E2E8F0</color>
+    <color name="onPrimary">#0F172A</color>
+    <color name="primaryContainer">#F1F5F9</color>
+    <color name="onPrimaryContainer">#0F172A</color>
 
-    <!-- Secondary: Slate 500 -->
-    <color name="secondary">#64748B</color>
+    <color name="secondary">#64748B</color> <!-- Slate 500 -->
     <color name="secondary_variant">#475569</color>
     <color name="onSecondary">#FFFFFF</color>
-    <color name="secondaryContainer">#F1F5F9</color>
+    <color name="secondaryContainer">#E2E8F0</color>
     <color name="onSecondaryContainer">#0F172A</color>
 
-    <!-- Surfaces & Backgrounds -->
     <color name="background">#F8FAFC</color>
     <color name="onBackground">#0F172A</color>
+
     <color name="surface">#FFFFFF</color>
     <color name="onSurface">#0F172A</color>
     <color name="surfaceVariant">#E2E8F0</color>
     <color name="onSurfaceVariant">#475569</color>
-    <color name="outline">#94A3B8</color>
 
-    <!-- Error: Red 600 -->
-    <color name="error">#EF4444</color>
+    <color name="error">#DC2626</color> <!-- Red 600 -->
     <color name="onError">#FFFFFF</color>
     <color name="errorContainer">#FEE2E2</color>
-    <color name="onErrorContainer">#991B1B</color>
+    <color name="onErrorContainer">#7F1D1D</color>
 
-    <!-- Content Specific -->
+    <color name="outline">#94A3B8</color>
+
     <color name="text_primary">#0F172A</color>
     <color name="text_secondary">#475569</color>
     <color name="text_hint">#94A3B8</color>
-    <color name="accent">#059669</color>
+
+    <color name="accent">#334155</color>
 
     <!-- Legacy/Compatibility mapping -->
-    <color name="primary_blue">#059669</color>
-    <color name="blue">#059669</color>
-    <color name="blue_link">#059669</color>
+    <color name="primary_blue">#334155</color>
+    <color name="blue">#334155</color>
+    <color name="blue_link">#334155</color>
 
-    <color name="gray">#F1F5F9</color>
+    <color name="gray">#E2E8F0</color>
     <color name="darkgray">#64748B</color>
-    <color name="red">#EF4444</color>
-    <color name="green">#10B981</color>
-    <color name="transparent">@android:color/transparent</color>
+    <color name="red">#DC2626</color>
+    <color name="green">#16A34A</color>
 
     <!-- Status Colors -->
     <color name="success_bg">#DCFCE7</color>
     <color name="success_text">#166534</color>
     <color name="warning_bg">#FEF9C3</color>
-    <color name="warning_text">#854D0E</color>
+    <color name="warning_text">#713F12</color>
     <color name="error_bg">#FEE2E2</color>
-    <color name="error_text">#991B1B</color>
+    <color name="error_text">#7F1D1D</color>
 
     <!-- Progress Specific -->
     <color name="progress_track">#E2E8F0</color>
-    <color name="progress_fill">#059669</color>
+    <color name="progress_fill">#334155</color>
+
+    <!-- Custom Blue Shades -->
+    <color name="sky_blue">#E1F5FE</color>
+    <color name="dark_blue">#0288D1</color>
 </resources>

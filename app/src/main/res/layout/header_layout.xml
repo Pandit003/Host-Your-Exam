@@ -5,8 +5,10 @@
     android:layout_height="wrap_content"
     android:background="@color/primary"
     android:gravity="bottom"
+    android:paddingTop="40dp"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="24dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="80dp"
@@ -14,7 +16,7 @@
         app:cardCornerRadius="40dp"
         app:cardElevation="0dp"
         app:strokeWidth="2dp"
-        app:strokeColor="@color/white">
+        app:strokeColor="@color/onPrimary">
 
         <ImageView
             android:id="@+id/iv_userimage"
@@ -22,6 +24,7 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            app:tint="@color/onSurface"
             android:src="@drawable/baseline_person_24" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -32,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="User Name"
-        android:textColor="@color/white"
+        android:textColor="@color/onPrimary"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -42,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="user@example.com"
-        android:textColor="@color/white"
+        android:textColor="@color/onSurfaceVariant"
         android:alpha="0.8"
         android:textSize="14sp" />
 
@@ -52,12 +55,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Edit Profile"
-        android:textColor="@color/white"
+        android:textColor="@color/onSurfaceVariant"
         android:textSize="12sp"
         android:textStyle="bold"
         android:paddingVertical="4dp"
         android:paddingHorizontal="8dp"
-        android:background="@drawable/bg_status_badge"
-        android:backgroundTint="#33FFFFFF"/>
+        android:background="@drawable/bg_pill_surface_variant" />
 
 </LinearLayout>
