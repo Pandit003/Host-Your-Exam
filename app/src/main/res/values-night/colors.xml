@@ -59,4 +59,39 @@
     <!-- Custom Blue Shades -->
     <color name="sky_blue">#01579B</color>
     <color name="dark_blue">#0288D1</color>
+
+    <!-- Colorful Accents and Backgrounds (Dark Mode Optimized) -->
+    <color name="greentint">#81C784</color>
+    <color name="green_bg">#1A81C784</color>
+
+    <color name="orangetint">#FFB74D</color>
+    <color name="orange_bg">#1AFFB74D</color>
+
+    <color name="bluetint">#64B5F6</color>
+    <color name="blue_bg">#1A64B5F6</color>
+
+    <color name="redtint">#E57373</color>
+    <color name="red_bg">#1AE57373</color>
+
+    <color name="purpletint">#BA68C8</color>
+    <color name="purple_bg">#1ABA68C8</color>
+
+    <color name="tealtint">#4DB6AC</color>
+    <color name="teal_bg">#1A4DB6AC</color>
+
+    <color name="cyantint">#4DD0E1</color>
+    <color name="cyan_bg">#1A4DD0E1</color>
+
+    <color name="pinktint">#F06292</color>
+    <color name="pink_bg">#1AF06292</color>
+
+    <color name="indigotint">#7986CB</color>
+    <color name="indigo_bg">#1A7986CB</color>
+
+    <color name="emerald">#4DB6AC</color>
+    <color name="emerald_bg">#1A4DB6AC</color>
+
+    <color name="gold">#FFD54F</color>
+    <color name="gold_bg">#1AFFD54F</color>
+
 </resources>

@@ -157,6 +157,9 @@ class HomeFragment : Fragment() {
         rvTestAppear.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rvTestAppear.adapter = testAppearAdapter
 
+        val tintColors = listOf(R.color.bluetint, R.color.purpletint, R.color.orangetint, R.color.greentint)
+        val bgColors = listOf(R.color.blue_bg, R.color.purple_bg, R.color.orange_bg, R.color.green_bg)
+
         // Announcements
         val announcements = listOf(
             DisplayItem("Java Mid Semester", "Starts tomorrow at 10:00 AM"),
@@ -164,8 +167,15 @@ class HomeFragment : Fragment() {
             DisplayItem("Maintenance Update", "Scheduled for Sunday night")
         )
         rvAnnouncements.adapter = GenericHorizontalAdapter(announcements, R.layout.layout_announcement_card) { v, item ->
+            val pos = announcements.indexOf(item)
+            val colorIdx = pos % tintColors.size
+            
             v.findViewById<TextView>(R.id.tv_announcement_title).text = item.title
             v.findViewById<TextView>(R.id.tv_announcement_desc).text = item.desc
+            
+            v.findViewById<LinearLayout>(R.id.ll_announcement_bg).setBackgroundColor(resources.getColor(bgColors[colorIdx]))
+            v.findViewById<View>(R.id.v_announcement_indicator).setBackgroundColor(resources.getColor(tintColors[colorIdx]))
+            v.findViewById<ImageView>(R.id.iv_announcement_icon).setColorFilter(resources.getColor(tintColors[colorIdx]))
         }
 
         // Explore
@@ -175,10 +185,22 @@ class HomeFragment : Fragment() {
             DisplayItem("Leaderboard", "Compete with others", iconRes = R.drawable.baseline_assignment_24),
             DisplayItem("Certificates", "View your rewards", iconRes = R.drawable.baseline_history_24)
         )
+
         rvExplore.adapter = GenericHorizontalAdapter(exploreItems, R.layout.layout_explore_card) { v, item ->
+            val pos = exploreItems.indexOf(item)
+            val colorIdx = pos % tintColors.size
+            
             v.findViewById<TextView>(R.id.tv_explore_title).text = item.title
             v.findViewById<TextView>(R.id.tv_explore_desc).text = item.desc
             item.iconRes?.let { v.findViewById<ImageView>(R.id.iv_explore_icon).setImageResource(it) }
+            
+            // Apply colors
+            v.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cv_icon_container)
+                .setCardBackgroundColor(resources.getColor(bgColors[colorIdx]))
+            v.findViewById<ImageView>(R.id.iv_explore_icon)
+                .setColorFilter(resources.getColor(tintColors[colorIdx]))
+            v.findViewById<LinearLayout>(R.id.ll_explore_container)
+                .setBackgroundColor(resources.getColor(bgColors[colorIdx]))
         }
 
         // Features
@@ -190,8 +212,17 @@ class HomeFragment : Fragment() {
             DisplayItem("Teacher Friendly", iconText = "👨‍🏫")
         )
         rvFeatures.adapter = GenericHorizontalAdapter(featureItems, R.layout.layout_feature_card) { v, item ->
+            val pos = featureItems.indexOf(item)
+            val colorIdx = pos % tintColors.size
+
             v.findViewById<TextView>(R.id.tv_feature_title).text = item.title
             v.findViewById<TextView>(R.id.tv_feature_icon).text = item.iconText
+
+            // Apply colors
+            val rootCard = v.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cv_feature_root)
+            rootCard.setCardBackgroundColor(resources.getColor(bgColors[colorIdx]))
+            rootCard.setStrokeColor(android.content.res.ColorStateList.valueOf(resources.getColor(tintColors[colorIdx])))
+            v.findViewById<TextView>(R.id.tv_feature_title).setTextColor(resources.getColor(tintColors[colorIdx]))
         }
     }
 

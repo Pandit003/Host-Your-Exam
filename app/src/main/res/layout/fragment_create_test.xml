@@ -42,15 +42,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/blue_bg"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp">
+                app:cardElevation="0dp"
+                app:strokeColor="@color/bluetint"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:id="@+id/ll_create_mcq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/surface"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
@@ -60,8 +61,8 @@
                     <View
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/blue_circle_background"
-                        android:backgroundTint="@color/gray"/>
+                        android:background="@drawable/bg_circle_surface"
+                        android:backgroundTint="@color/bluetint"/>
 
                     <ImageView
                         android:layout_width="28dp"
@@ -69,7 +70,7 @@
                         android:layout_marginStart="-42dp"
                         android:layout_marginTop="14dp"
                         android:src="@drawable/baseline_library_add_check_24"
-                        app:tint="@color/secondary" />
+                        app:tint="@color/white" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -103,15 +104,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/purple_bg"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp">
+                app:cardElevation="0dp"
+                app:strokeColor="@color/purpletint"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:id="@+id/ll_create_One_word"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/surface"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
@@ -121,8 +123,8 @@
                     <View
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/blue_circle_background"
-                        android:backgroundTint="@color/gray"/>
+                        android:background="@drawable/bg_circle_surface"
+                        android:backgroundTint="@color/purpletint"/>
 
                     <ImageView
                         android:layout_width="28dp"
@@ -130,7 +132,7 @@
                         android:layout_marginStart="-42dp"
                         android:layout_marginTop="14dp"
                         android:src="@drawable/baseline_edit_24"
-                        app:tint="@color/secondary" />
+                        app:tint="@color/white" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -163,10 +165,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/emerald_bg"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="1dp"
-                app:strokeColor="@color/gray">
+                app:strokeColor="@color/emerald">
 
                 <LinearLayout
                     android:layout_width="match_parent"
