@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
@@ -79,7 +80,11 @@ class HomeFragment : Fragment() {
         tvTotalExams = view.findViewById<View>(R.id.card_total_exams).findViewById(R.id.stat_value)
         tvHighestScore = view.findViewById<View>(R.id.card_highest_score).findViewById(R.id.stat_value)
         tvAvgScore = view.findViewById<View>(R.id.card_avg_score).findViewById(R.id.stat_value)
-        
+
+        tvTotalExams.setTextColor(resources.getColor(R.color.bluetint))
+        tvHighestScore.setTextColor(resources.getColor(R.color.orangetint))
+        tvAvgScore.setTextColor(resources.getColor(R.color.greentint))
+
         setupStatCards(view)
 
         btnJoinExam = view.findViewById(R.id.btn_join_exam)
@@ -120,15 +125,30 @@ class HomeFragment : Fragment() {
     private fun setupStatCards(view: View) {
         val totalCard = view.findViewById<View>(R.id.card_total_exams)
         totalCard.findViewById<TextView>(R.id.stat_label).text = "Total Exams"
+        totalCard.findViewById<TextView>(R.id.stat_label).setTextColor(resources.getColor(R.color.bluetint))
         totalCard.findViewById<ImageView>(R.id.stat_icon).setImageResource(R.drawable.baseline_assignment_24)
+        totalCard.findViewById<ImageView>(R.id.stat_icon).setColorFilter(ContextCompat.getColor(
+            requireContext(), R.color.bluetint))
 
         val highestCard = view.findViewById<View>(R.id.card_highest_score)
         highestCard.findViewById<TextView>(R.id.stat_label).text = "Highest Score"
+        highestCard.findViewById<TextView>(R.id.stat_label).setTextColor(resources.getColor(R.color.orangetint))
         highestCard.findViewById<ImageView>(R.id.stat_icon).setImageResource(R.drawable.baseline_create_24)
+        highestCard.findViewById<ImageView>(R.id.stat_icon).setColorFilter(ContextCompat.getColor(requireContext(), R.color.orangetint))
 
         val avgCard = view.findViewById<View>(R.id.card_avg_score)
         avgCard.findViewById<TextView>(R.id.stat_label).text = "Avg Score"
+        avgCard.findViewById<TextView>(R.id.stat_label).setTextColor(resources.getColor(R.color.greentint))
         avgCard.findViewById<ImageView>(R.id.stat_icon).setImageResource(R.drawable.baseline_history_24)
+        avgCard.findViewById<ImageView>(R.id.stat_icon).setColorFilter(ContextCompat.getColor(requireContext(), R.color.greentint))
+
+        val totalBg = view.findViewById<View>(R.id.card_total_exams)
+        totalBg.findViewById<LinearLayout>(R.id.state_bg).setBackgroundColor(resources.getColor(R.color.blue_bg))
+        val highestBg = view.findViewById<View>(R.id.card_highest_score)
+        highestBg.findViewById<LinearLayout>(R.id.state_bg).setBackgroundColor(resources.getColor(R.color.orange_bg))
+        val avgBg = view.findViewById<View>(R.id.card_avg_score)
+        avgBg.findViewById<LinearLayout>(R.id.state_bg).setBackgroundColor(resources.getColor(R.color.green_bg))
+
     }
 
     private fun setupRecyclerViews() {

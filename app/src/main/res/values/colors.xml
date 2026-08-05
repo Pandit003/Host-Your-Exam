@@ -10,6 +10,7 @@
     <color name="onPrimary">#0F172A</color>
     <color name="primaryContainer">#F1F5F9</color>
     <color name="onPrimaryContainer">#0F172A</color>
+    <color name="second_primary">#FF163988</color>
 
     <color name="secondary">#64748B</color> <!-- Slate 500 -->
     <color name="secondary_variant">#475569</color>
@@ -63,4 +64,63 @@
     <!-- Custom Blue Shades -->
     <color name="sky_blue">#E1F5FE</color>
     <color name="dark_blue">#0288D1</color>
+
+    <color name="greentint">#2E7D32</color>
+    <color name="green_bg">#1A2E7D32</color>
+
+    <color name="orangetint">#ED6C02</color>
+    <color name="orange_bg">#1AED6C02</color>
+
+    <color name="bluetint">#0288D1</color>
+    <color name="blue_bg">#1A0288D1</color>
+
+    <color name="redtint">#C62828</color>
+    <color name="red_bg">#1AC62828</color>
+
+    <color name="purpletint">#6A1B9A</color>
+    <color name="purple_bg">#1A6A1B9A</color>
+
+    <color name="teal">#00796B</color>
+    <color name="teal_bg">#1A00796B</color>
+
+    <!-- Cyan -->
+    <color name="cyan">#0097A7</color>
+    <color name="cyan_bg">#1A0097A7</color>
+
+    <!-- Pink -->
+    <color name="pink">#C2185B</color>
+    <color name="pink_bg">#1AC2185B</color>
+
+    <!-- Indigo -->
+    <color name="indigo">#3F51B5</color>
+    <color name="indigo_bg">#1A3F51B5</color>
+
+    <!-- Brown -->
+    <color name="brown">#795548</color>
+    <color name="brown_bg">#1A795548</color>
+
+    <!-- Lime -->
+    <color name="lime">#689F38</color>
+    <color name="lime_bg">#1A689F38</color>
+
+    <!-- Deep Orange -->
+    <color name="deep_orange">#E64A19</color>
+    <color name="deep_orange_bg">#1AE64A19</color>
+
+    <!-- Slate -->
+    <color name="slate">#546E7A</color>
+    <color name="slate_bg">#1A546E7A</color>
+
+    <!-- Navy -->
+    <color name="navy">#1565C0</color>
+    <color name="navy_bg">#1A1565C0</color>
+
+    <!-- Emerald -->
+    <color name="emerald">#00897B</color>
+    <color name="emerald_bg">#1A00897B</color>
+
+    <!-- Gold -->
+    <color name="gold">#C79000</color>
+    <color name="gold_bg">#1AC79000</color>
+
 </resources>

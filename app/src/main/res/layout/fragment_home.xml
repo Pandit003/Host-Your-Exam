@@ -227,7 +227,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:text="History →"
-                        android:textColor="@color/accent"
+                        android:textColor="@color/bluetint"
                         android:textStyle="bold" />
                 </RelativeLayout>
 

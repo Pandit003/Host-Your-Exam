@@ -77,23 +77,27 @@ class FragmentAnalysis : Fragment() {
         tv_option_d.setText(questions.option_d)
 
         option_a.setOnClickListener{
+            clearOption()
             selected_option = "A"
             setCorrectAnswer()
             listener?.onOptionSelected()
         }
         option_b.setOnClickListener{
+            clearOption()
             selected_option = "B"
             setCorrectAnswer()
             listener?.onOptionSelected()
 
         }
         option_c.setOnClickListener{
+            clearOption()
             selected_option = "C"
             setCorrectAnswer()
             listener?.onOptionSelected()
 
         }
         option_d.setOnClickListener{
+            clearOption()
             selected_option = "D"
             setCorrectAnswer()
             listener?.onOptionSelected()
