@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:layout_marginEnd="16dp"
     android:layout_marginVertical="8dp"
     app:cardBackgroundColor="@color/surface"
     app:cardCornerRadius="24dp"
-    app:cardElevation="0dp"
+    app:cardElevation="4dp"
     app:strokeColor="@color/outline"
-    app:strokeWidth="1dp">
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,18 +24,23 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <FrameLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_icon_container"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/bg_circle_surface">
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                app:cardBackgroundColor="@color/surfaceVariant">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:id="@+id/iv_explore_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_gravity="center"
                     android:src="@drawable/baseline_assignment_24"
                     app:tint="@color/onSurfaceVariant" />
-            </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="0dp"

@@ -192,6 +192,11 @@ class Analysis_Exam : AppCompatActivity(), FragmentAnalysis.OnQuestionInteractio
                     viewPager.currentItem = i - 1
                 }
             }
+            marked_count.setTextColor(ContextCompat.getColor(this, R.color.redtint))
+            attempt_count.setTextColor(ContextCompat.getColor(this, R.color.bluetint))
+            unattempt_count.setTextColor(ContextCompat.getColor(this, R.color.orangetint))
+            unseen_count.setTextColor(ContextCompat.getColor(this, R.color.onSurfaceVariant))
+
             val params = GridLayout.LayoutParams().apply {
                 width = GridLayout.LayoutParams.WRAP_CONTENT
                 height = GridLayout.LayoutParams.WRAP_CONTENT
@@ -234,20 +239,20 @@ class Analysis_Exam : AppCompatActivity(), FragmentAnalysis.OnQuestionInteractio
         answer = answerKey.questionsWithAns?.get(viewPager.currentItem)!!
         question_no.text = "${viewPager.currentItem + 1}"
         if(answer.choosen_answer == answer.correct_answer){
-            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.primary))
+            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.greentint))
         }else if(answer.choosen_answer == "N"){
-            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.darkgray))
+            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.bluetint))
         }else{
-            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.error))
+            question_no.setBackgroundColor(ContextCompat.getColor(this, R.color.redtint))
         }
         val seconds = (answer.question_time?.toLong()?.div(1000))?.rem(60)
         val minutes = (answer.question_time?.toLong()?.div(1000*60))?.rem(60)
         val timeFormatted = String.format("%02d:%02d", minutes, seconds)
         tv_question_duration.text = timeFormatted
 
-        iv_marked.setColorFilter(ContextCompat.getColor(this, if (answer.marked == "Y") R.color.red else R.color.darkgray))
-        iv_report.setColorFilter(ContextCompat.getColor(this, if (answer.report == "Y") R.color.red else R.color.darkgray))
-        iv_saved.setColorFilter(ContextCompat.getColor(this, if (answer.saved == "Y") R.color.primary else R.color.darkgray))
+        iv_marked.setColorFilter(ContextCompat.getColor(this, if (answer.marked == "Y") R.color.redtint else R.color.onSurfaceVariant))
+        iv_report.setColorFilter(ContextCompat.getColor(this, if (answer.report == "Y") R.color.redtint else R.color.onSurfaceVariant))
+        iv_saved.setColorFilter(ContextCompat.getColor(this, if (answer.saved == "Y") R.color.bluetint else R.color.onSurfaceVariant))
 
     }
 

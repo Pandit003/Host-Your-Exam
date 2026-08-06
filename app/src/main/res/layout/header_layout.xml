@@ -55,11 +55,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Edit Profile"
-        android:textColor="@color/onSurfaceVariant"
+        android:textColor="@color/bluetint"
         android:textSize="12sp"
         android:textStyle="bold"
         android:paddingVertical="4dp"
         android:paddingHorizontal="8dp"
-        android:background="@drawable/bg_pill_surface_variant" />
+        android:background="@drawable/bg_pill_surface_variant"
+        android:backgroundTint="@color/blue_bg"/>
 
 </LinearLayout>

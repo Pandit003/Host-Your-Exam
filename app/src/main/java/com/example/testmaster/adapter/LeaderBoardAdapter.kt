@@ -14,9 +14,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
 import com.example.testmaster.model.AnswerKey
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -62,9 +64,11 @@ class LeaderBoardAdapter(var context: Context, var leaderBoardList : List<Answer
         if(leaderBoardList.get(position).pass_mark?.toDouble()!! <= mark_scored.toDouble()){
             holder.tv_result_status.text = "P\nA\nS\nS"
             holder.ll_result_status.setBackgroundResource(R.drawable.green_left_corner_background)
+//            holder.mc_leader.setStrokeColor(ContextCompat.getColor(context, R.color.greentint))
         }else {
             holder.tv_result_status.text = "F\nA\nI\nL"
             holder.ll_result_status.setBackgroundResource(R.drawable.red_left_corner_background)
+//            holder.mc_leader.setStrokeColor(ContextCompat.getColor(context, R.color.redtint))
         }
 
             holder.tv_view_info.setOnClickListener {
@@ -153,6 +157,7 @@ class LeaderBoardAdapter(var context: Context, var leaderBoardList : List<Answer
         var pr_markScored : LinearProgressIndicator
         var tv_exam_mark : TextView
         var ll_result_status : LinearLayout
+        var mc_leader : MaterialCardView
         init {
             tv_result_status = view.findViewById(R.id.tv_result_status)
             tv_view_info = view.findViewById(R.id.tv_view_info)
@@ -163,6 +168,7 @@ class LeaderBoardAdapter(var context: Context, var leaderBoardList : List<Answer
             pr_markScored = view.findViewById(R.id.pr_markScored)
             tv_exam_mark = view.findViewById(R.id.tv_exam_mark)
             ll_result_status = view.findViewById(R.id.ll_result_status)
+            mc_leader = view.findViewById(R.id.mc_leader)
         }
     }
 }

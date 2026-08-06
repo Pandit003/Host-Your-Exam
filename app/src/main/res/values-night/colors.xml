@@ -93,5 +93,23 @@
 
     <color name="gold">#FFD54F</color>
     <color name="gold_bg">#1AFFD54F</color>
+    <!-- Brown -->
+    <color name="browntint">#BCAAA4</color>
+    <color name="brown_bg">#26BCAAA4</color>
 
+    <!-- Lime -->
+    <color name="limetint">#AED581</color>
+    <color name="lime_bg">#26AED581</color>
+
+    <!-- Deep Orange -->
+    <color name="deep_orange">#FF8A65</color>
+    <color name="deep_orange_bg">#26FF8A65</color>
+
+    <!-- Slate -->
+    <color name="slate">#B0BEC5</color>
+    <color name="slate_bg">#26B0BEC5</color>
+
+    <!-- Navy -->
+    <color name="navy">#64B5F6</color>
+    <color name="navy_bg">#2664B5F6</color>
 </resources>

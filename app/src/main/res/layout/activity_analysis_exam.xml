@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
+            android:background="@color/blue_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -39,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="00:50:39"
-                        android:textColor="@color/onPrimary"
+                        android:textColor="@color/bluetint"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:text="General Awareness"
-                        android:textColor="@color/onPrimary"
+                        android:textColor="@color/onSurfaceVariant"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -63,35 +63,35 @@
                 android:layout_marginEnd="15dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/baseline_format_align_right_24"
-                app:tint="@color/onPrimary" />
+                app:tint="@color/bluetint" />
         </androidx.appcompat.widget.Toolbar>
 
         <!-- Question meta bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/surface"
+            android:background="@color/blue_bg"
             android:gravity="center_vertical"
             android:paddingHorizontal="15dp"
-            android:paddingTop="14dp"
             android:paddingBottom="12dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                app:cardCornerRadius="20dp">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp">
 
                 <TextView
                     android:id="@+id/question_no"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/onSurfaceVariant"
+                    android:background="@color/bluetint"
                     android:gravity="center"
                     android:text="0"
-                    android:textColor="@color/surfaceVariant"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <View
                 android:layout_width="1dp"

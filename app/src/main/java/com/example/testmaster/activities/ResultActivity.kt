@@ -61,7 +61,9 @@ class ResultActivity : AppCompatActivity() {
         accuracy = cardAccuracy.findViewById(R.id.stat_value)
 
         val accuracyPercent = ((answerKey.total_score?.toDouble() ?: 0.0) /
-                (answerKey.questionsWithAns?.size?.toDouble() ?: 1.0).times(answerKey.pos_mark?.toDouble()?:1.0)) * 100
+                ((answerKey.questionsWithAns?.size?.toDouble() ?: 1.0) * (answerKey.pos_mark?.toDouble() ?: 1.0))) * 100
+
+        applyColorfulTheme(accuracyPercent.toFloat())
 
         total_marks.text = "${answerKey.total_score}"
         correct_question.text = "${answerKey.correct_question}"
@@ -69,41 +71,53 @@ class ResultActivity : AppCompatActivity() {
         unattempt_question.text = "${answerKey.unattempt}"
         accuracy.text = String.format("%.2f", answerKey.accuracy?.toFloat()) + "%"
         percentage.text = String.format("%.2f", accuracyPercent.toFloat()) + "%"
+    }
 
-        btn_analysis.setOnClickListener{
-            val intent = Intent(this@ResultActivity, Analysis_Exam::class.java)
-            intent.putExtra("Answer_Key", answerKey)
-            startActivity(intent)
+    private fun applyColorfulTheme(percent: Float) {
+        val themeColor = when {
+            percent >= 80 -> R.color.greentint
+            percent >= 60 -> R.color.emerald
+            percent >= 40 -> R.color.bluetint
+            else -> R.color.orangetint
         }
-        
-        ib_home.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-        
-        firebaseAuth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
-        user = firebaseAuth.currentUser?.uid.toString()
 
-        db.collection("Exams")
-            .whereEqualTo("exam_id", answerKey.exam_id)
-            .get()
-            .addOnSuccessListener { documents ->
-                if (!documents.isEmpty) {
-                    examData = documents.documents[0].toObject(CreateQuestions::class.java)!!
-                } else {
-                    Toast.makeText(this, "No exam data found", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Unable To Take Re-attempt", Toast.LENGTH_SHORT).show()
-            }
-
-        tv_reattempt.setOnClickListener{
-            val intent = Intent(this, Attempt_Exam::class.java)
-            intent.putExtra("examData",examData)
-            startActivity(intent)
-            finish()
+        val themeBg = when {
+            percent >= 80 -> R.color.green_bg
+            percent >= 60 -> R.color.emerald_bg
+            percent >= 40 -> R.color.blue_bg
+            else -> R.color.orange_bg
         }
+
+        val banner = findViewById<com.google.android.material.card.MaterialCardView>(R.id.card_score_banner)
+        banner.setCardBackgroundColor(resources.getColor(themeBg))
+        banner.setStrokeColor(resources.getColor(themeColor))
+        total_marks.setTextColor(resources.getColor(themeColor))
+
+        // Stats cards
+        setupStatCard(R.id.card_correct, "Correct", R.color.greentint, R.color.green_bg)
+        setupStatCard(R.id.card_incorrect, "Incorrect", R.color.redtint, R.color.red_bg)
+        setupStatCard(R.id.card_unattempted, "Unattempted", R.color.purpletint, R.color.purple_bg)
+        setupStatCard(R.id.card_accuracy, "Accuracy", themeColor, themeBg)
+
+        // Main buttons
+        val btnAnalysis = findViewById<com.google.android.material.button.MaterialButton>(R.id.btn_analysis)
+        btnAnalysis.setBackgroundColor(resources.getColor(themeColor))
+        btnAnalysis.setTextColor(resources.getColor(R.color.white))
+        btnAnalysis.setIconTintResource(R.color.white)
+
+        val btnReattempt = findViewById<com.google.android.material.button.MaterialButton>(R.id.tv_reattempt)
+        btnReattempt.setStrokeColorResource(themeColor)
+        btnReattempt.setTextColor(resources.getColor(themeColor))
+    }
+
+    private fun setupStatCard(id: Int, label: String, tintColor: Int, bgColor: Int) {
+        val card = findViewById<View>(id)
+        card.findViewById<TextView>(R.id.stat_label).apply {
+            text = label
+            setTextColor(resources.getColor(tintColor))
+        }
+        card.findViewById<TextView>(R.id.stat_value).setTextColor(resources.getColor(tintColor))
+        card.findViewById<View>(R.id.stat_container).setBackgroundColor(resources.getColor(bgColor))
+        card.findViewById<com.google.android.material.card.MaterialCardView>(R.id.stat_card_root).setStrokeColor(resources.getColor(tintColor))
     }
 }

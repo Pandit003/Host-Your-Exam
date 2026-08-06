@@ -27,7 +27,7 @@
                 app:cardCornerRadius="28dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/bluetint"
-                app:strokeWidth="1dp">
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -123,6 +123,7 @@
                     android:id="@+id/card_total_exams"
                     layout="@layout/layout_stat_card"
                     android:layout_width="0dp"
+                    android:layout_margin="5dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
                 <View
@@ -132,6 +133,7 @@
                     android:id="@+id/card_highest_score"
                     layout="@layout/layout_stat_card"
                     android:layout_width="0dp"
+                    android:layout_margin="5dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
                 <View
@@ -141,34 +143,50 @@
                     android:id="@+id/card_avg_score"
                     layout="@layout/layout_stat_card"
                     android:layout_width="0dp"
+                    android:layout_margin="5dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
 
             <!-- Empty State -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_icon_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="12dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp"
+                app:cardBackgroundColor="@color/surface">
+
             <LinearLayout
                 android:id="@+id/layout_empty_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/bg_card_surface_variant"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="28dp"
                 android:visibility="visible">
 
-                <FrameLayout
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_icon_container"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
-                    android:background="@drawable/bg_circle_surface">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    android:backgroundTint="@color/slate_bg"
+                    app:cardBackgroundColor="@color/surfaceVariant">
 
                     <ImageView
+                        android:id="@+id/iv_explore_icon"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:src="@drawable/baseline_assignment_24"
-                        app:tint="@color/onSurfaceVariant" />
-                </FrameLayout>
+                        app:tint="@color/slate" />
+                </com.google.android.material.card.MaterialCardView>
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -198,7 +216,7 @@
                     app:backgroundTint="@color/onPrimary"
                     app:cornerRadius="14dp" />
             </LinearLayout>
-
+            </com.google.android.material.card.MaterialCardView>
             <!-- Recent Activity -->
             <LinearLayout
                 android:id="@+id/ll_test_appear"
@@ -263,6 +281,7 @@
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
+                tools:listitem="@layout/layout_announcement_card"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <!-- Explore Section -->
@@ -284,6 +303,7 @@
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
+                tools:listitem="@layout/layout_explore_card"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <!-- Features Section -->
@@ -305,6 +325,7 @@
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
+                tools:listitem="@layout/layout_feature_card"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>

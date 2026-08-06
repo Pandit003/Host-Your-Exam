@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +8,76 @@
     android:background="@color/background"
     tools:context=".fragments.HistoryFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="@color/orange_bg"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:strokeColor="@color/orangetint"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill_surface_variant"
+                    android:backgroundTint="@color/orangetint"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📜 Exam History"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Track Your Journey"
+                    android:textColor="@color/onSurface"
+                    android:textSize="24sp"
+                    android:visibility="gone"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Review your past attempts and analysis."
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_exam_history"

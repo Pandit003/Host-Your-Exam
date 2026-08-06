@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background"
+    android:background="@drawable/box_outline"
+    android:layout_margin="20dp"
     tools:context=".fragments.FragmentQuestion">
 
     <LinearLayout
@@ -166,7 +167,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@color/success_bg"
+                    android:background="@drawable/bg_status_badge"
+                    android:backgroundTint="@color/green_bg"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="14dp">

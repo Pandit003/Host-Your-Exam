@@ -42,6 +42,11 @@ class FragmentAnalysis : Fragment() {
     var selected_option : String? = null
     var position : Int = 0
     lateinit var questions : QuestionWithAns
+    lateinit var tv_option_a_indicator : TextView
+    lateinit var tv_option_b_indicator : TextView
+    lateinit var tv_option_c_indicator : TextView
+    lateinit var tv_option_d_indicator : TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,6 +62,11 @@ class FragmentAnalysis : Fragment() {
         tv_option_c = view.findViewById(R.id.tv_option_c)
         tv_option_d = view.findViewById(R.id.tv_option_d)
         tv_question = view.findViewById(R.id.tv_question)
+
+        tv_option_a_indicator = view.findViewById(R.id.tv_option_a_indicator)
+        tv_option_b_indicator = view.findViewById(R.id.tv_option_b_indicator)
+        tv_option_c_indicator = view.findViewById(R.id.tv_option_c_indicator)
+        tv_option_d_indicator = view.findViewById(R.id.tv_option_d_indicator)
 
         questions = (arguments?.getSerializable("question") as? QuestionWithAns)!!
         questions = (arguments?.getSerializable("question") as? QuestionWithAns)!!
@@ -126,35 +136,53 @@ class FragmentAnalysis : Fragment() {
     }
 
     fun clearOption(){
-        option_a.setBackgroundResource(R.drawable.box_outline)
-        option_b.setBackgroundResource(R.drawable.box_outline)
-        option_c.setBackgroundResource(R.drawable.box_outline)
-        option_d.setBackgroundResource(R.drawable.box_outline)
+        resetOption(option_a, tv_option_a, tv_option_a_indicator)
+        resetOption(option_b, tv_option_b, tv_option_b_indicator)
+        resetOption(option_c, tv_option_c, tv_option_c_indicator)
+        resetOption(option_d, tv_option_d, tv_option_d_indicator)
         selected_option = "N"
     }
+
+    private fun resetOption(layout: LinearLayout, text: TextView, indicator: TextView) {
+        layout.setBackgroundResource(R.drawable.bg_pill_surface_variant)
+        layout.backgroundTintList = android.content.res.ColorStateList.valueOf(resources.getColor(R.color.surfaceVariant))
+        text.setTextColor(resources.getColor(R.color.onSurface))
+        indicator.backgroundTintList = android.content.res.ColorStateList.valueOf(resources.getColor(R.color.surface))
+        indicator.setTextColor(resources.getColor(R.color.onSurface))
+    }
+
     fun selectOption(option : String){
         when(option){
-            "option_a" -> option_a.setBackgroundResource(R.drawable.green_box_outline)
-            "option_b" -> option_b.setBackgroundResource(R.drawable.green_box_outline)
-            "option_c" -> option_c.setBackgroundResource(R.drawable.green_box_outline)
-            "option_d" -> option_d.setBackgroundResource(R.drawable.green_box_outline)
+            "option_a" -> applyOptionStyle(option_a, tv_option_a, tv_option_a_indicator, R.color.green_bg, R.color.greentint)
+            "option_b" -> applyOptionStyle(option_b, tv_option_b, tv_option_b_indicator, R.color.green_bg, R.color.greentint)
+            "option_c" -> applyOptionStyle(option_c, tv_option_c, tv_option_c_indicator, R.color.green_bg, R.color.greentint)
+            "option_d" -> applyOptionStyle(option_d, tv_option_d, tv_option_d_indicator, R.color.green_bg, R.color.greentint)
         }
     }
+
     fun selectWrongOption(option : String){
         when(option){
-            "option_a" -> option_a.setBackgroundResource(R.drawable.red_box_outline)
-            "option_b" -> option_b.setBackgroundResource(R.drawable.red_box_outline)
-            "option_c" -> option_c.setBackgroundResource(R.drawable.red_box_outline)
-            "option_d" -> option_d.setBackgroundResource(R.drawable.red_box_outline)
+            "option_a" -> applyOptionStyle(option_a, tv_option_a, tv_option_a_indicator, R.color.red_bg, R.color.redtint)
+            "option_b" -> applyOptionStyle(option_b, tv_option_b, tv_option_b_indicator, R.color.red_bg, R.color.redtint)
+            "option_c" -> applyOptionStyle(option_c, tv_option_c, tv_option_c_indicator, R.color.red_bg, R.color.redtint)
+            "option_d" -> applyOptionStyle(option_d, tv_option_d, tv_option_d_indicator, R.color.red_bg, R.color.redtint)
         }
     }
+
     fun yourChoosenAnswer(option : String){
         when(option){
-            "option_a" -> option_a.setBackgroundResource(R.drawable.blue_box_outline)
-            "option_b" -> option_b.setBackgroundResource(R.drawable.blue_box_outline)
-            "option_c" -> option_c.setBackgroundResource(R.drawable.blue_box_outline)
-            "option_d" -> option_d.setBackgroundResource(R.drawable.blue_box_outline)
+            "option_a" -> applyOptionStyle(option_a, tv_option_a, tv_option_a_indicator, R.color.blue_bg, R.color.bluetint)
+            "option_b" -> applyOptionStyle(option_b, tv_option_b, tv_option_b_indicator, R.color.blue_bg, R.color.bluetint)
+            "option_c" -> applyOptionStyle(option_c, tv_option_c, tv_option_c_indicator, R.color.blue_bg, R.color.bluetint)
+            "option_d" -> applyOptionStyle(option_d, tv_option_d, tv_option_d_indicator, R.color.blue_bg, R.color.bluetint)
         }
+    }
+
+    private fun applyOptionStyle(layout: LinearLayout, text: TextView, indicator: TextView, bgColor: Int, tintColor: Int) {
+        layout.backgroundTintList = android.content.res.ColorStateList.valueOf(resources.getColor(bgColor))
+        text.setTextColor(resources.getColor(tintColor))
+        indicator.backgroundTintList = android.content.res.ColorStateList.valueOf(resources.getColor(tintColor))
+        indicator.setTextColor(resources.getColor(R.color.white))
     }
     fun restoreSelectedOption(choosenAnswer: String?) {
         if (choosenAnswer != null && choosenAnswer!="N") {

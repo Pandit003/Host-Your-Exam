@@ -3,6 +3,7 @@ package com.example.testmaster.adapter
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -13,6 +14,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.activities.Analysis_Exam
 import com.example.testmaster.activities.Attempt_Exam
@@ -61,12 +63,17 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
         holder.subject_name.text = examDataList.get(position).sub_nm
         if(exam_status.equals("C")){
             holder.exam_status.text = "Completed"
-            holder.exam_status.setBackgroundResource(R.drawable.green_gradient)
+            holder.exam_status.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.green_bg)
+            )
+            holder.exam_status.setTextColor(context.getColor(R.color.greentint))
         }else{
             holder.exam_status.text = "Paused"
             // Use a different badge color if available
-            holder.exam_status.setBackgroundResource(R.drawable.bg_status_badge)
-            holder.exam_status.setTextColor(context.getColor(R.color.warning_text))
+            holder.exam_status.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.red_bg)
+            )
+            holder.exam_status.setTextColor(context.getColor(R.color.redtint))
         }
         holder.tv_exam_mark.text = "$mark_scored/$total_marks"
         holder.no_of_attempt.text = "Attempt #"+examDataList.get(position).no_of_attempt

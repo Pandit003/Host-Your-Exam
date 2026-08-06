@@ -34,10 +34,11 @@
                 android:id="@+id/subject_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_card_rounded"
-                android:paddingHorizontal="10dp"
+                android:background="@drawable/bg_pill_surface_variant"
+                android:backgroundTint="@color/cyan_bg"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
-                android:textColor="@color/primary"
+                android:textColor="@color/cyantint"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="English" />
@@ -52,10 +53,12 @@
                 android:id="@+id/iv_delete"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/bg_circle_surface"
+                android:backgroundTint="@color/red_bg"
                 android:contentDescription="Delete question"
                 android:src="@drawable/baseline_delete_24"
-                app:tint="@color/error_text" />
+                android:padding="8dp"
+                app:tint="@color/redtint" />
         </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
@@ -63,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:alpha="0.15"
-            app:dividerColor="@color/outline" />
+            app:dividerColor="@color/cyantint" />
 
         <!-- Question Label Header -->
         <TextView

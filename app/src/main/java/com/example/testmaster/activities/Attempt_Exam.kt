@@ -3,6 +3,8 @@ package com.example.testmaster.activities
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -361,6 +363,8 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                 val dialog = Dialog(this)
                 dialog.setContentView(R.layout.popup_report_question)
                 dialog.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.window?.setDimAmount(0.7f)
                 val ll_wrong: View = dialog.findViewById(R.id.ll_wrong)
                 val ll_error: View = dialog.findViewById(R.id.ll_error)
                 val ll_incorrect_ans: View = dialog.findViewById(R.id.ll_incorrect_ans)

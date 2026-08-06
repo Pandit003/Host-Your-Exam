@@ -17,7 +17,6 @@ class AboutActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon?.setTint(getColor(R.color.white))
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()

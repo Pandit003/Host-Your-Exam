@@ -6,11 +6,74 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".fragments.LeaderBoardFragment">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+        <!-- Header Banner -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:id="@+id/cardHeader"
+            app:cardBackgroundColor="@color/gold_bg"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/gold"
+            app:strokeWidth="0dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill_surface_variant"
+                    android:backgroundTint="@color/gold"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🏆 Leaderboard"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Top Performers"
+                    android:visibility="gone"
+                    android:textColor="@color/onSurface"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="View top scorers from your hosted exam."
+                    android:textColor="@color/onSurfaceVariant"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </com.google.android.material.appbar.AppBarLayout>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_exam_leaderboard"

@@ -7,6 +7,7 @@
     android:layout_marginVertical="4dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
+    app:strokeWidth="0dp"
     app:cardBackgroundColor="@color/surface">
 
     <LinearLayout
@@ -22,6 +23,7 @@
             android:layout_height="40dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
+            app:strokeWidth="0dp"
             app:cardBackgroundColor="@color/surfaceVariant">
 
             <ImageView

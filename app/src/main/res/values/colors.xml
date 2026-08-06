@@ -80,27 +80,27 @@
     <color name="purpletint">#6A1B9A</color>
     <color name="purple_bg">#1A6A1B9A</color>
 
-    <color name="teal">#00796B</color>
+    <color name="tealtint">#00796B</color>
     <color name="teal_bg">#1A00796B</color>
 
     <!-- Cyan -->
-    <color name="cyan">#0097A7</color>
+    <color name="cyantint">#0097A7</color>
     <color name="cyan_bg">#1A0097A7</color>
 
     <!-- Pink -->
-    <color name="pink">#C2185B</color>
+    <color name="pinktint">#C2185B</color>
     <color name="pink_bg">#1AC2185B</color>
 
     <!-- Indigo -->
-    <color name="indigo">#3F51B5</color>
+    <color name="indigotint">#3F51B5</color>
     <color name="indigo_bg">#1A3F51B5</color>
 
     <!-- Brown -->
-    <color name="brown">#795548</color>
+    <color name="browntint">#795548</color>
     <color name="brown_bg">#1A795548</color>
 
     <!-- Lime -->
-    <color name="lime">#689F38</color>
+    <color name="limetint">#689F38</color>
     <color name="lime_bg">#1A689F38</color>
 
     <!-- Deep Orange -->

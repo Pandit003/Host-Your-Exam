@@ -26,6 +26,9 @@
         <item name="colorErrorContainer">@color/errorContainer</item>
         <item name="colorOnErrorContainer">@color/onErrorContainer</item>
 
+        <!-- Cursor and Selection Handle Color -->
+        <item name="colorControlActivated">@color/accent</item>
+
         <!-- Status bar -->
         <item name="android:statusBarColor">@color/surface</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -43,4 +46,7 @@
         <item name="android:progressDrawable">@drawable/circular_progress_bar</item>
     </style>
 
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorControlActivated">@color/accent</item>
+    </style>
 </resources>

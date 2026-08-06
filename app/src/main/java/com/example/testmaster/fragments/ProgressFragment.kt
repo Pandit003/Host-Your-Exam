@@ -73,13 +73,14 @@ class ProgressFragment : Fragment() {
             xAxis.apply {
                 position = XAxis.XAxisPosition.BOTTOM
                 setDrawGridLines(false)
-                textColor = Color.GRAY
+                textColor = resources.getColor(R.color.onSurfaceVariant)
                 granularity = 1f
             }
 
             axisLeft.apply {
-                textColor = Color.GRAY
+                textColor = resources.getColor(R.color.onSurfaceVariant)
                 setDrawGridLines(true)
+                gridColor = resources.getColor(R.color.emerald)
                 axisMinimum = 0f
                 axisMaximum = 100f
             }
@@ -171,15 +172,16 @@ class ProgressFragment : Fragment() {
         }
 
         val dataSet = LineDataSet(entries, "Performance").apply {
-            color = Color.parseColor("#6366F1")
-            setCircleColor(Color.parseColor("#6366F1"))
+            color = resources.getColor(R.color.emerald)
+            setCircleColor(resources.getColor(R.color.emerald))
             lineWidth = 3f
             circleRadius = 5f
             setDrawCircleHole(true)
+            circleHoleColor = resources.getColor(R.color.emerald_bg)
             valueTextSize = 0f
             setDrawFilled(true)
-            fillColor = Color.parseColor("#6366F1")
-            fillAlpha = 30
+            fillColor = resources.getColor(R.color.emerald)
+            fillAlpha = 50
             mode = LineDataSet.Mode.CUBIC_BEZIER
         }
 

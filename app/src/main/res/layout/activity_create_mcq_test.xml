@@ -53,13 +53,27 @@
                     android:orientation="vertical"
                     android:padding="18dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Exam Details"
-                        android:textColor="@color/onSurface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/bluetint" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Exam Details"
+                            android:textColor="@color/bluetint"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -113,12 +127,18 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/purpletint" />
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
                             android:layout_weight="1"
                             android:text="Question &amp; Options"
-                            android:textColor="@color/onSurface"
+                            android:textColor="@color/purpletint"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -127,10 +147,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_pill_surface_variant"
+                            android:backgroundTint="@color/purple_bg"
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="5dp"
                             android:text="Q1"
-                            android:textColor="@color/onSurfaceVariant"
+                            android:textColor="@color/purpletint"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -180,9 +201,10 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:background="@drawable/bg_circle_surface"
+                                android:backgroundTint="@color/purple_bg"
                                 android:gravity="center"
                                 android:text="A"
-                                android:textColor="@color/onSurfaceVariant"
+                                android:textColor="@color/purpletint"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -218,9 +240,10 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:background="@drawable/bg_circle_surface"
+                                android:backgroundTint="@color/purple_bg"
                                 android:gravity="center"
                                 android:text="B"
-                                android:textColor="@color/onSurfaceVariant"
+                                android:textColor="@color/purpletint"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -256,9 +279,10 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:background="@drawable/bg_circle_surface"
+                                android:backgroundTint="@color/purple_bg"
                                 android:gravity="center"
                                 android:text="C"
-                                android:textColor="@color/onSurfaceVariant"
+                                android:textColor="@color/purpletint"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -294,9 +318,10 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:background="@drawable/bg_circle_surface"
+                                android:backgroundTint="@color/purple_bg"
                                 android:gravity="center"
                                 android:text="D"
-                                android:textColor="@color/onSurfaceVariant"
+                                android:textColor="@color/purpletint"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -336,7 +361,7 @@
                         android:layout_height="44dp"
                         android:layout_marginTop="8dp"
                         android:hint="Answer"
-                        android:background="@color/background"
+                        android:background="@drawable/box_outline"
                         android:popupBackground="@drawable/box_outline"
                         android:paddingHorizontal="10dp"
                         android:spinnerMode="dropdown" />
@@ -440,13 +465,26 @@
                     android:orientation="vertical"
                     android:padding="18dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Schedule"
-                        android:textColor="@color/onSurface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/orangetint" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Schedule"
+                            android:textColor="@color/orangetint"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <Switch
                         android:id="@+id/set_time_switch"
@@ -635,13 +673,26 @@
                     android:orientation="vertical"
                     android:padding="18dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Duration &amp; Marking"
-                        android:textColor="@color/onSurface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/greentint" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Duration &amp; Marking"
+                            android:textColor="@color/greentint"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -801,10 +852,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:text="HOST"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:backgroundTint="@color/onPrimary"
+                    app:backgroundTint="@color/bluetint"
                     app:cornerRadius="16dp" />
             </LinearLayout>
 

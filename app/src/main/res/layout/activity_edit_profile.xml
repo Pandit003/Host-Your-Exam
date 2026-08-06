@@ -41,13 +41,17 @@
                         android:id="@+id/card_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="60dp">
+                        app:cardCornerRadius="60dp"
+                        app:cardElevation="0dp">
                         <ImageView
                             android:id="@+id/iv_personimage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:src="@drawable/baseline_person_24"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            android:background="@color/blue_bg"
+                            android:padding="20dp"
+                            app:tint="@color/bluetint" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -55,13 +59,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/card_img"
                         android:layout_alignEnd="@+id/card_img"
-                        app:cardCornerRadius="15dp">
+                        app:cardCornerRadius="15dp"
+                        app:cardElevation="2dp">
                         <ImageView
                             android:id="@+id/iv_edit"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:padding="5dp"
-                            android:background="@color/primary"
+                            android:background="@color/bluetint"
                             android:src="@drawable/baseline_photo_camera_24"
                             app:tint="@color/white" />
                     </androidx.cardview.widget.CardView>
@@ -153,10 +158,10 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="30dp"
                 android:text="Update Profile"
-                android:textColor="@color/primary"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:backgroundTint="@color/onPrimary"
+                app:backgroundTint="@color/bluetint"
                 app:cornerRadius="16dp" />
         </LinearLayout>
     </ScrollView>

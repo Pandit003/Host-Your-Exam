@@ -43,7 +43,8 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
                 android:text="Completed"
-                android:textColor="@color/success_text"
+                android:backgroundTint="@color/green_bg"
+                android:textColor="@color/greentint"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -61,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="10dp"
-            android:alpha="0.4"
-            android:background="@color/outline" />
+            android:alpha="0.2"
+            android:background="@color/orangetint" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +75,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/baseline_history_24"
-                app:tint="@color/onSurfaceVariant" />
+                app:tint="@color/orangetint" />
 
             <TextView
                 android:id="@+id/attempt_date"
@@ -96,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="Attempt #1"
-                android:textColor="@color/onSurfaceVariant"
+                android:textColor="@color/orangetint"
                 android:textSize="12sp" />
 
             <TextView
@@ -133,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="View Result"
+                android:text="Analysis"
                 android:textColor="@color/primary"
                 app:backgroundTint="@color/onPrimary"
                 app:cornerRadius="12dp" />

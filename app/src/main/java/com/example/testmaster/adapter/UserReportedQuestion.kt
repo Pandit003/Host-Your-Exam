@@ -2,6 +2,8 @@ package com.example.testmaster.adapter
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +34,8 @@ class UserReportedQuestion(var context : Context, var userReportedQuestionsList 
             dialog.window?.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setDimAmount(0.7f)
             var option_a = dialog.findViewById<LinearLayout>(R.id.option_a)
             var option_b = dialog.findViewById<LinearLayout>(R.id.option_b)
             var option_c = dialog.findViewById<LinearLayout>(R.id.option_c)

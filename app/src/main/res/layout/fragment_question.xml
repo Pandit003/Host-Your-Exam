@@ -43,20 +43,22 @@
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="12dp"
-                    android:background="@drawable/box_outline"
+                    android:background="@drawable/bg_pill_surface_variant"
+                    android:backgroundTint="@color/surfaceVariant"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:padding="16dp">
 
                     <TextView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:background="@drawable/bg_circle_on_surface"
+                        android:id="@+id/tv_option_a_indicator"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_surface"
                         android:gravity="center"
-                        android:text="1"
-                        android:textColor="@color/surfaceVariant"
-                        android:textSize="13sp"
+                        android:text="A"
+                        android:textColor="@color/onSurface"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -76,20 +78,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="12dp"
-                    android:background="@drawable/box_outline"
+                    android:background="@drawable/bg_pill_surface_variant"
+                    android:backgroundTint="@color/surfaceVariant"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:padding="16dp">
 
                     <TextView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:background="@drawable/bg_circle_on_surface"
+                        android:id="@+id/tv_option_b_indicator"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_surface"
                         android:gravity="center"
-                        android:text="2"
-                        android:textColor="@color/surfaceVariant"
-                        android:textSize="13sp"
+                        android:text="B"
+                        android:textColor="@color/onSurface"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -109,20 +113,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="12dp"
-                    android:background="@drawable/box_outline"
+                    android:background="@drawable/bg_pill_surface_variant"
+                    android:backgroundTint="@color/surfaceVariant"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:padding="16dp">
 
                     <TextView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:background="@drawable/bg_circle_on_surface"
+                        android:id="@+id/tv_option_c_indicator"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_surface"
                         android:gravity="center"
-                        android:text="3"
-                        android:textColor="@color/surfaceVariant"
-                        android:textSize="13sp"
+                        android:text="C"
+                        android:textColor="@color/onSurface"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -142,20 +148,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="12dp"
-                    android:background="@drawable/box_outline"
+                    android:background="@drawable/bg_pill_surface_variant"
+                    android:backgroundTint="@color/surfaceVariant"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:padding="16dp">
 
                     <TextView
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:background="@drawable/bg_circle_on_surface"
+                        android:id="@+id/tv_option_d_indicator"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_surface"
                         android:gravity="center"
-                        android:text="4"
-                        android:textColor="@color/surfaceVariant"
-                        android:textSize="13sp"
+                        android:text="D"
+                        android:textColor="@color/onSurface"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView

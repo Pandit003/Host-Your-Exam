@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/stat_card_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="16dp"
-    app:cardElevation="1dp"
-    app:strokeWidth="0dp">
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/outline">
 
     <LinearLayout
+        android:id="@+id/stat_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -20,7 +23,8 @@
             android:layout_height="wrap_content"
             android:text="Label"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/stat_value"

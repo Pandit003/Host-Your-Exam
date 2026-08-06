@@ -38,14 +38,15 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/bg_circle_surface">
+                    android:background="@drawable/bg_circle_surface"
+                    android:backgroundTint="@color/blue_bg">
 
                     <ImageView
                         android:layout_width="26dp"
                         android:layout_height="26dp"
                         android:layout_gravity="center"
                         android:src="@drawable/baseline_info_24"
-                        app:tint="@color/onSurfaceVariant" />
+                        app:tint="@color/bluetint" />
                 </FrameLayout>
 
                 <TextView
@@ -69,6 +70,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
@@ -77,7 +79,7 @@
                     app:boxCornerRadiusBottomStart="14dp"
                     app:boxCornerRadiusTopEnd="14dp"
                     app:boxCornerRadiusTopStart="14dp"
-                    app:boxStrokeColor="@color/accent"
+                    app:boxStrokeColor="@color/text_input_stroke"
                     app:hintTextColor="@color/onSurfaceVariant">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -92,6 +94,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -100,7 +103,7 @@
                     app:boxCornerRadiusBottomStart="14dp"
                     app:boxCornerRadiusTopEnd="14dp"
                     app:boxCornerRadiusTopStart="14dp"
-                    app:boxStrokeColor="@color/accent"
+                    app:boxStrokeColor="@color/text_input_stroke"
                     app:counterEnabled="true"
                     app:counterMaxLength="500"
                     app:hintTextColor="@color/onSurfaceVariant">

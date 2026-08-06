@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.testmaster.R
 import com.example.testmaster.adapter.LeaderBoardAdapter
 import com.example.testmaster.model.AnswerKey
+import com.google.android.material.appbar.AppBarLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -47,12 +48,26 @@ class LeaderBoardFragment : Fragment() {
         rv_exam_leaderboard = view.findViewById(R.id.rv_exam_leaderboard)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
         iv_notfound = view.findViewById(R.id.iv_notfound)
+        val appBarLayout: AppBarLayout = view.findViewById(R.id.appBarLayout)
+        val headerCard: View = view.findViewById(R.id.cardHeader)
         swipeRefreshLayout.setOnRefreshListener {
             getLeaderBoardList()
         }
         adapter = LeaderBoardAdapter(view.context,leaderBoardList)
         rv_exam_leaderboard.layoutManager = LinearLayoutManager(view.context,LinearLayoutManager.VERTICAL,false)
         rv_exam_leaderboard.adapter = adapter
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBar, verticalOffset ->
+            // Total distance the app bar can collapse
+            val maxScroll = appBar.totalScrollRange.toFloat()
+
+            if (maxScroll != 0f) {
+                // Calculates percentage scrolled: 1.0 = fully visible, 0.0 = fully collapsed
+                val percentage = (maxScroll + verticalOffset) / maxScroll
+
+                // Dynamically adjust alpha based on scroll distance
+                headerCard.alpha = percentage
+            }
+        })
         return view
     }
     fun getLeaderBoardList() {

@@ -19,6 +19,8 @@ import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 
 class SavedQuestionsAdapter(var context : Context, var savedQuestionsList: List<model_savedQuestion>) : RecyclerView.Adapter<SavedQuestionsAdapter.ViewHolder>() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -53,6 +55,8 @@ class SavedQuestionsAdapter(var context : Context, var savedQuestionsList: List<
             val dialog = Dialog(context)
             dialog.setContentView(R.layout.popup_saved_question)
             dialog.window?.setLayout(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setDimAmount(0.7f)
             option_a = dialog.findViewById(R.id.option_a)
             option_b = dialog.findViewById(R.id.option_b)
             option_c = dialog.findViewById(R.id.option_c)

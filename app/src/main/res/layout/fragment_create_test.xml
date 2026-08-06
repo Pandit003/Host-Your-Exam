@@ -46,7 +46,7 @@
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/bluetint"
-                app:strokeWidth="1dp">
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:id="@+id/ll_create_mcq"
@@ -108,7 +108,7 @@
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/purpletint"
-                app:strokeWidth="1dp">
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:id="@+id/ll_create_One_word"
@@ -165,16 +165,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/emerald_bg"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/emerald">
+                app:strokeWidth="0dp"
+                app:strokeColor="@color/gray">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:background="@color/background"
                     android:padding="20dp">
 
                     <TextView

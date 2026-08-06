@@ -2,14 +2,18 @@ package com.example.testmaster.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
 import com.example.testmaster.model.AnswerKey
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 
 class TestAppear_Adapter(var context: Context, var recentExamApearList : List<AnswerKey>) : RecyclerView.Adapter<TestAppear_Adapter.ViewHolder>() {
@@ -20,6 +24,11 @@ class TestAppear_Adapter(var context: Context, var recentExamApearList : List<An
     }
 
     override fun onBindViewHolder(holder: TestAppear_Adapter.ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+        val tintColors = listOf(R.color.tealtint, R.color.cyantint, R.color.purpletint, R.color.orangetint, R.color.greentint)
+        val bgColors = listOf(R.color.teal_bg, R.color.cyan_bg, R.color.purple_bg, R.color.orange_bg, R.color.green_bg)
+        val colorIdx = position % tintColors.size
+        holder.cv_icon_container.setCardBackgroundColor(context.getColor(bgColors[colorIdx]))
+        holder.iv_explore_icon.setColorFilter(context.getColor(tintColors[colorIdx]))
         val exam = recentExamApearList[position]
         val totalQuestions = exam.questionsWithAns?.size ?: 0
         val posMark = exam.pos_mark?.toFloatOrNull() ?: 0f
@@ -31,13 +40,19 @@ class TestAppear_Adapter(var context: Context, var recentExamApearList : List<An
         
         if(exam.exam_status == "C"){
             holder.exam_status.text = "Completed"
-            holder.exam_status.setBackgroundResource(R.drawable.bg_status_badge)
             holder.exam_status.setTextColor(context.getColor(R.color.success_text))
+            holder.exam_status.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.green_bg)
+            )
+            holder.exam_status.setTextColor(context.getColor(R.color.greentint))
         } else {
             holder.exam_status.text = "Paused"
             // Use a different badge color if available
-            holder.exam_status.setBackgroundResource(R.drawable.bg_status_badge)
             holder.exam_status.setTextColor(context.getColor(R.color.warning_text))
+            holder.exam_status.backgroundTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.itemView.context, R.color.red_bg)
+            )
+            holder.exam_status.setTextColor(context.getColor(R.color.redtint))
         }
         
         val progress = if (total_marks > 0) (mark_scored / total_marks * 100).toInt() else 0
@@ -54,5 +69,7 @@ class TestAppear_Adapter(var context: Context, var recentExamApearList : List<An
         var subject_name : TextView = view.findViewById(R.id.subject_name)
         var exam_status : TextView = view.findViewById(R.id.exam_status)
         var pr_markScored : LinearProgressIndicator = view.findViewById(R.id.pr_markScored)
+        var cv_icon_container : MaterialCardView = view.findViewById(R.id.cv_icon_container)
+        var iv_explore_icon : ImageView = view.findViewById(R.id.iv_explore_icon)
     }
 }

@@ -53,10 +53,11 @@
                 android:id="@+id/tv_report_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/red_box_outline"
+                android:background="@drawable/bg_status_badge"
+                android:backgroundTint="@color/red_bg"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
-                android:textColor="@color/error_text"
+                android:textColor="@color/redtint"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="Wrong Question" />
