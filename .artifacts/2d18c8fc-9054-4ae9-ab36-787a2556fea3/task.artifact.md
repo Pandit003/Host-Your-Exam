@@ -1,0 +1,5 @@
+- [x] Add `ListenerRegistration` import and property in `ProgressFragment.kt`
+- [x] Implement lifecycle management for Firestore listener in `ProgressFragment.kt`
+- [x] Add safety checks (`isAdded`) and use safe `context` in `fetchProgressData`
+- [x] Ensure `updateUI` handles resource access safely
+- [x] Verify the fix

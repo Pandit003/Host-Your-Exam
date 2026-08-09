@@ -8,6 +8,9 @@ class personalDetail(
     val email : String? = null,
     val phone_no : String? = null,
     val dob : String? = null,
+    val totalExams : String? = null,
+    val avgPercentage : String? = null,
+    val highestPercentage : String? = null,
     val imageUrl : String? = null
 ) : Serializable {
     constructor() : this(

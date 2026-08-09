@@ -169,7 +169,6 @@
                 android:visibility="visible">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_icon_container"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     app:cardCornerRadius="12dp"

@@ -1,0 +1,6 @@
+- [x] Implement `saveToSharedPrefs` helper method in `LoginActivity`
+- [x] Implement `fetchUserDetailsAndNavigate` method in `LoginActivity`
+- [x] Update auto-login check in `onCreate` to fetch user details
+- [x] Update `performEmailLogin` to fetch user details before navigation
+- [x] Update `checkIfUserExistsInFirestore` to save user details to SharedPreferences
+- [x] Verify changes

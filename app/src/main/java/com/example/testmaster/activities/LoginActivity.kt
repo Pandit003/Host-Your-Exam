@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Check if user is already logged in
         if (firebaseAuth.currentUser != null && firebaseAuth.currentUser!!.isEmailVerified) {
-            navigateToMain()
+            fetchUserDetailsAndNavigate(firebaseAuth.currentUser!!.uid)
             return
         }
 
@@ -150,7 +150,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     if (user != null && user.isEmailVerified) {
-                        navigateToMain()
+                        fetchUserDetailsAndNavigate(user.uid)
                     } else {
                         setLoading(false)
                         llVerify.visibility = View.VISIBLE
@@ -193,6 +193,10 @@ class LoginActivity : AppCompatActivity() {
         db.collection("personalDetails").document(user.uid).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
+                    val details = document.toObject(personalDetail::class.java)
+                    if (details != null) {
+                        saveToSharedPrefs(details)
+                    }
                     navigateToMain()
                 } else {
                     val details = personalDetail(
@@ -201,7 +205,10 @@ class LoginActivity : AppCompatActivity() {
                         imageUrl = user.photoUrl?.toString()
                     )
                     db.collection("personalDetails").document(user.uid).set(details)
-                        .addOnSuccessListener { navigateToMain() }
+                        .addOnSuccessListener {
+                            saveToSharedPrefs(details)
+                            navigateToMain()
+                        }
                         .addOnFailureListener {
                             setLoading(false)
                             Toast.makeText(this, "Failed to save user info", Toast.LENGTH_SHORT).show()
@@ -211,6 +218,38 @@ class LoginActivity : AppCompatActivity() {
             .addOnFailureListener {
                 setLoading(false)
                 Toast.makeText(this, "Error checking user data", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun saveToSharedPrefs(details: personalDetail) {
+        val sharedPref = getSharedPreferences("UserDetails", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("name", details.name)
+            putString("email", details.email)
+            putString("phone", details.phone_no)
+            putString("dob", details.dob)
+            putString("imageUrl", details.imageUrl)
+            putString("totalExams", details.totalExams)
+            putString("avgPercentage", details.avgPercentage)
+            putString("highestPercentage", details.highestPercentage)
+            apply()
+        }
+    }
+
+    private fun fetchUserDetailsAndNavigate(uid: String) {
+        setLoading(true)
+        db.collection("personalDetails").document(uid).get()
+            .addOnSuccessListener { document ->
+                val details = document.toObject(personalDetail::class.java)
+                if (details != null) {
+                    saveToSharedPrefs(details)
+                }
+                navigateToMain()
+            }
+            .addOnFailureListener {
+                setLoading(false)
+                Toast.makeText(this, "Failed to fetch user details", Toast.LENGTH_SHORT).show()
+                navigateToMain()
             }
     }
 

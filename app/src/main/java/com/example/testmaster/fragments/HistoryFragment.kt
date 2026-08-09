@@ -22,9 +22,6 @@ import java.util.Date
 import java.util.Locale
 
 class HistoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var firebaseAuth: FirebaseAuth
     lateinit var db : FirebaseFirestore
     lateinit var user : String

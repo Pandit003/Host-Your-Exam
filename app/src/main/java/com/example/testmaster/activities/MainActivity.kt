@@ -207,8 +207,12 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
         }
-
-
+        val openFragment = intent.getStringExtra("open_fragment")
+        if (openFragment == "progress") {
+            viewPager.currentItem = 2
+            bottomNavigationView.selectedItemId = R.id.nav_progress
+            toolbarTitle.text = "Progress"
+        }
     }
     override fun onBackPressed() {
         if (viewPager.currentItem != 0) {

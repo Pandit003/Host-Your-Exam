@@ -5,25 +5,30 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.example.testmaster.R
+import com.example.testmaster.fragments.ProgressFragment
 import com.example.testmaster.model.AnswerKey
 import com.example.testmaster.model.CreateQuestions
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ResultActivity : AppCompatActivity() {
-    lateinit var btn_analysis : TextView
+    lateinit var btn_analysis : MaterialButton
     lateinit var total_marks : TextView
     lateinit var correct_question : TextView
     lateinit var incorrect_question : TextView
     lateinit var unattempt_question : TextView
     lateinit var accuracy : TextView
     lateinit var percentage : TextView
-    lateinit var tv_reattempt : TextView
-    lateinit var ib_home : ImageButton
+    lateinit var tv_reattempt : MaterialButton
+    lateinit var tv_progress : MaterialButton
     lateinit var examData : CreateQuestions
 
     private lateinit var firebaseAuth: FirebaseAuth
@@ -36,12 +41,19 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
         
         val answerKey = intent.getSerializableExtra("Answer_Key") as AnswerKey
-        
+        examData = intent.getSerializableExtra("examData") as CreateQuestions
+
         btn_analysis = findViewById(R.id.btn_analysis)
         total_marks = findViewById(R.id.total_marks)
         percentage = findViewById(R.id.percentage)
         tv_reattempt = findViewById(R.id.tv_reattempt)
-        ib_home = findViewById(R.id.ib_home)
+        tv_progress = findViewById(R.id.tv_progress)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.navigationIcon?.setTint(getColor(R.color.onPrimary))
 
         // Bind included layout stats
         val cardCorrect = findViewById<View>(R.id.card_correct)
@@ -71,6 +83,25 @@ class ResultActivity : AppCompatActivity() {
         unattempt_question.text = "${answerKey.unattempt}"
         accuracy.text = String.format("%.2f", answerKey.accuracy?.toFloat()) + "%"
         percentage.text = String.format("%.2f", accuracyPercent.toFloat()) + "%"
+
+        btn_analysis.setOnClickListener{
+            val intent = Intent(this@ResultActivity,Analysis_Exam::class.java)
+            intent.putExtra("Answer_Key", answerKey)
+            startActivity(intent)
+        }
+        tv_reattempt.setOnClickListener{
+            val intent = Intent(this@ResultActivity,Attempt_Exam::class.java)
+            intent.putExtra("examData",examData)
+            startActivity(intent)
+            finish()
+        }
+        tv_progress.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("open_fragment", "progress")
+            startActivity(intent)
+            finish()
+        }
+        ProgressFragment().fetchProgressData()
     }
 
     private fun applyColorfulTheme(percent: Float) {
@@ -99,25 +130,21 @@ class ResultActivity : AppCompatActivity() {
         setupStatCard(R.id.card_unattempted, "Unattempted", R.color.purpletint, R.color.purple_bg)
         setupStatCard(R.id.card_accuracy, "Accuracy", themeColor, themeBg)
 
-        // Main buttons
-        val btnAnalysis = findViewById<com.google.android.material.button.MaterialButton>(R.id.btn_analysis)
-        btnAnalysis.setBackgroundColor(resources.getColor(themeColor))
-        btnAnalysis.setTextColor(resources.getColor(R.color.white))
-        btnAnalysis.setIconTintResource(R.color.white)
-
-        val btnReattempt = findViewById<com.google.android.material.button.MaterialButton>(R.id.tv_reattempt)
-        btnReattempt.setStrokeColorResource(themeColor)
-        btnReattempt.setTextColor(resources.getColor(themeColor))
     }
 
     private fun setupStatCard(id: Int, label: String, tintColor: Int, bgColor: Int) {
-        val card = findViewById<View>(id)
+        val card = findViewById<MaterialCardView>(id)
         card.findViewById<TextView>(R.id.stat_label).apply {
             text = label
             setTextColor(resources.getColor(tintColor))
         }
         card.findViewById<TextView>(R.id.stat_value).setTextColor(resources.getColor(tintColor))
         card.findViewById<View>(R.id.stat_container).setBackgroundColor(resources.getColor(bgColor))
-        card.findViewById<com.google.android.material.card.MaterialCardView>(R.id.stat_card_root).setStrokeColor(resources.getColor(tintColor))
+        card.setStrokeColor(resources.getColor(tintColor))
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        ProgressFragment()
     }
 }

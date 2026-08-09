@@ -1,5 +1,6 @@
 package com.example.testmaster.fragments
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,6 +29,7 @@ class ProgressFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var userId: String
+    private var registration: ListenerRegistration? = null
 
     private lateinit var tvOverallPercentage: TextView
     private lateinit var progressOverall: LinearProgressIndicator
@@ -42,10 +45,6 @@ class ProgressFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_progress, container, false)
 
-        firebaseAuth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
-        userId = firebaseAuth.currentUser?.uid ?: ""
-
         tvOverallPercentage = view.findViewById(R.id.tv_overall_percentage)
         progressOverall = view.findViewById(R.id.progress_overall)
         lineChart = view.findViewById(R.id.line_chart)
@@ -58,6 +57,11 @@ class ProgressFragment : Fragment() {
         fetchProgressData()
 
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        registration?.remove()
     }
 
     private fun setupChart() {
@@ -90,15 +94,20 @@ class ProgressFragment : Fragment() {
         }
     }
 
-    private fun fetchProgressData() {
+    fun fetchProgressData() {
+        firebaseAuth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+        userId = firebaseAuth.currentUser?.uid ?: ""
         if (userId.isEmpty()) return
 
-        db.collection("History").document(userId).collection("HistoryDetails")
+        registration = db.collection("History").document(userId).collection("HistoryDetails")
             .addSnapshotListener { documents, error ->
                 if (error != null) {
                     Log.w("ProgressFragment", "Listen failed.", error)
                     return@addSnapshotListener
                 }
+
+                if (!isAdded) return@addSnapshotListener
 
                 if (documents != null && !documents.isEmpty) {
                     val historyList = mutableListOf<AnswerKey>()
@@ -131,7 +140,14 @@ class ProgressFragment : Fragment() {
                             if (percent > highestPercentage) highestPercentage = percent
                         }
                     }
-
+                    val avgPercentage = if (totalMaxMarks > 0) (totalScore / totalMaxMarks * 100).toInt() else 0
+                    val sharedPref = context?.getSharedPreferences("UserDetails", Context.MODE_PRIVATE)
+                    sharedPref?.edit()?.apply {
+                        putString("totalExams", documents.size().toString())
+                        putString("avgPercentage", avgPercentage.toString())
+                        putString("highestPercentage", highestPercentage.toString())
+                        apply()
+                    }
                     // Sort by date for the chart
                     val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
                     historyList.sortBy { exam ->

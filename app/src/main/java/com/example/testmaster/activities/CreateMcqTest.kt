@@ -256,6 +256,10 @@ class CreateMcqTest : AppCompatActivity() {
             // Disable the button to prevent multiple clicks
             host_btn.isEnabled = false
 
+            var posMark = et_pos_mark.text.toString().toDoubleOrNull() ?: 0.0
+//            var negMark = et_neg_mark.text.toString().toDoubleOrNull() ?: 0.0
+            var passMark = et_pass_mark.text.toString().toDoubleOrNull() ?: 0.0
+
             if (subject_name.text.isEmpty()) {
                 Toast.makeText(this, "Enter The Subject Name", Toast.LENGTH_LONG).show()
                 host_btn.isEnabled = true  // Re-enable the button
@@ -270,13 +274,13 @@ class CreateMcqTest : AppCompatActivity() {
                     Toast.makeText(this, "Set The Exam Duration", Toast.LENGTH_LONG).show()
                     host_btn.isEnabled = true  // Re-enable the button
                 }
-            } else if (et_pos_mark.text.isEmpty() || et_pos_mark.text.equals(".")) {
+            } else if (posMark <= 0) {
                 Toast.makeText(this, "Enter The Positive Mark", Toast.LENGTH_LONG).show()
                 host_btn.isEnabled = true  // Re-enable the button
             } else if (et_neg_mark.text.isEmpty() || et_neg_mark.text.equals(".")) {
                 Toast.makeText(this, "Enter The Negative Mark", Toast.LENGTH_LONG).show()
                 host_btn.isEnabled = true  // Re-enable the button
-            } else if (et_pass_mark.text.isEmpty() || et_pass_mark.text.equals(".")) {
+            } else if (passMark <= 0) {
                 Toast.makeText(this, "Enter The Passing Mark", Toast.LENGTH_LONG).show()
                 host_btn.isEnabled = true  // Re-enable the button
             } else if(questionList.isEmpty()){
@@ -461,7 +465,7 @@ class CreateMcqTest : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val querySnapshot = task.result
-                    var maxExamId = 111111 // Default value if no documents are found
+                    var maxExamId = 253465 // Default value if no documents are found
                     if (querySnapshot != null && !querySnapshot.isEmpty) {
                         for (document in querySnapshot.documents) {
                             val examIdString = document.getString("exam_id")
@@ -475,7 +479,7 @@ class CreateMcqTest : AppCompatActivity() {
                     callback(maxExamId.toString())
                 } else {
                     Log.e("Firestore", "Error getting documents: ", task.exception)
-                    callback("111111")
+                    callback("253465")
                 }
             }
     }
