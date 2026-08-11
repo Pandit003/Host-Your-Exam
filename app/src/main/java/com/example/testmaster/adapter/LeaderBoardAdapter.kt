@@ -50,7 +50,7 @@ class LeaderBoardAdapter(var context: Context, var leaderBoardList : List<Answer
         holder.attempt_date.text = formated_date.toString()
         holder.completedIn_time.text = timeFormatted
         holder.appear_by.text = leaderBoardList[position].appear_by
-        holder.subject_name.text = leaderBoardList[position].sub_nm
+        holder.subject_name.text = leaderBoardList[position].sub_nm+" ("+leaderBoardList[position].exam_id+")"
         holder.tv_exam_mark.text = "$mark_scored/$total_marks"
         if(mark_scored > 0){
             holder.pr_markScored.setProgress(mark_scored.toInt()?:0,true)

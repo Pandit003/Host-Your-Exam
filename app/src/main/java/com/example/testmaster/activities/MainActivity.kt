@@ -10,7 +10,6 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.drawerlayout.widget.DrawerLayout
@@ -31,6 +30,7 @@ import com.example.testmaster.fragments.HomeFragment
 import com.example.testmaster.fragments.LeaderBoardFragment
 import com.example.testmaster.fragments.ProgressFragment
 import com.example.testmaster.R
+import com.example.testmaster.util.CustomDialogUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
@@ -153,6 +153,10 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, HostedTest::class.java)
                     startActivity(intent)
                 }
+                R.id.menu_post_announcement -> {
+                    val intent = Intent(this, PostAnnouncementActivity::class.java)
+                    startActivity(intent)
+                }
                 R.id.menu_saved -> {
                     val intent = Intent(this, SavedQuestions::class.java)
                     startActivity(intent)
@@ -235,20 +239,20 @@ class MainActivity : AppCompatActivity() {
 
     // Method to show dialog prompting the user to enable internet
     private fun showInternetSettingsDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("No Internet Connection")
-            .setMessage("It looks like you have no internet connection. Please turn on Wi-Fi or mobile data to continue.")
-            .setPositiveButton("Settings") { dialogInterface: DialogInterface, _: Int ->
-                // Open network settings
-                startActivity(Intent(Settings.ACTION_DATA_ROAMING_SETTINGS))
-                dialogInterface.dismiss()
+        CustomDialogUtils.showConfirm(
+            activity = this,
+            title = "No Internet Connection",
+            message = "Please check your internet connection and try again.",
+            positiveText = "Retry",
+            negativeText = "Cancel",
+            onPositive = {
+                this.recreate()
+            },
+            onNegative = {
+
             }
-            .setNegativeButton("Cancel") { dialogInterface: DialogInterface, _: Int ->
-                // Exit the app or do nothing
-                dialogInterface.dismiss()
-            }
-            .setCancelable(false)
-            .show()
+
+        )
     }
 
 }

@@ -5,6 +5,9 @@
     android:title="Hosted Test"
     android:icon="@drawable/baseline_sensors_24"
     android:iconTint="@color/black"/>
+    <item android:id="@+id/menu_post_announcement"
+    android:title="Post Announcement"
+    android:icon="@drawable/baseline_notifications_24"/>
     <item android:id="@+id/menu_saved"
     android:title="Saved Questions"
     android:icon="@drawable/baseline_bookmark_24"/>

@@ -17,9 +17,10 @@
         android:orientation="vertical"
         android:padding="15dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/subject_name"
@@ -28,7 +29,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/exam_status"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
+                android:layout_weight="1"
                 android:text="Computer Application"
                 android:textColor="@color/onSurface"
                 android:textSize="18sp"
@@ -43,20 +45,35 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
                 android:text="Completed"
+                android:layout_gravity="end"
                 android:backgroundTint="@color/green_bg"
                 android:textColor="@color/greentint"
                 android:textSize="12sp"
                 android:textStyle="bold" />
-        </RelativeLayout>
-
+        </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
         <TextView
             android:id="@+id/hosted_by"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Hosted by Rohit Pandit"
+            android:layout_weight="1"
+            android:text="Hosted by : Rohit Pandit"
+            android:singleLine="true"
+            android:paddingEnd="5dp"
             android:textColor="@color/onSurfaceVariant"
             android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_total_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Questions: 25"
+            android:textColor="@color/onSurfaceVariant"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -120,6 +137,45 @@
             app:trackColor="@color/surfaceVariant"
             app:trackCornerRadius="4dp"
             app:trackThickness="8dp" />
+
+        <!-- Exam Availability & Question Count -->
+        <LinearLayout
+            android:id="@+id/ll_exam_availability"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/box_outline"
+            android:backgroundTint="@color/blue_bg"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_availability_range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Available: 24/08/2024 (10:00 AM) - 25/08/2024 (10:00 AM)"
+                android:textColor="@color/bluetint"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_time_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time Left: 2h 30m"
+                    android:textColor="@color/error"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

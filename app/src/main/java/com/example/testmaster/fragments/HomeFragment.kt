@@ -18,7 +18,9 @@ import com.example.testmaster.activities.SearchExamId
 import com.example.testmaster.adapter.DisplayItem
 import com.example.testmaster.adapter.GenericHorizontalAdapter
 import com.example.testmaster.adapter.TestAppear_Adapter
+import com.example.testmaster.adapter.AnnouncementAdapter
 import com.example.testmaster.model.AnswerKey
+import com.example.testmaster.model.Announcement
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -48,7 +50,13 @@ class HomeFragment : Fragment() {
     private lateinit var btnJoinFirst: MaterialButton
     private lateinit var tvViewAll: TextView
 
+    private lateinit var cvSubscribers: View
+    private lateinit var tvSubscriberCount: TextView
+
     private lateinit var rvAnnouncements: RecyclerView
+    private var announcementList: MutableList<Announcement> = mutableListOf()
+    private lateinit var announcementAdapter: AnnouncementAdapter
+    
     private lateinit var rvExplore: RecyclerView
     private lateinit var rvFeatures: RecyclerView
 
@@ -66,6 +74,7 @@ class HomeFragment : Fragment() {
         setupClickListeners()
         setupRecyclerViews()
         
+        seedAppAnnouncements()
         fetchData()
         
         return view
@@ -91,6 +100,9 @@ class HomeFragment : Fragment() {
         btnCreateExam = view.findViewById(R.id.btn_create_exam)
         btnJoinFirst = view.findViewById(R.id.btn_join_first)
         tvViewAll = view.findViewById(R.id.view_all)
+
+        cvSubscribers = view.findViewById(R.id.cv_subscribers)
+        tvSubscriberCount = view.findViewById(R.id.tv_subscriber_count)
 
         rvAnnouncements = view.findViewById(R.id.rv_announcements)
         rvExplore = view.findViewById(R.id.rv_explore)
@@ -119,6 +131,10 @@ class HomeFragment : Fragment() {
                     it.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottomNavigationView).selectedItemId = R.id.nav_history
                 }
             }
+        }
+
+        cvSubscribers.setOnClickListener {
+            startActivity(Intent(requireContext(), com.example.testmaster.activities.SubscribersActivity::class.java))
         }
     }
 
@@ -157,26 +173,13 @@ class HomeFragment : Fragment() {
         rvTestAppear.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rvTestAppear.adapter = testAppearAdapter
 
+        // Announcements
+        announcementAdapter = AnnouncementAdapter(announcementList)
+        rvAnnouncements.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rvAnnouncements.adapter = announcementAdapter
+
         val tintColors = listOf(R.color.bluetint, R.color.purpletint, R.color.orangetint, R.color.greentint)
         val bgColors = listOf(R.color.blue_bg, R.color.purple_bg, R.color.orange_bg, R.color.green_bg)
-
-        // Announcements
-        val announcements = listOf(
-            DisplayItem("Java Mid Semester", "Starts tomorrow at 10:00 AM"),
-            DisplayItem("Python Practice Test", "New set added for practice"),
-            DisplayItem("Maintenance Update", "Scheduled for Sunday night")
-        )
-        rvAnnouncements.adapter = GenericHorizontalAdapter(announcements, R.layout.layout_announcement_card) { v, item ->
-            val pos = announcements.indexOf(item)
-            val colorIdx = pos % tintColors.size
-            
-            v.findViewById<TextView>(R.id.tv_announcement_title).text = item.title
-            v.findViewById<TextView>(R.id.tv_announcement_desc).text = item.desc
-            
-            v.findViewById<LinearLayout>(R.id.ll_announcement_bg).setBackgroundColor(resources.getColor(bgColors[colorIdx]))
-            v.findViewById<View>(R.id.v_announcement_indicator).setBackgroundColor(resources.getColor(tintColors[colorIdx]))
-            v.findViewById<ImageView>(R.id.iv_announcement_icon).setColorFilter(resources.getColor(tintColors[colorIdx]))
-        }
 
         // Explore
         val exploreItems = listOf(
@@ -227,6 +230,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchData() {
+        fetchSubscriberCount()
+        fetchAnnouncements()
         db.collection("History").document(user).collection("HistoryDetails")
             .addSnapshotListener { documents, error ->
                 if (error != null) {
@@ -282,5 +287,78 @@ class HomeFragment : Fragment() {
                     layoutEmptyState.visibility = View.VISIBLE
                 }
             }
+    }
+
+    private fun fetchSubscriberCount() {
+        db.collection("Subscribers").document(user)
+            .collection("UserSubscribers")
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    Log.w("HomeFragment", "Listen for subscribers failed.", error)
+                    return@addSnapshotListener
+                }
+                tvSubscriberCount.text = snapshots?.size()?.toString() ?: "0"
+            }
+    }
+
+    private fun fetchAnnouncements() {
+        db.collection("Following").document(user).collection("UserFollowing")
+            .addSnapshotListener { followingSnapshots, error ->
+                if (error != null || followingSnapshots == null) return@addSnapshotListener
+                
+                val followedUids = followingSnapshots.documents.mapNotNull { it.id }.toMutableList()
+                // Always include SYSTEM announcements
+                followedUids.add("SYSTEM")
+
+                db.collection("Announcements")
+                    .whereIn("announcerUid", followedUids)
+                    .addSnapshotListener { announcementSnapshots, aError ->
+                        if (aError != null || announcementSnapshots == null) return@addSnapshotListener
+                        
+                        announcementList.clear()
+                        for (doc in announcementSnapshots) {
+                            val announcement = doc.toObject(Announcement::class.java)
+                            announcementList.add(announcement)
+                        }
+                        // Sort by date (descending) - assuming announcementDate is dd MMM yyyy
+                        val format = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+                        announcementList.sortByDescending { it.announcementDate?.let { d -> format.parse(d) } ?: Date(0) }
+                        
+                        announcementAdapter.notifyDataSetChanged()
+                    }
+            }
+    }
+
+    private fun seedAppAnnouncements() {
+        val systemRef = db.collection("Announcements").whereEqualTo("announcerUid", "SYSTEM").limit(1)
+        systemRef.get().addOnSuccessListener { snapshot ->
+            if (snapshot.isEmpty) {
+                // Seed initial announcements
+                val a1 = Announcement(
+                    id = "sys_1",
+                    announcerUid = "SYSTEM",
+                    announcerName = "Test Master App",
+                    title = "Welcome to Test Master!",
+                    description = "Stay updated with your teachers and ace your exams with our platform. More features coming soon!",
+                    announcementDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
+                    type = "MESSAGE"
+                )
+                val a2 = Announcement(
+                    id = "sys_2",
+                    announcerUid = "SYSTEM",
+                    announcerName = "Admin",
+                    title = "Mock Exam Practice",
+                    description = "Join the weekly mock exam to test your skills in Java and Python. High scorers will be featured on the leaderboard!",
+                    examDate = "15 Aug 2024",
+                    announcementDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
+                    duration = "90",
+                    noOfQuestions = "60",
+                    markingPattern = "+4, -1",
+                    type = "EXAM"
+                )
+                db.collection("Announcements").document(a1.id!!).set(a1)
+                db.collection("Announcements").document(a2.id!!).set(a2)
+            }
+        }
     }
 }

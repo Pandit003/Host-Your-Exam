@@ -14,6 +14,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.view.WindowManager.LayoutParams
 import android.widget.Button
 import android.widget.EditText
@@ -66,6 +67,8 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
     lateinit var tv_exam_timer: TextView
     lateinit var pauseAndResume: ImageView
     lateinit var ll_next: LinearLayout
+    lateinit var tv_next: TextView
+    lateinit var iv_next_arrow: ImageView
     lateinit var ll_previous: LinearLayout
     lateinit var clear_options: TextView
     lateinit var question_no: TextView
@@ -128,13 +131,15 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
         db = FirebaseFirestore.getInstance()
         user = firebaseAuth.currentUser?.uid.toString()
         val prefs = getSharedPreferences("UserDetails", Context.MODE_PRIVATE)
-        userName = prefs.getString("name", "") ?: ""
+        userName = prefs.getString("name", "") ?: "Unknown"
         pauseAndResume = findViewById(R.id.pauseAndResume)
         subject_name = findViewById(R.id.subject_name)
         tv_exam_timer = findViewById(R.id.tv_exam_timer)
         viewPager = findViewById(R.id.viewPager)
         ll_previous = findViewById(R.id.ll_previous)
         ll_next = findViewById(R.id.ll_next)
+        tv_next = findViewById(R.id.tv_next)
+        iv_next_arrow = findViewById(R.id.iv_next_arrow)
         clear_options = findViewById(R.id.clear_options)
         question_no = findViewById(R.id.question_no)
         tv_positive_mark = findViewById(R.id.positive_marks)
@@ -311,7 +316,27 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
         }
 
         ll_next.setOnClickListener {
-            moveToNextQuestion()
+            if (viewPager.currentItem == questions.size - 1) {
+                val dialog = Dialog(this)
+                dialog.setContentView(R.layout.dialog_box_confirmation)
+                dialog.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+                dialog.setCancelable(false)
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
+                val dialogTitle = dialog.findViewById<TextView>(R.id.title)
+                val dialogMessage = dialog.findViewById<TextView>(R.id.message)
+                val btnYes = dialog.findViewById<Button>(R.id.btn_yes)
+                val btnNo = dialog.findViewById<Button>(R.id.btn_no)
+                dialogTitle.text = "Confirmation"
+                dialogMessage.text = "Are you sure you want to submit the exam?"
+                dialog.show()
+                btnYes.setOnClickListener {
+                    dialog.dismiss()
+                    submitTest()
+                }
+                btnNo.setOnClickListener { dialog.dismiss() }
+            } else {
+                moveToNextQuestion()
+            }
         }
 
         ll_previous.setOnClickListener {
@@ -410,8 +435,7 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                 }
                 iv_report_send.setOnClickListener {
                     report_description = et_report_description.text.toString().trim()
-                    val wordCount =
-                        report_description.split("\\s+".toRegex()).filter { it.isNotEmpty() }.size
+                    val wordCount = report_description.split(" ").filter { it.isNotBlank() }.size
                     if (!ll_wrong.isSelected && !ll_error.isSelected && !ll_incorrect_ans.isSelected && !ll_notvisible.isSelected && !ll_spellingmistake.isSelected && !ll_other.isSelected) {
                         Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show()
                     } else if (wordCount < 7) {
@@ -449,233 +473,208 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
 //
 
         btn_submit.setOnClickListener{
-            btn_submit.isEnabled = false
-            saveCurrentQuestionDetails()
-//            val examdata = examData?.get(0)
-            val examdata = examData
-            val examId = examdata.exam_id
-            var correctAnswer = 0
-            var unattemptQuestion = 0
-            var attemptQuestion = 0
-            var wrongAnswer = 0
-            val totalQuestions = examdata?.questions?.size?:0
-            val examcompleteDuration = exam_duration?.minus(timeLeftInMillis)
-            val examRemainingTime = exam_duration?.minus(examcompleteDuration!!)
-            var incorrectQuestion = 0
+            submitTest()
+        }
+    }
 
-            updateNoOfAttempt(examId.toString(), user.toString()) { noOfAttempt, docIdExists ->
-                for (i in 0..<examdata?.questions?.size!!) {
-                    if (QuestionWithAnsList.get(i).choosen_answer == QuestionWithAnsList.get(i).correct_answer) {
-                        correctAnswer += 1
-                    }
-                    if (QuestionWithAnsList.get(i).choosen_answer == "N") {
-                        unattemptQuestion += 1
-                    }
-                    if (QuestionWithAnsList.get(i).choosen_answer != "N") {
-                        attemptQuestion += 1
-                    }
+    private fun submitTest() {
+        btn_submit.isEnabled = false
+        saveCurrentQuestionDetails()
+        val examdata = examData
+        val examId = examdata.exam_id
+        var correctAnswer = 0
+        var unattemptQuestion = 0
+        var attemptQuestion = 0
+        var wrongAnswer = 0
+        val totalQuestions = examdata.questions?.size ?: 0
+        val exam_duration_long = examdata.exam_duration?.toLongOrNull() ?: 0L
+        val examcompleteDuration = exam_duration_long - timeLeftInMillis
+        val examRemainingTime = exam_duration_long - examcompleteDuration
+        var incorrectQuestion = 0
+
+        updateNoOfAttempt(examId.toString(), user.toString()) { noOfAttempt, docIdExists ->
+            for (i in 0..< (examdata.questions?.size ?: 0)) {
+                if (QuestionWithAnsList.get(i).choosen_answer == QuestionWithAnsList.get(i).correct_answer) {
+                    correctAnswer += 1
                 }
-                wrongAnswer = attemptQuestion - correctAnswer
-                val correct_marks = ((examdata.pos_mark?.toFloat()!! * correctAnswer))
-                var incorrect_marks = (examdata.neg_mark?.toFloat()!! * (wrongAnswer))
-                val totalMarks = correct_marks - incorrect_marks
-                incorrectQuestion = ((totalQuestions - unattemptQuestion) - correctAnswer)
-                val accuracyPercent =
+                if (QuestionWithAnsList.get(i).choosen_answer == "N") {
+                    unattemptQuestion += 1
+                }
+                if (QuestionWithAnsList.get(i).choosen_answer != "N") {
+                    attemptQuestion += 1
+                }
+            }
+            wrongAnswer = attemptQuestion - correctAnswer
+            val posMark = examdata.pos_mark?.toFloatOrNull() ?: 0f
+            val negMark = examdata.neg_mark?.toFloatOrNull() ?: 0f
+            val correct_marks = posMark * correctAnswer
+            var incorrect_marks = negMark * wrongAnswer
+            val totalMarks = correct_marks - incorrect_marks
+            incorrectQuestion = ((totalQuestions - unattemptQuestion) - correctAnswer)
+            val accuracyPercent =
+                if (totalQuestions - unattemptQuestion > 0)
                     (correctAnswer.toDouble() / (totalQuestions - unattemptQuestion)) * 100
+                else 0.0
 
-                if (user != null) {
-                    val AnswerKey = AnswerKey(
-                        candidate_id = examdata.candidate_id.toString(),
-                        exam_id = examdata.exam_id,
-                        sub_nm = subject_name.text.toString(),
-                        start_time = examdata.start_time,
-                        end_time = examdata.end_time,
-                        exam_avl_time = examdata.exam_avl_time,
-                        exam_duration = examdata.exam_duration,
-                        exam_remaining_time = examRemainingTime.toString(),
-                        pos_mark = examdata.pos_mark,
-                        neg_mark = examdata.neg_mark,
-                        pass_mark = examdata.pass_mark,
-                        hosting_date = examdata.hosting_date,
-                        hosted_by = examdata.hosted_by,
-                        appear_by = userName,
-                        attempt_date = Date().toString(),
-                        no_of_attempt = noOfAttempt,
-                        exam_complete_duration = examcompleteDuration.toString(),
-                        exam_status = exam_status,
-                        total_score = totalMarks.toString(),
-                        correct_question = correctAnswer.toString(),
-                        incorrect_question = ((totalQuestions - unattemptQuestion) - correctAnswer).toString(),
-                        unattempt = unattemptQuestion.toString(),
-                        accuracy = accuracyPercent.toString(),
-                        questionsWithAns = QuestionWithAnsList
+            if (user != null) {
+                val AnswerKeyObj = AnswerKey(
+                    candidate_id = examdata.candidate_id.toString(),
+                    exam_id = examdata.exam_id,
+                    sub_nm = subject_name.text.toString(),
+                    start_time = examdata.start_time,
+                    end_time = examdata.end_time,
+                    exam_avl_time = examdata.exam_avl_time,
+                    exam_duration = examdata.exam_duration,
+                    exam_remaining_time = examRemainingTime.toString(),
+                    pos_mark = examdata.pos_mark,
+                    neg_mark = examdata.neg_mark,
+                    pass_mark = examdata.pass_mark,
+                    hosting_date = examdata.hosting_date,
+                    hosted_by = examdata.hosted_by,
+                    appear_by = userName,
+                    attempt_date = Date().toString(),
+                    no_of_attempt = noOfAttempt,
+                    exam_complete_duration = examcompleteDuration.toString(),
+                    exam_status = exam_status,
+                    total_score = totalMarks.toString(),
+                    correct_question = correctAnswer.toString(),
+                    incorrect_question = incorrectQuestion.toString(),
+                    unattempt = unattemptQuestion.toString(),
+                    accuracy = accuracyPercent.toString(),
+                    questionsWithAns = QuestionWithAnsList
+                )
+
+                val savedList: List<QuestionWithAns> =
+                    QuestionWithAnsList.filter { it.saved == "Y" }
+                val reportList: List<QuestionWithAns> =
+                    QuestionWithAnsList.filter { it.report == "Y" }
+                val subjectName = subject_name.text.toString()
+
+                val savedQuestionsList = savedList.map { question ->
+                    model_savedQuestion(
+                        id = UUID.randomUUID().toString(),
+                        subject_name = subjectName,
+                        question_no = question.question_no,
+                        question_text = question.question_text,
+                        option_a = question.option_a,
+                        option_b = question.option_b,
+                        option_c = question.option_c,
+                        option_d = question.option_d,
+                        choosen_answer = question.choosen_answer,
+                        correct_answer = question.correct_answer,
+                        question_time = question.question_time,
+                        report = question.report,
+                        saved = question.saved,
+                        marked = question.marked
                     )
-
-                    val savedList: List<QuestionWithAns> =
-                        QuestionWithAnsList.filter { it.saved == "Y" }
-                    val reportList: List<QuestionWithAns> =
-                        QuestionWithAnsList.filter { it.report == "Y" }
-                    val subjectName = subject_name.text.toString()
-
-                    val savedQuestionsList = savedList.map { question ->
-                        model_savedQuestion(
-                            id = UUID.randomUUID().toString(),
-                            subject_name = subjectName,
-                            question_no = question.question_no,
-                            question_text = question.question_text,
-                            option_a = question.option_a,
-                            option_b = question.option_b,
-                            option_c = question.option_c,
-                            option_d = question.option_d,
-                            choosen_answer = question.choosen_answer,
-                            correct_answer = question.correct_answer,
-                            question_time = question.question_time,
-                            report = question.report,
-                            saved = question.saved,
-                            marked = question.marked
-                        )
-                    }
-                    val reportQuestionsList = reportList.map { question ->
-                        model_reportedQuestion(
-                            id = UUID.randomUUID().toString(),
-                            reported_by_ID = user,
-                            examHost_by_ID = AnswerKey.candidate_id,
-                            exam_id = AnswerKey.exam_id,
-                            subject_name = subjectName,
-                            question_no = question.question_no,
-                            question_text = question.question_text,
-                            option_a = question.option_a,
-                            option_b = question.option_b,
-                            option_c = question.option_c,
-                            option_d = question.option_d,
-                            choosen_answer = question.choosen_answer,
-                            correct_answer = question.correct_answer,
-                            question_time = question.question_time,
-                            report = question.report,
-                            report_title = question.report_title,
-                            report_description = question.report_description,
-                            saved = question.saved,
-                            marked = question.marked
-                        )
-                    }
-
-                    val modelsavedQuestion = mapOf(
-                        "savedQuestionsList" to FieldValue.arrayUnion(*savedList.toTypedArray())
+                }
+                val reportQuestionsList = reportList.map { question ->
+                    model_reportedQuestion(
+                        id = UUID.randomUUID().toString(),
+                        reported_by_ID = user,
+                        examHost_by_ID = AnswerKeyObj.candidate_id,
+                        exam_id = AnswerKeyObj.exam_id,
+                        subject_name = subjectName,
+                        question_no = question.question_no,
+                        question_text = question.question_text,
+                        option_a = question.option_a,
+                        option_b = question.option_b,
+                        option_c = question.option_c,
+                        option_d = question.option_d,
+                        choosen_answer = question.choosen_answer,
+                        correct_answer = question.correct_answer,
+                        question_time = question.question_time,
+                        report = question.report,
+                        report_title = question.report_title,
+                        report_description = question.report_description,
+                        saved = question.saved,
+                        marked = question.marked
                     )
-                    val modelreportQuestion = mapOf(
-                        "reportQuestionsList" to FieldValue.arrayUnion(*reportList.toTypedArray())
-                    )
+                }
 
-                    if (docIdExists != null) {
-                        db.collection("History").document(user.toString())
-                            .collection("HistoryDetails").document(docIdExists)
-                            .set(AnswerKey)
-                            .addOnSuccessListener {
-                                val answerKeyRef =
-                                    db.collection("History").document(user.toString())
-                                        .collection("HistoryDetails").document(docIdExists)
+                if (docIdExists != null) {
+                    db.collection("History").document(user.toString())
+                        .collection("HistoryDetails").document(docIdExists)
+                        .set(AnswerKeyObj)
+                        .addOnSuccessListener {
+                            val answerKeyRef =
+                                db.collection("History").document(user.toString())
+                                    .collection("HistoryDetails").document(docIdExists)
 
-                                val leaderboardEntry = hashMapOf(
-                                    "answerKeyRef" to answerKeyRef
-                                )
-                                if (exam_status == "C") {
-                                    db.collection("Leaderboard")
-                                        .document(examdata.candidate_id.toString())
-                                        .collection("LeaderboardDetails").document(user)
-                                        .update(
-                                            "answerKeyRefs",
-                                            FieldValue.arrayUnion(answerKeyRef)
+                            if (exam_status == "C") {
+                                db.collection("Leaderboard")
+                                    .document(examdata.candidate_id.toString())
+                                    .collection("LeaderboardDetails").document(user)
+                                    .update(
+                                        "answerKeyRefs",
+                                        FieldValue.arrayUnion(answerKeyRef)
+                                    )
+                                    .addOnSuccessListener {
+                                        handleSavedAndReportedQuestions(
+                                            savedQuestionsList,
+                                            reportQuestionsList,
+                                            AnswerKeyObj
                                         )
-                                        .addOnSuccessListener {
-                                            handleSavedAndReportedQuestions(
-                                                savedQuestionsList,
-                                                reportQuestionsList,
-                                                AnswerKey
-                                            )
-                                        }
-                                        .addOnFailureListener { e ->
-                                            // If the document does not exist, we need to create it first
-                                            db.collection("Leaderboard")
-                                                .document(examdata.candidate_id.toString())
-                                                .collection("LeaderboardDetails").document(user)
-                                                .set(
-                                                    hashMapOf(
-                                                        "answerKeyRefs" to listOf(
-                                                            answerKeyRef
-                                                        )
-                                                    )
-                                                )  // Create the document with the array
-                                                .addOnSuccessListener {
-                                                    handleSavedAndReportedQuestions(
-                                                        savedQuestionsList,
-                                                        reportQuestionsList,
-                                                        AnswerKey
-                                                    )
-                                                }
-                                                .addOnFailureListener {
-                                                    Toast.makeText(
-                                                        this,
-                                                        "Failed to save reference in Leaderboard",
-                                                        Toast.LENGTH_LONG
-                                                    ).show()
-                                                }
-                                        }
-                                } else {
-                                    handleSavedAndReportedQuestions(
-                                        savedQuestionsList,
-                                        reportQuestionsList,
-                                        AnswerKey
-                                    )
-                                }
-
+                                    }
+                                    .addOnFailureListener { e ->
+                                        db.collection("Leaderboard")
+                                            .document(examdata.candidate_id.toString())
+                                            .collection("LeaderboardDetails").document(user)
+                                            .set(hashMapOf("answerKeyRefs" to listOf(answerKeyRef)))
+                                            .addOnSuccessListener {
+                                                handleSavedAndReportedQuestions(
+                                                    savedQuestionsList,
+                                                    reportQuestionsList,
+                                                    AnswerKeyObj
+                                                )
+                                            }
+                                    }
+                            } else {
+                                handleSavedAndReportedQuestions(
+                                    savedQuestionsList,
+                                    reportQuestionsList,
+                                    AnswerKeyObj
+                                )
                             }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Failed To Submit Exam", Toast.LENGTH_LONG)
-                                    .show()
-                                btn_submit.isEnabled = true
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Failed To Submit Exam", Toast.LENGTH_LONG).show()
+                            btn_submit.isEnabled = true
+                        }
+                } else {
+                    db.collection("History").document(user.toString())
+                        .collection("HistoryDetails").add(AnswerKeyObj)
+                        .addOnSuccessListener { documentReference ->
+                            val answerKeyRef = documentReference
+                            if (exam_status == "C") {
+                                db.collection("Leaderboard")
+                                    .document(examdata.candidate_id.toString())
+                                    .collection("LeaderboardDetails").document(user)
+                                    .set(hashMapOf("answerKeyRefs" to listOf(answerKeyRef)))
+                                    .addOnSuccessListener {
+                                        handleSavedAndReportedQuestions(
+                                            savedQuestionsList,
+                                            reportQuestionsList,
+                                            AnswerKeyObj
+                                        )
+                                    }
+                            } else {
+                                handleSavedAndReportedQuestions(
+                                    savedQuestionsList,
+                                    reportQuestionsList,
+                                    AnswerKeyObj
+                                )
                             }
-                    } else {
-                        db.collection("History").document(user.toString())
-                            .collection("HistoryDetails").add(AnswerKey)
-                            .addOnSuccessListener { documentReference ->
-                                val answerKeyRef = documentReference
-                                if (exam_status == "C") {
-                                    db.collection("Leaderboard")
-                                        .document(examdata.candidate_id.toString())
-                                        .collection("LeaderboardDetails").document(user)
-                                        .set(hashMapOf("answerKeyRefs" to listOf(answerKeyRef)))  // Create the document with the array
-                                        .addOnSuccessListener {
-                                            handleSavedAndReportedQuestions(
-                                                savedQuestionsList,
-                                                reportQuestionsList,
-                                                AnswerKey
-                                            )
-                                        }
-                                        .addOnFailureListener {
-                                            Toast.makeText(
-                                                this,
-                                                "Failed to save reference in Leaderboard",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
-                                } else {
-                                    handleSavedAndReportedQuestions(
-                                        savedQuestionsList,
-                                        reportQuestionsList,
-                                        AnswerKey
-                                    )
-                                }
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Failed To Submit Exam", Toast.LENGTH_LONG)
-                                    .show()
-                                btn_submit.isEnabled = true
-                            }
-                    }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Failed To Submit Exam", Toast.LENGTH_LONG).show()
+                            btn_submit.isEnabled = true
+                        }
                 }
             }
         }
-}
+    }
+
     private fun createQuestionStatusCircle(){
         for (i in 1..QuestionWithAnsList.size) {
             val questionCircle = TextView(this).apply {
@@ -696,16 +695,20 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
                 setMargins(10, 10, 10, 10)
             }
             gridLayout.addView(questionCircle, params)
+            if(QuestionWithAnsList.size<5) {
+                gridLayout.columnCount = QuestionWithAnsList.size
+            }
             questionCircles.add(questionCircle)
         }
     }
     private fun updateNoOfAttempt(examId: String, user: String, callback: (String, String?) -> Unit) {
-        db.collection("History").document(user)
-            .collection("HistoryDetails").whereEqualTo("exam_id",examId).limit(1).get()
+        val query = db.collection("History").document(user)
+            .collection("HistoryDetails").whereEqualTo("exam_id",examId).limit(1)
+        query.get()
             .addOnSuccessListener  { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
-                    val noOfAttempt = querySnapshot.documents.get(0).getString("no_of_attempt")?.toIntOrNull() ?: 0
-                    val docIdExists = querySnapshot.documents.get(0).id
+                    val noOfAttempt = querySnapshot.documents[0].getString("no_of_attempt")?.toIntOrNull() ?: 0
+                    val docIdExists = querySnapshot.documents[0].id
                     callback(
                         "${noOfAttempt + 1}",
                         docIdExists
@@ -891,7 +894,13 @@ class Attempt_Exam : AppCompatActivity(), FragmentQuestion.OnQuestionInteraction
 
     private fun updateButtonStates() {
         ll_previous.isEnabled = viewPager.currentItem > 0
-        ll_next.isEnabled = viewPager.currentItem < (questions.size - 1)
+        if (viewPager.currentItem == questions.size - 1) {
+            tv_next.text = "Submit"
+            iv_next_arrow.visibility = View.GONE
+        } else {
+            tv_next.text = "Next"
+            iv_next_arrow.visibility = View.VISIBLE
+        }
     }
 
     private fun updateQuestionNumber() {

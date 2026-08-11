@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="@color/outline"
+        android:alpha="0.5" />
+
+    <TextView
+        android:id="@+id/bs_subject_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Exam Subject"
+        android:textColor="@color/onSurface"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/bs_exam_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_pill_surface_variant"
+        android:backgroundTint="@color/blue_bg"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="4dp"
+        android:text="ID: 000000"
+        android:textColor="@color/bluetint"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="16dp"
+        android:background="@color/outline"
+        android:alpha="0.2" />
+
+    <!-- Details Grid -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="4">
+
+        <!-- Created Date -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Created Date"
+                android:textColor="@color/onSurfaceVariant"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/bs_created_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01/01/2024"
+                android:textColor="@color/onSurface"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Total Questions -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Questions"
+                android:textColor="@color/onSurfaceVariant"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/bs_total_questions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/onSurface"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Marking Scheme -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marking (Pos/Neg)"
+                android:textColor="@color/onSurfaceVariant"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/bs_marking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+1 / -0.25"
+                android:textColor="@color/onSurface"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Passing Mark -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Passing Mark"
+                android:textColor="@color/onSurfaceVariant"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/bs_passing_mark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/onSurface"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Duration -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Duration"
+                android:textColor="@color/onSurfaceVariant"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/bs_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00:00"
+                android:textColor="@color/onSurface"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Total Marks -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Marks"
+                android:textColor="@color/onSurfaceVariant"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/bs_total_marks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/onSurface"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </GridLayout>
+
+    <!-- Availability Section -->
+    <LinearLayout
+        android:id="@+id/bs_ll_availability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/box_outline"
+        android:backgroundTint="@color/orange_bg"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Availability Period"
+            android:textColor="@color/orangetint"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bs_start_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Start: --"
+            android:textColor="@color/onSurface"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/bs_end_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="End: --"
+            android:textColor="@color/onSurface"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bs_btn_delete"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="Delete Exam"
+            android:textColor="@color/error"
+            app:backgroundTint="@color/error_bg"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/baseline_delete_24"
+            app:iconTint="@color/error" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bs_btn_edit"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="Edit Exam"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/bluetint"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/baseline_edit_24"
+            app:iconTint="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -65,6 +65,9 @@ class CreateMcqTest : AppCompatActivity() {
     var exam_duration_min = 0
     var isLastquestion : Boolean = false
 
+    private var isEditMode = false
+    private var examToEdit: CreateQuestions? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_mcq_test)
@@ -133,6 +136,13 @@ class CreateMcqTest : AppCompatActivity() {
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,spinnerOption)
         spinner_answer.setAdapter(adapter)
+
+        // Check for Edit Mode
+        if (intent.hasExtra("EDIT_EXAM")) {
+            isEditMode = true
+            examToEdit = intent.getSerializableExtra("EDIT_EXAM") as CreateQuestions
+            setupEditMode()
+        }
 
         set_end_time.isEnabled = false
         set_end_time.alpha = 0.5f
@@ -254,117 +264,200 @@ class CreateMcqTest : AppCompatActivity() {
                 return@setOnClickListener
             }
             // Disable the button to prevent multiple clicks
-            host_btn.isEnabled = false
-
-            var posMark = et_pos_mark.text.toString().toDoubleOrNull() ?: 0.0
+            try {
+                host_btn.isEnabled = false
+                var posMark = et_pos_mark.text.toString().toDoubleOrNull() ?: 0.0
 //            var negMark = et_neg_mark.text.toString().toDoubleOrNull() ?: 0.0
-            var passMark = et_pass_mark.text.toString().toDoubleOrNull() ?: 0.0
+                var passMark = et_pass_mark.text.toString().toDoubleOrNull() ?: 0.0
 
-            if (subject_name.text.isEmpty()) {
-                Toast.makeText(this, "Enter The Subject Name", Toast.LENGTH_LONG).show()
-                host_btn.isEnabled = true  // Re-enable the button
-            } else if (set_time_switch.isChecked) {
-                if (tv_start_time.text.isEmpty()) {
-                    Toast.makeText(this, "Set The Exam Start Time", Toast.LENGTH_LONG).show()
+                if (subject_name.text.isEmpty()) {
+                    Toast.makeText(this, "Enter The Subject Name", Toast.LENGTH_LONG).show()
                     host_btn.isEnabled = true  // Re-enable the button
-                } else if (tv_end_time.text.isEmpty()) {
-                    Toast.makeText(this, "Set The Exam End Time", Toast.LENGTH_LONG).show()
+                } else if (posMark <= 0) {
+                    Toast.makeText(this, "Enter The Positive Mark", Toast.LENGTH_LONG).show()
                     host_btn.isEnabled = true  // Re-enable the button
-                } else if (exam_duration_min <= 0 && exam_duration_hrs <= 0) {
-                    Toast.makeText(this, "Set The Exam Duration", Toast.LENGTH_LONG).show()
+                } else if (et_neg_mark.text.isEmpty() || et_neg_mark.text.equals(".")) {
+                    Toast.makeText(this, "Enter The Negative Mark", Toast.LENGTH_LONG).show()
                     host_btn.isEnabled = true  // Re-enable the button
+                } else if (passMark <= 0) {
+                    Toast.makeText(this, "Enter The Passing Mark", Toast.LENGTH_LONG).show()
+                    host_btn.isEnabled = true  // Re-enable the button
+                } else if (questionList.isEmpty()) {
+                    Toast.makeText(this, "Enter The Questions With Options", Toast.LENGTH_LONG)
+                        .show()
+                    host_btn.isEnabled = true  // Re-enable the button
+                } else {
+                    if (set_time_switch.isChecked) {
+                        if (tv_start_time.text.isEmpty()) {
+                            Toast.makeText(this, "Set The Exam Start Time", Toast.LENGTH_LONG)
+                                .show()
+                            host_btn.isEnabled = true  // Re-enable the button
+                            return@setOnClickListener
+                        } else if (tv_end_time.text.isEmpty()) {
+                            Toast.makeText(this, "Set The Exam End Time", Toast.LENGTH_LONG).show()
+                            host_btn.isEnabled = true  // Re-enable the button
+                            return@setOnClickListener
+                        } else if (exam_duration_min <= 0 && exam_duration_hrs <= 0) {
+                            Toast.makeText(this, "Set The Exam Duration", Toast.LENGTH_LONG).show()
+                            host_btn.isEnabled = true  // Re-enable the button
+                            return@setOnClickListener
+                        }
+                    }
+                    val userId = firebaseAuth.currentUser?.uid
+                    if (userId != null) {
+                        var username = firebaseAuth.currentUser?.email.toString()
+                        db.collection("personalDetails").document(userId).get()
+                            .addOnSuccessListener { document ->
+                                username = document.get("name").toString()
+                                val create_questions = CreateQuestions(
+                                    candidate_id = user.toString(),
+                                    exam_id = if (isEditMode) examToEdit?.exam_id else "",
+                                    sub_nm = subject_name.text.toString(),
+                                    start_time = tv_start_time.text.toString(),
+                                    end_time = tv_end_time.text.toString(),
+                                    exam_avl_time = tv_total_time.text.toString(),
+                                    exam_duration = (exam_duration_hrs + exam_duration_min).toString(),
+                                    pos_mark = et_pos_mark.text.toString(),
+                                    neg_mark = et_neg_mark.text.toString(),
+                                    pass_mark = et_pass_mark.text.toString(),
+                                    hosting_date = if (isEditMode) examToEdit?.hosting_date else Date().toString(),
+                                    hosted_by = username,
+                                    questions = questionList
+                                )
+
+                                if (isEditMode) {
+                                    updateExam(create_questions)
+                                } else {
+                                    hostExam(create_questions)
+                                }
+                            }
+                    }
                 }
-            } else if (posMark <= 0) {
-                Toast.makeText(this, "Enter The Positive Mark", Toast.LENGTH_LONG).show()
+            }catch (e: Exception) {
+                Toast.makeText(this, "An error occurred: ${e.message}", Toast.LENGTH_LONG).show()
                 host_btn.isEnabled = true  // Re-enable the button
-            } else if (et_neg_mark.text.isEmpty() || et_neg_mark.text.equals(".")) {
-                Toast.makeText(this, "Enter The Negative Mark", Toast.LENGTH_LONG).show()
-                host_btn.isEnabled = true  // Re-enable the button
-            } else if (passMark <= 0) {
-                Toast.makeText(this, "Enter The Passing Mark", Toast.LENGTH_LONG).show()
-                host_btn.isEnabled = true  // Re-enable the button
-            } else if(questionList.isEmpty()){
-                Toast.makeText(this,"Enter The Questions With Options",Toast.LENGTH_LONG).show()
-                host_btn.isEnabled = true  // Re-enable the button
-            } else {
-                val userId = firebaseAuth.currentUser?.uid
-                if (userId != null) {
-                    var username = firebaseAuth.currentUser?.email.toString()
-                    db.collection("personalDetails").document(userId).get()
-                        .addOnSuccessListener { document ->
-                            username = document.get("name").toString()
-                            val create_questions = CreateQuestions(
-                                candidate_id = user.toString(),
-                                exam_id = "",
-                                sub_nm = subject_name.text.toString(),
-                                start_time = tv_start_time.text.toString(),
-                                end_time = tv_end_time.text.toString(),
-                                exam_avl_time = tv_total_time.text.toString(),
-                                exam_duration = (exam_duration_hrs + exam_duration_min).toString(),
-                                pos_mark = et_pos_mark.text.toString(),
-                                neg_mark = et_neg_mark.text.toString(),
-                                pass_mark = et_pass_mark.text.toString(),
-                                hosting_date = Date().toString(),
-                                hosted_by = username,
-                                questions = questionList
-                            )
+            }
+        }
+    }
 
-                            db.runTransaction {
-                                db.collection("CreatedQuestion").document(user.toString())
-                                    .collection("QuestionsDetails").add(create_questions)
-                                    .addOnSuccessListener { documentReference ->
-                                        setExamId(user.toString()) { newExamId ->
-                                            documentReference.update("exam_id", newExamId)
-                                                .addOnSuccessListener {
-
-                                                    db.collection("Exams")
-                                                        .add(create_questions)
-                                                        .addOnSuccessListener { documentReference ->
-                                                            documentReference.update(
-                                                                "exam_id",
-                                                                newExamId
-                                                            )
-                                                            Toast.makeText(
-                                                                this,
-                                                                "Exam Created",
-                                                                Toast.LENGTH_LONG
-                                                            ).show()
-                                                            startActivity(Intent(this, HostedTest::class.java))
-                                                            finish()
-                                                        }
-                                                        .addOnFailureListener { e ->
-                                                            Toast.makeText(
-                                                                this,
-                                                                "Failed to insert data",
-                                                                Toast.LENGTH_LONG
-                                                            ).show()
-                                                            host_btn.isEnabled =
-                                                                true  // Re-enable the button
-                                                        }
-                                                }
-                                                .addOnFailureListener {
-                                                    Toast.makeText(
-                                                        this,
-                                                        "Failed to insert data",
-                                                        Toast.LENGTH_LONG
-                                                    ).show()
-                                                    host_btn.isEnabled =
-                                                        true  // Re-enable the button
-                                                }
-                                        }
+    private fun hostExam(create_questions: CreateQuestions) {
+        val user = firebaseAuth.currentUser?.uid.toString()
+        db.runTransaction {
+            db.collection("CreatedQuestion").document(user)
+                .collection("QuestionsDetails").add(create_questions)
+                .addOnSuccessListener { documentReference ->
+                    setExamId(user) { newExamId ->
+                        documentReference.update("exam_id", newExamId)
+                            .addOnSuccessListener {
+                                db.collection("Exams")
+                                    .add(create_questions)
+                                    .addOnSuccessListener { examDocRef ->
+                                        examDocRef.update("exam_id", newExamId)
+                                        Toast.makeText(this, "Exam Created", Toast.LENGTH_LONG).show()
+                                        startActivity(Intent(this, HostedTest::class.java))
+                                        finish()
                                     }
-                                    .addOnFailureListener {
-                                        Toast.makeText(
-                                            this,
-                                            "Unable to insert the data",
-                                            Toast.LENGTH_LONG
-                                        )
-                                            .show()
-                                        host_btn.isEnabled = true  // Re-enable the button
+                                    .addOnFailureListener { e ->
+                                        Toast.makeText(this, "Failed to insert data", Toast.LENGTH_LONG).show()
+                                        host_btn.isEnabled = true
                                     }
                             }
-                        }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Failed to insert data", Toast.LENGTH_LONG).show()
+                                host_btn.isEnabled = true
+                            }
+                    }
                 }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Unable to insert the data", Toast.LENGTH_LONG).show()
+                    host_btn.isEnabled = true
+                }
+        }
+    }
+
+    private fun updateExam(create_questions: CreateQuestions) {
+        val user = firebaseAuth.currentUser?.uid.toString()
+        val examId = create_questions.exam_id ?: return
+
+        // Update in CreatedQuestion
+        db.collection("CreatedQuestion").document(user)
+            .collection("QuestionsDetails").whereEqualTo("exam_id", examId)
+            .get().addOnSuccessListener { documents ->
+                for (document in documents) {
+                    db.collection("CreatedQuestion").document(user)
+                        .collection("QuestionsDetails").document(document.id)
+                        .set(create_questions)
+                }
+                
+                // Update in Exams
+                db.collection("Exams").whereEqualTo("exam_id", examId)
+                    .get().addOnSuccessListener { examDocs ->
+                        for (doc in examDocs) {
+                            db.collection("Exams").document(doc.id).set(create_questions)
+                        }
+                        Toast.makeText(this, "Exam Updated Successfully", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this, HostedTest::class.java))
+                        finish()
+                    }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to update exam", Toast.LENGTH_LONG).show()
+                host_btn.isEnabled = true
+            }
+    }
+
+    private fun setupEditMode() {
+        val exam = examToEdit ?: return
+        
+        host_btn.text = "SUBMIT"
+        host_btn.isEnabled = true
+        subject_name.setText(exam.sub_nm)
+        et_pos_mark.setText(exam.pos_mark)
+        et_neg_mark.setText(exam.neg_mark)
+        et_pass_mark.setText(exam.pass_mark)
+        
+        if (!exam.start_time.isNullOrEmpty()) {
+            set_time_switch.isChecked = true
+            tv_start_time.text = exam.start_time
+            tv_end_time.text = exam.end_time
+            tv_total_time.text = exam.exam_avl_time
+            
+            // Try to parse calendars if needed for calculation
+            // For now just setting text is enough as the picker handles selection
+        }
+        
+        val durationMillis = exam.exam_duration?.toLongOrNull() ?: 0
+        val totalMins = durationMillis / (60 * 1000)
+        val hrs = (totalMins / 60).toInt()
+        val mins = (totalMins % 60).toInt()
+        
+        np_exam_duration_hrs.value = hrs
+        np_exam_duration_mins.value = mins
+        tv_exm_hrs.text = "$hrs hours"
+        tv_exm_min.text = "$mins min"
+        exam_duration_hrs = hrs * 60 * 60 * 1000
+        exam_duration_min = mins * 60 * 1000
+
+        exam.questions?.let {
+            questionList.addAll(it)
+            if (questionList.isNotEmpty()) {
+                val firstQ = questionList[0]
+                tv_question_no.text = "Q${firstQ.question_no}. "
+                main_question.setText(firstQ.question_text)
+                opt_a.setText(firstQ.option_a)
+                opt_b.setText(firstQ.option_b)
+                opt_c.setText(firstQ.option_c)
+                opt_d.setText(firstQ.option_d)
+                
+                val spinnerOption = arrayOf("Select The Answer","A","B","C","D")
+                val position = spinnerOption.indexOf(firstQ.correct_answer)
+                spinner_answer.post {
+                    if (position >= 0) {
+                        spinner_answer.setSelection(position)
+                    }
+                }
+                
+                question_count = questionList.size + 1
             }
         }
     }
@@ -384,7 +477,7 @@ class CreateMcqTest : AppCompatActivity() {
                     set(Calendar.DAY_OF_MONTH, selectedDay)
                 }
 
-                TimePickerDialog(
+                val timepickerDialog = TimePickerDialog(
                     this,
                     { _: TimePicker, selectedHour: Int, selectedMinute: Int ->
                         selectedDate.set(Calendar.HOUR_OF_DAY, selectedHour)
@@ -427,7 +520,10 @@ class CreateMcqTest : AppCompatActivity() {
                     selectedDate.get(Calendar.HOUR_OF_DAY),
                     selectedDate.get(Calendar.MINUTE),
                     false // false for 12-hour format
-                ).show()
+                )
+                timepickerDialog.show()
+                timepickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.onPrimary))
+                timepickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.onPrimary))
             },
             currentCalendar.get(Calendar.YEAR),
             currentCalendar.get(Calendar.MONTH),
@@ -441,6 +537,9 @@ class CreateMcqTest : AppCompatActivity() {
         }
 
         datePickerDialog.show()
+        datePickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.onPrimary))
+        datePickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.onPrimary))
+
     }
 
 
@@ -485,10 +584,15 @@ class CreateMcqTest : AppCompatActivity() {
     }
 
     private fun showConfirmation() {
+        val title = if (isEditMode) "Discard Changes?" else "Exit?"
+        val message = if (isEditMode) 
+            "Are you sure you want to discard the changes you've made to this exam?" 
+            else "Are you sure you want to exit? All unsaved data will be lost."
+
         CustomDialogUtils.showConfirm(
             activity = this,
-            title = "Confirmation",
-            message = "Are you sure you want to exit? All unsaved data will be lost.",
+            title = title,
+            message = message,
             onPositive = {
                 finish()
             }

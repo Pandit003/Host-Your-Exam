@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -26,6 +27,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
@@ -59,7 +61,7 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
         holder.pr_markScored.setProgress(mark_scored?.toInt()?:0,true)
         holder.pr_markScored.max=total_marks
         holder.attempt_date.text = formated_date
-        holder.hosted_by.text = examDataList.get(position).hosted_by
+        holder.hosted_by.text = "Hosted by : "+examDataList.get(position).hosted_by
         holder.subject_name.text = examDataList.get(position).sub_nm
         if(exam_status.equals("C")){
             holder.exam_status.text = "Completed"
@@ -77,10 +79,58 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
         }
         holder.tv_exam_mark.text = "$mark_scored/$total_marks"
         holder.no_of_attempt.text = "Attempt #"+examDataList.get(position).no_of_attempt
+
+        // Enhanced Details
+        val exam = examDataList[position]
+        val questionsCount = exam.questionsWithAns?.size ?: 0
+        holder.tv_total_questions.text = "Questions: $questionsCount"
+
+        if (!exam.start_time.isNullOrEmpty() && !exam.end_time.isNullOrEmpty()) {
+            holder.tv_availability_range.visibility = View.VISIBLE
+            holder.tv_availability_range.text = "Available: ${exam.start_time} - ${exam.end_time}"
+
+            val startTime = parseExamDate(exam.start_time)
+            val endTime = parseExamDate(exam.end_time)
+            val now = Date()
+
+            if (endTime != null && now.after(endTime)) {
+                holder.ll_exam_availability.visibility = View.VISIBLE
+                holder.tv_time_left.text = "Time Out"
+                holder.tv_time_left.setTextColor(context.getColor(R.color.redtint))
+            } else if (startTime != null && now.before(startTime)) {
+                holder.ll_exam_availability.visibility = View.VISIBLE
+                val diff = startTime.time - now.time
+                holder.tv_time_left.text = "Starts in: ${formatDuration(diff)}"
+                holder.tv_time_left.setTextColor(context.getColor(R.color.bluetint))
+            } else if (endTime != null) {
+                holder.ll_exam_availability.visibility = View.VISIBLE
+                val diff = endTime.time - now.time
+                holder.tv_time_left.text = "Ends in: ${formatDuration(diff)}"
+                holder.tv_time_left.setTextColor(context.getColor(R.color.greentint))
+            } else {
+                holder.ll_exam_availability.visibility = View.GONE
+            }
+        } else {
+            holder.tv_availability_range.visibility = View.GONE
+            holder.ll_exam_availability.visibility = View.GONE
+        }
+
         holder.tv_reattempt.setOnClickListener {
             if (!isInternetAvailable(context)) {
                 showNoInternetDialog()
             }else {
+                val endTime = parseExamDate(examDataList[position].end_time)
+                val now = Date()
+
+                if (endTime != null && now.after(endTime)) {
+                    CustomDialogUtils.showAlert(
+                        activity = context as android.app.Activity,
+                        title = "Attention",
+                        message = "Exam time is out! You can no longer re-attempt this exam."
+                    )
+                    return@setOnClickListener
+                }
+
                 getReattempQuestion(examDataList[position].exam_id.toString()) {
                     CustomDialogUtils.showConfirm(
                         activity = context as android.app.Activity,
@@ -105,6 +155,28 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
     }
 
     override fun getItemCount() = examDataList.size
+
+    private fun parseExamDate(dateStr: String?): Date? {
+        if (dateStr.isNullOrEmpty()) return null
+        return try {
+            val normalizedDateStr = dateStr.replace("(00:", "(12:")
+            val format = SimpleDateFormat("d/M/yyyy (hh:mm a)", Locale.ENGLISH)
+            format.parse(normalizedDateStr)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun formatDuration(diff: Long): String {
+        val hours = diff / (1000 * 60 * 60)
+        val minutes = (diff / (1000 * 60)) % 60
+        return when {
+            hours > 24 -> "${hours / 24}d ${hours % 24}h"
+            hours > 0 -> "${hours}h ${minutes}m"
+            else -> "${minutes}m"
+        }
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         var tv_exam_mark : TextView
         var tv_reattempt : TextView
@@ -115,6 +187,11 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
         var exam_status : TextView
         var no_of_attempt : TextView
         var pr_markScored : LinearProgressIndicator
+        var ll_exam_availability: LinearLayout
+        var tv_availability_range: TextView
+        var tv_total_questions: TextView
+        var tv_time_left: TextView
+
         init {
             tv_exam_mark=view.findViewById(R.id.tv_exam_mark)
             attempt_date=view.findViewById(R.id.attempt_date)
@@ -125,6 +202,10 @@ class HistoryAdapter(var context: Context,var examDataList : List<AnswerKey>) : 
             tv_analysis =view.findViewById(R.id.tv_analysis)
             no_of_attempt =view.findViewById(R.id.no_of_attempt)
             pr_markScored =view.findViewById(R.id.pr_markScored)
+            ll_exam_availability = view.findViewById(R.id.ll_exam_availability)
+            tv_availability_range = view.findViewById(R.id.tv_availability_range)
+            tv_total_questions = view.findViewById(R.id.tv_total_questions)
+            tv_time_left = view.findViewById(R.id.tv_time_left)
         }
     }
     fun getReattempQuestion(examId: String, onSuccess: () -> Unit) {

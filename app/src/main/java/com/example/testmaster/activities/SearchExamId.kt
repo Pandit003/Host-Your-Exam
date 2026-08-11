@@ -13,15 +13,17 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testmaster.R
 import com.example.testmaster.adapter.ExamDetailsAdapter
+import com.example.testmaster.adapter.UserSearchAdapter
 import com.example.testmaster.model.AnswerKey
 import com.example.testmaster.model.CreateQuestions
+import com.example.testmaster.model.personalDetail
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -35,6 +37,14 @@ class SearchExamId : AppCompatActivity() {
     var examDataList: MutableList<AnswerKey> = mutableListOf()
     lateinit var user : String
 
+    private val examList = mutableListOf<CreateQuestions>()
+    private val userResultList = mutableListOf<personalDetail>()
+    private val userResultIds = mutableListOf<String>()
+
+    private var examDetailsAdapter: ExamDetailsAdapter? = null
+    private var userSearchAdapter: UserSearchAdapter? = null
+    private var concatAdapter: ConcatAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_exam_id)
@@ -42,11 +52,13 @@ class SearchExamId : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         user = firebaseAuth.currentUser?.uid.toString()
         rv_exam_data = findViewById(R.id.rv_exam_data)
+        rv_exam_data.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         sharedPreferences = getSharedPreferences("search_history", MODE_PRIVATE)
 
         val root: View = findViewById(R.id.search_root)
         val etSearch: AutoCompleteTextView = findViewById(R.id.et_search)
+        etSearch.hint = "Search Exam ID or Username"
         val ivClear: ImageView = findViewById(R.id.iv_clear)
         val ivBack: ImageView = findViewById(R.id.iv_back)
 
@@ -65,13 +77,17 @@ class SearchExamId : AppCompatActivity() {
         ivClear.setOnClickListener {
             etSearch.text?.clear()
             ivClear.visibility = View.GONE
+            clearResults()
         }
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val hasText = !s.isNullOrEmpty()
-                saveSearchQuery(s.toString())
-                searchExams(s.toString())
+                if (hasText) {
+                    searchExams(s.toString())
+                } else {
+                    clearResults()
+                }
                 ivClear.visibility = if (hasText) View.VISIBLE else View.GONE
             }
             override fun afterTextChanged(s: Editable?) {}
@@ -80,6 +96,7 @@ class SearchExamId : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = etSearch.text.toString().trim()
                 searchExams(query)
+                saveSearchQuery(query)
                 hideKeyboard(etSearch)
                 true
             } else false
@@ -91,16 +108,18 @@ class SearchExamId : AppCompatActivity() {
         loadSearchHistory()
         etSearch?.setAdapter(searchHistoryAdapter)
     }
-    fun showKeyboard(view: View) {
+
+    private fun showKeyboard(view: View) {
         view.requestFocus()
         val imm = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    fun hideKeyboard(view: View) {
+    private fun hideKeyboard(view: View) {
         val imm = view.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         imm?.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -112,17 +131,15 @@ class SearchExamId : AppCompatActivity() {
     }
 
     private fun saveSearchQuery(query: String) {
-        val maxHistorySize = 10 // Maximum number of search queries to keep
+        val maxHistorySize = 10 
         val searchHistory = sharedPreferences.getStringSet("history", mutableSetOf())?.toMutableSet()
 
         if (searchHistory != null) {
-            // Add the new query if it doesn't already exist
             if (searchHistory.contains(query)) {
                 searchHistory.remove(query)
             }
             searchHistory.add(query)
 
-            // Trim the history if it exceeds the maximum size
             if (searchHistory.size > maxHistorySize) {
                 val excessCount = searchHistory.size - maxHistorySize
                 val iterator = searchHistory.iterator()
@@ -131,64 +148,78 @@ class SearchExamId : AppCompatActivity() {
                 }
             }
 
-            // Save the updated history
             sharedPreferences.edit().putStringSet("history", searchHistory).apply()
-            loadSearchHistory() // Reload the search history to update the dropdown
+            loadSearchHistory() 
         }
     }
 
+    private fun clearResults() {
+        examList.clear()
+        userResultList.clear()
+        userResultIds.clear()
+        examDataList.clear()
+        rv_exam_data.adapter = null
+    }
 
     fun searchExams(query: String) {
-        var exam_data : CreateQuestions
-        val db = FirebaseFirestore.getInstance()
+        if (query.isEmpty()) {
+            clearResults()
+            return
+        }
+
+        // Search for Exams
         db.collection("Exams")
             .whereEqualTo("exam_id", query)
             .get()
             .addOnSuccessListener { documents ->
-                val examList = mutableListOf<CreateQuestions>()
+                examList.clear()
                 if (!documents.isEmpty) {
-                    // Handle no results found
                     for (document in documents) {
-                        exam_data = document.toObject(CreateQuestions::class.java)
-                        examList.add(exam_data)
+                        val examData = document.toObject(CreateQuestions::class.java)
+                        examList.add(examData)
                     }
-                    saveSearchQuery(query)
-                    db.collection("History").document(user).collection("HistoryDetails").whereEqualTo("exam_id",query)
-                        .addSnapshotListener { documents, error ->
-                            if (error != null) {
-                                Log.w("Firestore", "Listen failed.", error)
-                                return@addSnapshotListener
+                }
+                
+                if (examList.isNotEmpty()) {
+                    db.collection("History").document(user).collection("HistoryDetails")
+                        .whereEqualTo("exam_id", query)
+                        .get()
+                        .addOnSuccessListener { historyDocs ->
+                            examDataList.clear()
+                            for (doc in historyDocs) {
+                                val answerKey = doc.toObject(AnswerKey::class.java)
+                                examDataList.add(answerKey)
                             }
-
-                            if (documents != null && !documents.isEmpty) {
-                                examDataList.clear()  // Clear the list before adding updated data
-                                for (document in documents) {
-                                    val answerKey = document.toObject(AnswerKey::class.java)
-                                    examDataList.add(answerKey)
-                                }
-                            } else {
-                                Log.d("Firestore", "No data found")
-                            }
+                            updateAdapters()
                         }
-                    // Initialize the adapter with a list of exams
-                    val examDetailsAdapter = ExamDetailsAdapter(this, examList,examDataList)
-                    rv_exam_data.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                    rv_exam_data.adapter = examDetailsAdapter
-                }else{
-                    val examDetailsAdapter = ExamDetailsAdapter(this, examList,examDataList)
-                    rv_exam_data.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                    rv_exam_data.adapter = examDetailsAdapter
+                } else {
+                    updateAdapters()
                 }
             }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Error fetching exams", Toast.LENGTH_SHORT).show()
+
+        // Search for Users
+        db.collection("personalDetails")
+            .whereEqualTo("name", query)
+            .get()
+            .addOnSuccessListener { documents ->
+                userResultList.clear()
+                userResultIds.clear()
+                if (!documents.isEmpty) {
+                    for (document in documents) {
+                        val userDetail = document.toObject(personalDetail::class.java)
+                        userResultList.add(userDetail)
+                        userResultIds.add(document.id)
+                    }
+                }
+                updateAdapters()
             }
     }
-    fun getHistoryList(){
-        firebaseAuth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
-        user = firebaseAuth.currentUser?.uid.toString()
 
-
+    private fun updateAdapters() {
+        examDetailsAdapter = ExamDetailsAdapter(this, examList, examDataList)
+        userSearchAdapter = UserSearchAdapter(this, userResultList, userResultIds)
+        
+        concatAdapter = ConcatAdapter(userSearchAdapter, examDetailsAdapter)
+        rv_exam_data.adapter = concatAdapter
     }
 }

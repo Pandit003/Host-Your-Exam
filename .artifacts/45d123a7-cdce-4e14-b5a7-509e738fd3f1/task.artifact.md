@@ -1,0 +1,7 @@
+- [ ] Update `Announcement` data model with `type`
+- [ ] Redesign `activity_post_announcement.xml` for multiple types and better UI
+- [ ] Update `PostAnnouncementActivity.kt` logic
+- [ ] Modify `HomeFragment.kt` to fetch SYSTEM announcements
+- [ ] Implement `seedAppAnnouncements` in `HomeFragment.kt`
+- [ ] Update `AnnouncementDetailsActivity.kt` to be type-aware
+- [ ] Verify functionality and UI

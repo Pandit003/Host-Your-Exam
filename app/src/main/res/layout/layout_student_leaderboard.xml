@@ -141,7 +141,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1.45"
                     android:ellipsize="end"
-                    android:maxLines="1"
                     android:text="Computer Application"
                     android:textColor="@color/onSurface"
                     android:textSize="13sp" />
