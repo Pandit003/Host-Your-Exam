@@ -167,52 +167,68 @@ class SearchExamId : AppCompatActivity() {
             return
         }
 
-        // Search for Exams
-        db.collection("Exams")
-            .whereEqualTo("exam_id", query)
-            .get()
-            .addOnSuccessListener { documents ->
-                examList.clear()
-                if (!documents.isEmpty) {
-                    for (document in documents) {
-                        val examData = document.toObject(CreateQuestions::class.java)
-                        examList.add(examData)
-                    }
-                }
-                
-                if (examList.isNotEmpty()) {
-                    db.collection("History").document(user).collection("HistoryDetails")
-                        .whereEqualTo("exam_id", query)
-                        .get()
-                        .addOnSuccessListener { historyDocs ->
-                            examDataList.clear()
-                            for (doc in historyDocs) {
-                                val answerKey = doc.toObject(AnswerKey::class.java)
-                                examDataList.add(answerKey)
-                            }
-                            updateAdapters()
-                        }
-                } else {
-                    updateAdapters()
-                }
-            }
+        val isNumeric = query.all { it.isDigit() }
 
-        // Search for Users
-        db.collection("personalDetails")
-            .whereEqualTo("name", query)
-            .get()
-            .addOnSuccessListener { documents ->
-                userResultList.clear()
-                userResultIds.clear()
-                if (!documents.isEmpty) {
-                    for (document in documents) {
-                        val userDetail = document.toObject(personalDetail::class.java)
-                        userResultList.add(userDetail)
-                        userResultIds.add(document.id)
+        if (isNumeric && query.length >= 6) {
+            // Search for Exams
+            db.collection("Exams")
+                .whereEqualTo("exam_id", query)
+                .get()
+                .addOnSuccessListener { documents ->
+                    examList.clear()
+                    userResultList.clear()
+                    userResultIds.clear()
+
+                    if (!documents.isEmpty) {
+                        for (document in documents) {
+                            val examData = document.toObject(CreateQuestions::class.java)
+                            examList.add(examData)
+                        }
+                    }
+
+                    if (examList.isNotEmpty()) {
+                        db.collection("History").document(user).collection("HistoryDetails")
+                            .whereEqualTo("exam_id", query)
+                            .get()
+                            .addOnSuccessListener { historyDocs ->
+                                examDataList.clear()
+                                for (doc in historyDocs) {
+                                    val answerKey = doc.toObject(AnswerKey::class.java)
+                                    examDataList.add(answerKey)
+                                }
+                                updateAdapters()
+                            }
+                    } else {
+                        updateAdapters()
                     }
                 }
-                updateAdapters()
-            }
+        } else {
+            // Search for Users (Prefix matching on "name" field)
+            // Note: Prefix search on the "name" field is CASE-SENSITIVE.
+            // Typing "jo" will NOT match "John". The user must match the case (e.g., "Jo").
+            db.collection("personalDetails")
+                .orderBy("name_lowercase")
+                .startAt(query)
+                .endAt(query + "\uf8ff")
+                .get()
+                .addOnSuccessListener { documents ->
+                    userResultList.clear()
+                    userResultIds.clear()
+                    examList.clear()
+                    examDataList.clear()
+
+                    if (!documents.isEmpty) {
+                        for (document in documents) {
+                            val userDetail = document.toObject(personalDetail::class.java)
+                            userResultList.add(userDetail)
+                            userResultIds.add(document.id)
+                        }
+                    }
+                    updateAdapters()
+                }.addOnFailureListener { exception ->
+                    Log.e("SearchExamId", "Error occurred while searching for users", exception)
+                }
+        }
     }
 
     private fun updateAdapters() {

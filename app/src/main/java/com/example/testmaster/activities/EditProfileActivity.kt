@@ -49,6 +49,7 @@ class EditProfileActivity : AppCompatActivity() {
     private var originalName = ""
     private var email = ""
     private var imageUrl = ""
+    private var currentSubscribersCount = 0
 
     private var isUsernameUnique = true
     private val checkHandler = Handler(Looper.getMainLooper())
@@ -74,7 +75,7 @@ class EditProfileActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.navigationIcon?.setTint(ContextCompat.getColor(this, R.color.white))
+        toolbar.navigationIcon?.setTint(ContextCompat.getColor(this, R.color.onPrimary))
         
         val userId = firebaseAuth.currentUser?.uid
         
@@ -119,6 +120,7 @@ class EditProfileActivity : AppCompatActivity() {
                         val phone = document.getString("phone_no") ?: ""
                         val dob = document.getString("dob") ?: ""
                         imageUrl = document.getString("imageUrl") ?: ""
+                        currentSubscribersCount = document.getLong("subscribersCount")?.toInt() ?: 0
                         
                         et_username.setText(originalName)
                         et_email.setText(email)
@@ -262,10 +264,12 @@ class EditProfileActivity : AppCompatActivity() {
         val userId = firebaseAuth.currentUser?.uid ?: return
         val updatedDetail = personalDetail(
             name = et_username.text.toString().trim(),
+            name_lowercase = et_username.text.toString().trim().lowercase(),
             email = et_email.text.toString().trim(),
             phone_no = et_phone_no.text.toString().trim(),
             dob = et_dob.text.toString().trim(),
-            imageUrl = newImageUrl
+            imageUrl = newImageUrl,
+            subscribersCount = currentSubscribersCount
         )
 
         db.collection("personalDetails").document(userId)

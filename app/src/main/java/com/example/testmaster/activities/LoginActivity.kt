@@ -201,6 +201,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     val details = personalDetail(
                         name = user.displayName ?: "User",
+                        name_lowercase = user.displayName?.lowercase() ?: "user",
                         email = user.email,
                         imageUrl = user.photoUrl?.toString()
                     )
@@ -284,7 +285,7 @@ class LoginActivity : AppCompatActivity() {
         pbLogin.visibility = if (isLoading) View.VISIBLE else View.GONE
         btnLogin.isEnabled = !isLoading
         btnGoogleLogin.isEnabled = !isLoading
-        llRegister.isVisible = !isLoading
+        btnLogin.isVisible = !isLoading
     }
 
     private fun navigateToMain() {

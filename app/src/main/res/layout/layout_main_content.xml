@@ -74,6 +74,7 @@
         android:layout_height="wrap_content"
         android:background="@color/surface"
         app:elevation="8dp"
+        app:itemActiveIndicatorStyle="@style/ThemeOverlay.MaterialComponents"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
         app:labelVisibilityMode="labeled"

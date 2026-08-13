@@ -1,0 +1,6 @@
+- [x] Refactor `MainActivity.kt` to sync subscriber counts
+    - [x] Add `syncSubscriberCount` method
+    - [x] Call sync method on app start
+- [x] Refactor `UserSearchAdapter.kt` to avoid `Subscribers` collection
+    - [x] Update `checkSubscriptionStatus` to use `Following` collection
+- [ ] Verify changes

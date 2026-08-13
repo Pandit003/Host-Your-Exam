@@ -210,6 +210,17 @@
                         app:iconTint="@color/text_primary" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_upload_json"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|center_vertical"
+                        android:text="Upload Question JSON"
+                        android:textColor="@color/text_primary"
+                        app:icon="@drawable/baseline_assignment_24"
+                        app:iconTint="@color/text_primary" />
+
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_logout_settings"
                         style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="match_parent"

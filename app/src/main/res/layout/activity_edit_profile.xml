@@ -41,17 +41,13 @@
                         android:id="@+id/card_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="60dp"
-                        app:cardElevation="0dp">
+                        app:cardCornerRadius="60dp">
                         <ImageView
                             android:id="@+id/iv_personimage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:src="@drawable/baseline_person_24"
-                            android:scaleType="centerCrop"
-                            android:background="@color/blue_bg"
-                            android:padding="20dp"
-                            app:tint="@color/bluetint" />
+                            android:scaleType="centerCrop" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -80,6 +76,13 @@
                 android:layout_height="wrap_content"
                 android:hint="User name"
                 android:layout_marginHorizontal="20dp"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="@color/text_input_stroke"
+                app:hintTextColor="@color/onSurfaceVariant"
                 android:layout_marginTop="40dp"
                 app:startIconDrawable="@drawable/baseline_person_24"
                 app:endIconMode="custom"
@@ -100,6 +103,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email ID"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="@color/text_input_stroke"
+                app:hintTextColor="@color/onSurfaceVariant"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 app:startIconDrawable="@drawable/baseline_email_24">
@@ -120,6 +130,13 @@
                 android:layout_height="wrap_content"
                 android:hint="Mobile Number"
                 android:layout_marginHorizontal="20dp"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="@color/text_input_stroke"
+                app:hintTextColor="@color/onSurfaceVariant"
                 android:layout_marginTop="20dp"
                 app:startIconDrawable="@drawable/baseline_settings_24">
 
@@ -139,6 +156,13 @@
                 android:layout_height="wrap_content"
                 android:hint="Date of Birth"
                 android:layout_marginHorizontal="20dp"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="@color/text_input_stroke"
+                app:hintTextColor="@color/onSurfaceVariant"
                 android:layout_marginTop="20dp"
                 app:startIconDrawable="@drawable/baseline_calendar_month_24">
 

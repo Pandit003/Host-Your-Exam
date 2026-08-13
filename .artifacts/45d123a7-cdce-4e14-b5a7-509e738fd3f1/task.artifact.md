@@ -1,7 +1,6 @@
-- [ ] Update `Announcement` data model with `type`
-- [ ] Redesign `activity_post_announcement.xml` for multiple types and better UI
-- [ ] Update `PostAnnouncementActivity.kt` logic
-- [ ] Modify `HomeFragment.kt` to fetch SYSTEM announcements
-- [ ] Implement `seedAppAnnouncements` in `HomeFragment.kt`
-- [ ] Update `AnnouncementDetailsActivity.kt` to be type-aware
-- [ ] Verify functionality and UI
+- [x] Modify `personalDetail.kt` model
+- [x] Update `RegisterActivity.kt` and `EditProfileActivity.kt` to save `name_lowercase`
+- [x] Update `SearchExamId.kt` with case-insensitive prefix search
+- [x] Add subscriber count UI to `item_user.xml`
+- [x] Update `UserSearchAdapter.kt` to display and update `subscribersCount`
+- [x] Verify search and subscription features

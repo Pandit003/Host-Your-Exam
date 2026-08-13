@@ -1,6 +1,7 @@
 package com.example.testmaster.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.testmaster.model.personalDetail
 import com.example.testmaster.model.Subscriber
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
@@ -28,6 +30,7 @@ class UserSearchAdapter(
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivProfile: ImageView = itemView.findViewById(R.id.iv_user_profile)
         val tvName: TextView = itemView.findViewById(R.id.tv_user_name)
+        val tvSubscribersCount: TextView = itemView.findViewById(R.id.tv_subscribers_count)
         val tvEmail: TextView = itemView.findViewById(R.id.tv_user_email)
         val btnSubscribe: MaterialButton = itemView.findViewById(R.id.btn_subscribe)
     }
@@ -42,6 +45,7 @@ class UserSearchAdapter(
         val targetUserId = userIds[position]
 
         holder.tvName.text = user.name
+        holder.tvSubscribersCount.text = "${user.subscribersCount} Subscribers"
         holder.tvEmail.text = user.email
 
         if (!user.imageUrl.isNullOrEmpty()) {
@@ -68,8 +72,8 @@ class UserSearchAdapter(
 
     private fun checkSubscriptionStatus(targetUserId: String, btn: MaterialButton) {
         val currentUid = currentUser?.uid ?: return
-        db.collection("Subscribers").document(targetUserId)
-            .collection("UserSubscribers").document(currentUid)
+        db.collection("Following").document(currentUid)
+            .collection("UserFollowing").document(targetUserId)
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
@@ -94,6 +98,10 @@ class UserSearchAdapter(
                 // Unsubscribe
                 subRef.delete().addOnSuccessListener {
                     followRef.delete().addOnSuccessListener {
+                        // Decrement subscribers count
+                        db.collection("personalDetails").document(targetUserId)
+                            .update("subscribersCount", FieldValue.increment(-1))
+                        
                         btn.text = "Subscribe"
                         btn.setIconResource(0)
                         Toast.makeText(context, "Unsubscribed", Toast.LENGTH_SHORT).show()
@@ -121,6 +129,10 @@ class UserSearchAdapter(
                                 "imageUrl" to targetUser.imageUrl
                             )
                             followRef.set(followingData).addOnSuccessListener {
+                                // Increment subscribers count
+                                db.collection("personalDetails").document(targetUserId)
+                                    .update("subscribersCount", FieldValue.increment(1))
+
                                 btn.text = "Subscribed"
                                 btn.setIconResource(R.drawable.baseline_playlist_add_check_24)
                                 Toast.makeText(context, "Subscribed successfully", Toast.LENGTH_SHORT).show()
@@ -128,6 +140,9 @@ class UserSearchAdapter(
                         }
                     }
             }
+        }.addOnFailureListener {
+            Toast.makeText(context, "Failed to toggle subscription", Toast.LENGTH_SHORT).show()
+            Log.d("TAG", "toggleSubscription: Error fetching subscription status", it)
         }
     }
 }

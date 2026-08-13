@@ -7,7 +7,7 @@
     android:iconTint="@color/black"/>
     <item android:id="@+id/menu_post_announcement"
     android:title="Post Announcement"
-    android:icon="@drawable/baseline_notifications_24"/>
+    android:icon="@drawable/announcement"/>
     <item android:id="@+id/menu_saved"
     android:title="Saved Questions"
     android:icon="@drawable/baseline_bookmark_24"/>
@@ -24,7 +24,7 @@
     android:title="Feedback"
     android:icon="@drawable/baseline_feedback_24"/>
     <item android:id="@+id/setting"
-    android:title="Setting"
+    android:title="Settings"
     android:icon="@drawable/baseline_settings_24"/>
 <!--    <item android:id="@+id/logout"-->
 <!--    android:title="Logout"-->

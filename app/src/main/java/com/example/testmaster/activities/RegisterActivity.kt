@@ -225,7 +225,9 @@ class RegisterActivity : AppCompatActivity() {
     private fun saveUserDetails(userId: String, username: String, email: String) {
         val detail = personalDetail(
             name = username,
-            email = email
+            name_lowercase = username.lowercase(),
+            email = email,
+            subscribersCount = 0
         )
         db.collection("personalDetails").document(userId).set(detail)
     }

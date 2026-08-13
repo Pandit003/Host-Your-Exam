@@ -1,10 +1,13 @@
 package com.example.testmaster.activities
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.testmaster.R
@@ -35,7 +38,7 @@ class PostAnnouncementActivity : AppCompatActivity() {
     private lateinit var toolbar: MaterialToolbar
     private lateinit var tabLayout: TabLayout
     private lateinit var llExamFields: LinearLayout
-
+    private lateinit var currentCalendar: Calendar
     private var currentType = "EXAM"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +55,7 @@ class PostAnnouncementActivity : AppCompatActivity() {
         btnPost = findViewById(R.id.btn_post)
         tabLayout = findViewById(R.id.tab_layout)
         llExamFields = findViewById(R.id.ll_exam_fields)
+        currentCalendar = Calendar.getInstance()
 
         toolbar.setNavigationOnClickListener { finish() }
 
@@ -82,19 +86,52 @@ class PostAnnouncementActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker() {
-        val datePicker = DatePickerDialog(
+        val datePickerDialog = DatePickerDialog(
             this,
-            { _, year, month, dayOfMonth ->
-                selectedDate.set(year, month, dayOfMonth)
-                val format = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-                etExamDate.setText(format.format(selectedDate.time))
+            { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+                val selectedDate = Calendar.getInstance().apply {
+                    set(Calendar.YEAR, selectedYear)
+                    set(Calendar.MONTH, selectedMonth)
+                    set(Calendar.DAY_OF_MONTH, selectedDay)
+                }
+
+                val timepickerDialog = TimePickerDialog(
+                    this,
+                    { _: TimePicker, selectedHour: Int, selectedMinute: Int ->
+                        selectedDate.set(Calendar.HOUR_OF_DAY, selectedHour)
+                        selectedDate.set(Calendar.MINUTE, selectedMinute)
+
+                        if (selectedDate.timeInMillis < currentCalendar.timeInMillis) {
+                            Toast.makeText(
+                                this,
+                                "The selected time is in the past.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            val formattedDateTime = "${selectedDate.get(Calendar.DAY_OF_MONTH)}/" +
+                                    "${selectedDate.get(Calendar.MONTH) + 1}/${selectedDate.get(Calendar.YEAR)} " +
+                                    "(${String.format("%02d:%02d %s", selectedHour % 12, selectedMinute, if (selectedHour >= 12) "PM" else "AM")})"
+                            etExamDate.setText(formattedDateTime)
+                        }
+                    },
+                    selectedDate.get(Calendar.HOUR_OF_DAY),
+                    selectedDate.get(Calendar.MINUTE),
+                    false // false for 12-hour format
+                )
+                timepickerDialog.show()
+                timepickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.onPrimary))
+                timepickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.onPrimary))
             },
-            selectedDate.get(Calendar.YEAR),
-            selectedDate.get(Calendar.MONTH),
-            selectedDate.get(Calendar.DAY_OF_MONTH)
+            currentCalendar.get(Calendar.YEAR),
+            currentCalendar.get(Calendar.MONTH),
+            currentCalendar.get(Calendar.DAY_OF_MONTH)
         )
-        datePicker.datePicker.minDate = System.currentTimeMillis() - 1000
-        datePicker.show()
+
+        datePickerDialog.datePicker.minDate = currentCalendar.timeInMillis
+
+        datePickerDialog.show()
+        datePickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.onPrimary))
+        datePickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.onPrimary))
     }
 
     private fun postAnnouncement() {

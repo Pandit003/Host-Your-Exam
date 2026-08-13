@@ -188,6 +188,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, EditProfileActivity::class.java))
         }
         if (userId != null) {
+            syncSubscriberCount(userId)
             db.collection("personalDetails").document(userId)
                 .addSnapshotListener { documentSnapshot, error ->
                     if (error != null) {
@@ -218,6 +219,23 @@ class MainActivity : AppCompatActivity() {
             toolbarTitle.text = "Progress"
         }
     }
+    private fun syncSubscriberCount(userId: String) {
+        db.collection("Subscribers").document(userId)
+            .collection("UserSubscribers")
+            .get()
+            .addOnSuccessListener { documents ->
+                val count = documents.size()
+                db.collection("personalDetails").document(userId)
+                    .update("subscribersCount", count)
+                    .addOnFailureListener { e ->
+                        Log.e("MainActivity", "Failed to sync subscribersCount", e)
+                    }
+            }
+            .addOnFailureListener { e ->
+                Log.e("MainActivity", "Failed to fetch actual subscribers", e)
+            }
+    }
+
     override fun onBackPressed() {
         if (viewPager.currentItem != 0) {
             viewPager.currentItem = 0

@@ -95,6 +95,9 @@
             android:name=".activities.SubscribersActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.UploadQuestionJsonActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.PostAnnouncementActivity"
             android:exported="false" />
         <activity

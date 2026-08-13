@@ -26,7 +26,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
         btnResetPassword = findViewById(R.id.btn_reset_password)
 
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }

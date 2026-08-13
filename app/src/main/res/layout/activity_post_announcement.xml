@@ -75,6 +75,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Title"
+                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxStrokeColor="@color/text_input_stroke"
+                        app:hintTextColor="@color/onSurfaceVariant"
                         app:startIconDrawable="@drawable/baseline_assignment_24">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -90,6 +97,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:hint="Description / Message"
+                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxStrokeColor="@color/text_input_stroke"
+                        app:hintTextColor="@color/onSurfaceVariant"
                         app:startIconDrawable="@drawable/baseline_forum_24">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -132,6 +146,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Exam Date"
+                            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxStrokeColor="@color/text_input_stroke"
+                            app:hintTextColor="@color/onSurfaceVariant"
                             app:startIconDrawable="@drawable/baseline_calendar_month_24">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -154,6 +175,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_marginEnd="8dp"
+                                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                                app:boxCornerRadiusBottomEnd="12dp"
+                                app:boxCornerRadiusBottomStart="12dp"
+                                app:boxCornerRadiusTopEnd="12dp"
+                                app:boxCornerRadiusTopStart="12dp"
+                                app:boxStrokeColor="@color/text_input_stroke"
+                                app:hintTextColor="@color/onSurfaceVariant"
                                 android:hint="Duration (m)"
                                 app:startIconDrawable="@drawable/baseline_access_time_24">
 
@@ -170,7 +198,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_marginStart="8dp"
-                                android:hint="Questions"
+                                android:hint="No of Questions"
+                                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                                app:boxCornerRadiusBottomEnd="12dp"
+                                app:boxCornerRadiusBottomStart="12dp"
+                                app:boxCornerRadiusTopEnd="12dp"
+                                app:boxCornerRadiusTopStart="12dp"
+                                app:boxStrokeColor="@color/text_input_stroke"
+                                app:hintTextColor="@color/onSurfaceVariant"
                                 app:startIconDrawable="@drawable/baseline_quiz_24">
 
                                 <com.google.android.material.textfield.TextInputEditText
@@ -186,6 +221,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxStrokeColor="@color/text_input_stroke"
+                            app:hintTextColor="@color/onSurfaceVariant"
                             android:hint="Marking Pattern (e.g. +4, -1)"
                             app:startIconDrawable="@drawable/baseline_create_24">
 
