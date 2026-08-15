@@ -174,7 +174,7 @@ class HomeFragment : Fragment() {
         rvTestAppear.adapter = testAppearAdapter
 
         // Announcements
-        announcementAdapter = AnnouncementAdapter(announcementList)
+        announcementAdapter = AnnouncementAdapter(announcementList,"")
         rvAnnouncements.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rvAnnouncements.adapter = announcementAdapter
 

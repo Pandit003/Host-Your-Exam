@@ -179,33 +179,22 @@ class SearchExamId : AppCompatActivity() {
                     userResultList.clear()
                     userResultIds.clear()
 
+                    val tempExamList = mutableListOf<CreateQuestions>()
                     if (!documents.isEmpty) {
                         for (document in documents) {
                             val examData = document.toObject(CreateQuestions::class.java)
-                            examList.add(examData)
+                            tempExamList.add(examData)
                         }
                     }
 
-                    if (examList.isNotEmpty()) {
-                        db.collection("History").document(user).collection("HistoryDetails")
-                            .whereEqualTo("exam_id", query)
-                            .get()
-                            .addOnSuccessListener { historyDocs ->
-                                examDataList.clear()
-                                for (doc in historyDocs) {
-                                    val answerKey = doc.toObject(AnswerKey::class.java)
-                                    examDataList.add(answerKey)
-                                }
-                                updateAdapters()
-                            }
+                    if (tempExamList.isNotEmpty()) {
+                        filterExamsByVisibility(tempExamList, query)
                     } else {
                         updateAdapters()
                     }
                 }
         } else {
-            // Search for Users (Prefix matching on "name" field)
-            // Note: Prefix search on the "name" field is CASE-SENSITIVE.
-            // Typing "jo" will NOT match "John". The user must match the case (e.g., "Jo").
+            // Search for Users
             db.collection("personalDetails")
                 .orderBy("name_lowercase")
                 .startAt(query)
@@ -228,6 +217,71 @@ class SearchExamId : AppCompatActivity() {
                 }.addOnFailureListener { exception ->
                     Log.e("SearchExamId", "Error occurred while searching for users", exception)
                 }
+        }
+    }
+
+    private fun filterExamsByVisibility(tempList: List<CreateQuestions>, query: String) {
+        val filteredList = mutableListOf<CreateQuestions>()
+        val currentUserId = firebaseAuth.currentUser?.uid ?: return
+
+        var processedCount = 0
+        if (tempList.isEmpty()) {
+            updateAdapters()
+            return
+        }
+
+        for (exam in tempList) {
+            if (exam.visibility == "Public" || exam.candidate_id == currentUserId) {
+                filteredList.add(exam)
+                processedCount++
+                if (processedCount == tempList.size) {
+                    fetchHistoryAndShow(filteredList, query)
+                }
+            } else {
+                // Check if current user is a subscriber of the host
+                db.collection("Subscribers").document(exam.candidate_id!!)
+                    .collection("UserSubscribers").document(currentUserId)
+                    .get()
+                    .addOnSuccessListener { subscriberDoc ->
+                        if (subscriberDoc.exists()) {
+                            filteredList.add(exam)
+                        }
+                        processedCount++
+                        if (processedCount == tempList.size) {
+                            fetchHistoryAndShow(filteredList, query)
+                        }
+                    }
+                    .addOnFailureListener {
+                        processedCount++
+                        if (processedCount == tempList.size) {
+                            fetchHistoryAndShow(filteredList, query)
+                        }
+                    }
+            }
+        }
+    }
+
+    private fun fetchHistoryAndShow(filteredExams: List<CreateQuestions>, query: String) {
+        examList.clear()
+        examList.addAll(filteredExams)
+        
+        if (examList.isNotEmpty()) {
+            db.collection("History").document(user).collection("HistoryDetails")
+                .whereEqualTo("exam_id", query)
+                .get()
+                .addOnSuccessListener { historyDocs ->
+                    examDataList.clear()
+                    for (doc in historyDocs) {
+                        val answerKey = doc.toObject(AnswerKey::class.java)
+                        examDataList.add(answerKey)
+                    }
+                    updateAdapters()
+                }
+                .addOnFailureListener {
+                    updateAdapters()
+                }
+        } else {
+            updateAdapters()
         }
     }
 

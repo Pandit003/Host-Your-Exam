@@ -1,6 +1,7 @@
 package com.example.testmaster.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,12 @@ import com.example.testmaster.R
 import com.example.testmaster.model.personalDetail
 import com.example.testmaster.model.Subscriber
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
+import java.util.Locale
 
 class UserSearchAdapter(
     private val context: Context,
@@ -26,6 +29,7 @@ class UserSearchAdapter(
 
     private val db = FirebaseFirestore.getInstance()
     private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val colors = listOf("#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722")
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivProfile: ImageView = itemView.findViewById(R.id.iv_user_profile)
@@ -33,6 +37,8 @@ class UserSearchAdapter(
         val tvSubscribersCount: TextView = itemView.findViewById(R.id.tv_subscribers_count)
         val tvEmail: TextView = itemView.findViewById(R.id.tv_user_email)
         val btnSubscribe: MaterialButton = itemView.findViewById(R.id.btn_subscribe)
+        val cvTextPlaceholder: MaterialCardView = itemView.findViewById(R.id.cv_text_placeholder)
+        val tvProfilePlaceholder: TextView = itemView.findViewById(R.id.tv_profile_placeholder)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -43,15 +49,25 @@ class UserSearchAdapter(
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = userList[position]
         val targetUserId = userIds[position]
+        val name = user.name ?: "Unknown"
 
-        holder.tvName.text = user.name
+        holder.tvName.text = name
         holder.tvSubscribersCount.text = "${user.subscribersCount} Subscribers"
         holder.tvEmail.text = user.email
 
         if (!user.imageUrl.isNullOrEmpty()) {
-            Picasso.get().load(user.imageUrl).placeholder(R.drawable.baseline_person_24).into(holder.ivProfile)
+            holder.ivProfile.visibility = View.VISIBLE
+            holder.cvTextPlaceholder.visibility = View.GONE
+            Picasso.get().load(user.imageUrl).placeholder(R.drawable.baseline_account_circle_24).into(holder.ivProfile)
         } else {
-            holder.ivProfile.setImageResource(R.drawable.baseline_person_24)
+            holder.ivProfile.visibility = View.GONE
+            holder.cvTextPlaceholder.visibility = View.VISIBLE
+            
+            val firstLetter = name.take(1).uppercase(Locale.getDefault())
+            holder.tvProfilePlaceholder.text = if (firstLetter.isEmpty()) "?" else firstLetter
+            
+            val colorIndex = Math.abs(name.hashCode()) % colors.size
+            holder.cvTextPlaceholder.setCardBackgroundColor(Color.parseColor(colors[colorIndex]))
         }
 
         if (currentUser != null && targetUserId == currentUser.uid) {
@@ -109,7 +125,6 @@ class UserSearchAdapter(
                 }
             } else {
                 // Subscribe
-                // Fetch current user details first to store in target user's subscribers list
                 db.collection("personalDetails").document(currentUid).get()
                     .addOnSuccessListener { currDoc ->
                         val currName = currDoc.getString("name")
@@ -122,14 +137,12 @@ class UserSearchAdapter(
                         )
                         
                         subRef.set(subscriberData).addOnSuccessListener {
-                            // Also update Following collection
                             val followingData = hashMapOf(
                                 "uid" to targetUserId,
                                 "name" to targetUser.name,
                                 "imageUrl" to targetUser.imageUrl
                             )
                             followRef.set(followingData).addOnSuccessListener {
-                                // Increment subscribers count
                                 db.collection("personalDetails").document(targetUserId)
                                     .update("subscribersCount", FieldValue.increment(1))
 

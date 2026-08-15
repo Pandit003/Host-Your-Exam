@@ -27,15 +27,10 @@ class SettingsActivity : AppCompatActivity() {
         val themeSwitch: SwitchMaterial = findViewById(R.id.theme_switch)
         val notificationSwitch: SwitchMaterial = findViewById(R.id.notification_switch)
         val btnLogout: MaterialButton = findViewById(R.id.btn_logout_settings)
-        val btnSubscribers: MaterialButton = findViewById(R.id.btn_subscribers)
         val btnUploadJson: MaterialButton = findViewById(R.id.btn_upload_json)
 
         toolbar.setNavigationOnClickListener {
             finish()
-        }
-
-        btnSubscribers.setOnClickListener {
-            startActivity(Intent(this, SubscribersActivity::class.java))
         }
 
         btnUploadJson.setOnClickListener {

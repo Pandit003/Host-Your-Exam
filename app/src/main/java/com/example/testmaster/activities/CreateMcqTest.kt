@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import com.example.testmaster.R
 import com.example.testmaster.model.CreateQuestions
 import com.example.testmaster.model.Question
@@ -23,7 +24,7 @@ import java.util.*
 
 
 class CreateMcqTest : AppCompatActivity() {
-    private lateinit var set_time_switch: Switch
+    private lateinit var set_time_switch: SwitchCompat
     private lateinit var ll_set_time: LinearLayout
     private lateinit var set_start_time: LinearLayout
     private lateinit var set_end_time: LinearLayout
@@ -56,6 +57,10 @@ class CreateMcqTest : AppCompatActivity() {
     lateinit var et_pass_mark : EditText
     lateinit var host_btn : Button
     lateinit var db : FirebaseFirestore
+
+    private lateinit var rgVisibility: RadioGroup
+    private lateinit var rbPublic: RadioButton
+    private lateinit var rbSubscribers: RadioButton
 
     val questionList = mutableListOf<Question>()
 
@@ -111,6 +116,10 @@ class CreateMcqTest : AppCompatActivity() {
         et_neg_mark = findViewById(R.id.et_neg_mark)
         et_pass_mark = findViewById(R.id.et_pass_mark)
         host_btn = findViewById(R.id.host_btn)
+        
+        rgVisibility = findViewById(R.id.rg_visibility)
+        rbPublic = findViewById(R.id.rb_public)
+        rbSubscribers = findViewById(R.id.rb_subscribers)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -306,6 +315,7 @@ class CreateMcqTest : AppCompatActivity() {
                     val userId = firebaseAuth.currentUser?.uid
                     if (userId != null) {
                         var username = firebaseAuth.currentUser?.email.toString()
+                        val visibility = if (rbPublic.isChecked) "Public" else "Subscribers"
                         db.collection("personalDetails").document(userId).get()
                             .addOnSuccessListener { document ->
                                 username = document.get("name").toString()
@@ -322,6 +332,7 @@ class CreateMcqTest : AppCompatActivity() {
                                     pass_mark = et_pass_mark.text.toString(),
                                     hosting_date = if (isEditMode) examToEdit?.hosting_date else Date().toString(),
                                     hosted_by = username,
+                                    visibility = visibility,
                                     questions = questionList
                                 )
 
@@ -415,15 +426,18 @@ class CreateMcqTest : AppCompatActivity() {
         et_pos_mark.setText(exam.pos_mark)
         et_neg_mark.setText(exam.neg_mark)
         et_pass_mark.setText(exam.pass_mark)
+
+        if (exam.visibility == "Subscribers") {
+            rbSubscribers.isChecked = true
+        } else {
+            rbPublic.isChecked = true
+        }
         
         if (!exam.start_time.isNullOrEmpty()) {
             set_time_switch.isChecked = true
             tv_start_time.text = exam.start_time
             tv_end_time.text = exam.end_time
             tv_total_time.text = exam.exam_avl_time
-            
-            // Try to parse calendars if needed for calculation
-            // For now just setting text is enough as the picker handles selection
         }
         
         val durationMillis = exam.exam_duration?.toLongOrNull() ?: 0

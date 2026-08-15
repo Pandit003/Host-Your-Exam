@@ -93,6 +93,8 @@
                             android:id="@+id/theme_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true" />
                     </RelativeLayout>
@@ -161,6 +163,8 @@
                             android:id="@+id/notification_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true" />
                     </RelativeLayout>
@@ -199,23 +203,13 @@
                         android:background="@color/blue_bg" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_subscribers"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="start|center_vertical"
-                        android:text="Subscribers"
-                        android:textColor="@color/text_primary"
-                        app:icon="@drawable/baseline_person_24"
-                        app:iconTint="@color/text_primary" />
-
-                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_upload_json"
                         style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start|center_vertical"
                         android:text="Upload Question JSON"
+                        android:visibility="gone"
                         android:textColor="@color/text_primary"
                         app:icon="@drawable/baseline_assignment_24"
                         app:iconTint="@color/text_primary" />

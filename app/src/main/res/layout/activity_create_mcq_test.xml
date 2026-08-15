@@ -100,6 +100,41 @@
                         android:textColor="@color/onSurface"
                         android:textColorHint="@color/text_hint"
                         android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="Visibility"
+                        android:textColor="@color/onSurfaceVariant"
+                        android:textSize="13sp" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_visibility"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/rb_public"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            app:buttonTint="@color/bluetint"
+                            android:textColor="@color/onSurface"
+                            android:text="Public" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/rb_subscribers"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:buttonTint="@color/bluetint"
+                            android:textColor="@color/onSurface"
+                            android:text="Subscribers" />
+                    </RadioGroup>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -486,15 +521,15 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <Switch
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/set_time_switch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:text="Set Exam Date &amp; Time"
                         android:textColor="@color/onSurface"
-                        android:textOff="OFF"
-                        android:textOn="ON"
+                        app:thumbTint="@color/switch_thumb_color"
+                        app:trackTint="@color/switch_track_color"
                         android:textStyle="bold"
                         tools:ignore="UseSwitchCompatOrMaterialXml" />
 

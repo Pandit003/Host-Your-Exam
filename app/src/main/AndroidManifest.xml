@@ -101,7 +101,13 @@
             android:name=".activities.PostAnnouncementActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.CreateAnnouncementActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AnnouncementDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CommunityFeedActivity"
             android:exported="false" />
     </application>
 

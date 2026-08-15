@@ -46,7 +46,7 @@
                             android:id="@+id/iv_personimage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/baseline_person_24"
+                            android:src="@drawable/baseline_account_circle_24"
                             android:scaleType="centerCrop" />
                     </androidx.cardview.widget.CardView>
 

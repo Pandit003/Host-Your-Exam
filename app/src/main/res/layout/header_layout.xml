@@ -24,8 +24,8 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            app:tint="@color/onSurface"
-            android:src="@drawable/baseline_person_24" />
+            app:tint="@color/onPrimary"
+            android:src="@drawable/baseline_account_circle_24" />
 
     </com.google.android.material.card.MaterialCardView>
 

@@ -15,6 +15,7 @@ data class CreateQuestions(
     val pass_mark: String? = null,
     val hosting_date: String? = null,
     val hosted_by: String? = null,
+    val visibility: String? = "Public", // "Public" or "Subscribers"
     val questions: List<Question>? = null
 ) : Serializable {
     // Empty constructor for Firebase
@@ -31,6 +32,7 @@ data class CreateQuestions(
         pass_mark = null,
         hosting_date = null,
         hosted_by = null,
+        visibility = "Public",
         questions = null
     )
 }

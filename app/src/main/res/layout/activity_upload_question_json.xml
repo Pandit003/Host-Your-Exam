@@ -4,127 +4,616 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/statusbar_background"
     android:fitsSystemWindows="true"
     tools:context=".activities.UploadQuestionJsonActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/surface"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/baseline_arrow_back_24"
         app:navigationIconTint="@color/onPrimary"
-        app:title="Upload JSON"
-        app:titleTextColor="@color/text_primary" />
+        app:title="Upload Questions JSON"
+        app:titleTextColor="@color/onPrimary" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_instruction"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/orangetint"
-        app:cardBackgroundColor="@color/orange_bg"
+        android:layout_height="0dp"
+        android:background="@color/background"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Write or paste JSON as per the given reference"
-                android:textColor="@color/orangetint"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/btn_info"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/baseline_info_24"
-                app:tint="@color/orangetint" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_editor"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="12dp"
-        android:layout_marginTop="10dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_error"
-        app:layout_constraintTop_toBottomOf="@id/cv_instruction"
-        app:strokeColor="@color/surfaceVariant"
-        app:strokeWidth="1dp">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/et_json"
+            <!-- ===================== SECTION: EXAM DETAILS ===================== -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:gravity="top"
-                android:hint="Paste JSON here..."
-                android:inputType="textMultiLine"
-                android:padding="16dp"
-                android:typeface="monospace"
-                android:textSize="14sp"
-                android:textColor="@color/text_primary" />
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp">
 
-            <ImageButton
-                android:id="@+id/btn_paste"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end|top"
-                android:layout_margin="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/baseline_content_copy_24"
-                app:tint="@color/text_secondary" />
-        </FrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
 
-    </com.google.android.material.card.MaterialCardView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:textColor="@color/error"
-        android:textSize="12sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/btn_host_exam"
-        tools:text="Invalid JSON format"
-        tools:visibility="visible" />
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/bluetint" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_host_exam"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_margin="16dp"
-        android:text="Host Exam"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:backgroundTint="@color/onPrimary"
-        android:textColor="@color/primary"
-        app:cornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Exam Details"
+                            android:textColor="@color/bluetint"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="Subject Name"
+                        android:textColor="@color/onSurfaceVariant"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/subject_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/edittext_active_backgroung"
+                        android:gravity="top"
+                        android:hint="e.g. Computer Networks"
+                        android:inputType="textMultiLine"
+                        android:maxLines="3"
+                        android:minHeight="10dp"
+                        android:padding="12dp"
+                        android:textColor="@color/onSurface"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="Visibility"
+                        android:textColor="@color/onSurfaceVariant"
+                        android:textSize="13sp" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_visibility"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/rb_public"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Public"
+                            android:textColor="@color/onSurface"
+                            app:buttonTint="@color/bluetint" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/rb_subscribers"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Subscribers"
+                            android:textColor="@color/onSurface"
+                            app:buttonTint="@color/bluetint" />
+                    </RadioGroup>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===================== SECTION: JSON QUESTIONS ===================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/purpletint" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Questions JSON Array"
+                            android:textColor="@color/purpletint"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/btn_info"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/baseline_info_24"
+                            app:tint="@color/purpletint" />
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp">
+
+                        <EditText
+                            android:id="@+id/et_json"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edittext_active_backgroung"
+                            android:gravity="top"
+                            android:hint="Paste Questions JSON array here..."
+                            android:inputType="textMultiLine"
+                            android:minHeight="200dp"
+                            android:padding="12dp"
+                            android:textColor="@color/onSurface"
+                            android:textColorHint="@color/text_hint"
+                            android:textSize="14sp"
+                            android:typeface="monospace" />
+
+                        <ImageButton
+                            android:id="@+id/btn_paste"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_margin="4dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/twotone_content_paste_24"
+                            app:tint="@color/text_secondary" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tv_error"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/error"
+                        android:textSize="12sp"
+                        android:visibility="gone"
+                        tools:text="Invalid JSON format" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===================== SECTION: SCHEDULE ===================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/orangetint" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Schedule"
+                            android:textColor="@color/orangetint"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/set_time_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="Set Exam Date &amp; Time"
+                        android:textColor="@color/onSurface"
+                        android:textStyle="bold"
+                        app:thumbTint="@color/switch_thumb_color"
+                        app:trackTint="@color/switch_track_color" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_set_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:weightSum="2.1"
+                        tools:visibility="visible">
+
+                        <LinearLayout
+                            android:id="@+id/set_start_time"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/box_outline"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/baseline_calendar_month_24"
+                                    app:tint="@color/onSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="Start Time"
+                                    android:textColor="@color/onSurfaceVariant"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_start_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:hint="Set Date &amp; Time"
+                                android:textColor="@color/onSurface"
+                                android:textColorHint="@color/text_hint"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight=".1"
+                            android:gravity="center"
+                            android:text="To"
+                            android:textColor="@color/onSurfaceVariant" />
+
+                        <LinearLayout
+                            android:id="@+id/set_end_time"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/box_outline"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/baseline_calendar_month_24"
+                                    app:tint="@color/onSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="End Time"
+                                    android:textColor="@color/onSurfaceVariant"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_end_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:hint="Set Date &amp; Time"
+                                android:textColor="@color/onSurface"
+                                android:textColorHint="@color/text_hint"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_total_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Exam Availability Period"
+                            android:textColor="@color/onSurfaceVariant"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_total_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="0 Day 0:0 hrs"
+                            android:textColor="@color/onSurface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===================== SECTION: DURATION & MARKING ===================== -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/outline"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/greentint" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Duration &amp; Marking"
+                            android:textColor="@color/greentint"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="Exam Duration"
+                        android:textColor="@color/onSurfaceVariant"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/box_outline"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="4">
+
+                        <NumberPicker
+                            android:id="@+id/np_exam_duration_hrs"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tv_exm_hrs"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0 hours"
+                            android:textColor="@color/onSurfaceVariant" />
+
+                        <TextView
+                            android:id="@+id/tv_exm_min"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0 min"
+                            android:textColor="@color/onSurfaceVariant" />
+
+                        <NumberPicker
+                            android:id="@+id/np_exam_duration_mins"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <!-- Marking scheme -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Positive"
+                                android:textColor="@color/onSurfaceVariant"
+                                android:textSize="12sp" />
+
+                            <EditText
+                                android:id="@+id/et_pos_mark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/box_outline"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:inputType="numberDecimal"
+                                android:paddingVertical="10dp"
+                                android:textColor="@color/onSurface"
+                                android:textColorHint="@color/text_hint" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="6dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Negative ( - )"
+                                android:textColor="@color/onSurfaceVariant"
+                                android:textSize="12sp" />
+
+                            <EditText
+                                android:id="@+id/et_neg_mark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/box_outline"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:inputType="numberDecimal"
+                                android:paddingVertical="10dp"
+                                android:textColor="@color/onSurface"
+                                android:textColorHint="@color/text_hint" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Passing"
+                                android:textColor="@color/onSurfaceVariant"
+                                android:textSize="12sp" />
+
+                            <EditText
+                                android:id="@+id/et_pass_mark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/box_outline"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:inputType="numberDecimal"
+                                android:paddingVertical="10dp"
+                                android:textColor="@color/onSurface"
+                                android:textColorHint="@color/text_hint" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ===================== HOST BUTTON ===================== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_host_exam"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="HOST EXAM"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/bluetint"
+                    app:cornerRadius="16dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

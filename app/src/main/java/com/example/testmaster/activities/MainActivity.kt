@@ -1,7 +1,6 @@
 package com.example.testmaster.activities
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -20,10 +19,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
-import android.provider.Settings
-import androidx.activity.enableEdgeToEdge
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.testmaster.fragments.CreateTestFragment
 import com.example.testmaster.fragments.HistoryFragment
 import com.example.testmaster.fragments.HomeFragment
@@ -76,7 +71,6 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
         super.onCreate(savedInstanceState)
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main)
         drawerLayout = findViewById(R.id.drawerlayout)
         navigationView = findViewById(R.id.navigation_view)
@@ -153,8 +147,20 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, HostedTest::class.java)
                     startActivity(intent)
                 }
+                R.id.menu_community_feed -> {
+                    val intent = Intent(this, CommunityFeedActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.menu_subscribers -> {
+                    val intent = Intent(this, SubscribersActivity::class.java)
+                    startActivity(intent)
+                }
                 R.id.menu_post_announcement -> {
                     val intent = Intent(this, PostAnnouncementActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.menu_upload_json -> {
+                    val intent = Intent(this, UploadQuestionJsonActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.menu_saved -> {
@@ -174,6 +180,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
+            drawerLayout.close()
             true
         }
         val userId = firebaseAuth.currentUser?.uid
@@ -237,9 +244,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (viewPager.currentItem != 0) {
-            viewPager.currentItem = 0
+        if (drawerLayout.isDrawerOpen(navigationView)) {
             drawerLayout.close()
+        } else if (viewPager.currentItem != 0) {
+            viewPager.currentItem = 0
             bottomNavigationView.menu.getItem(0).isChecked = true
             toolbarTitle.text = "Home"
         } else {
@@ -255,7 +263,6 @@ class MainActivity : AppCompatActivity() {
         return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-    // Method to show dialog prompting the user to enable internet
     private fun showInternetSettingsDialog() {
         CustomDialogUtils.showConfirm(
             activity = this,

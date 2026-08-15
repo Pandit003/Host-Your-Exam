@@ -16,21 +16,45 @@
         android:orientation="horizontal"
         android:padding="12dp">
 
-        <com.google.android.material.card.MaterialCardView
+        <FrameLayout
             android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="0dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/gray">
+            android:layout_height="50dp">
 
-            <ImageView
-                android:id="@+id/iv_subscriber_profile"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/baseline_person_24" />
-        </com.google.android.material.card.MaterialCardView>
+                app:cardCornerRadius="25dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/gray">
+
+                <ImageView
+                    android:id="@+id/iv_subscriber_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/baseline_account_circle_24" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_text_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tv_profile_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="A"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tv_subscriber_name"

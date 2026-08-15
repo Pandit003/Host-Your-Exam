@@ -12,7 +12,7 @@ import com.example.testmaster.R
 import com.example.testmaster.activities.AnnouncementDetailsActivity
 import com.example.testmaster.model.Announcement
 
-class AnnouncementAdapter(private val announcementList: List<Announcement>) :
+class AnnouncementAdapter(private val announcementList: List<Announcement>,private val view: String) :
     RecyclerView.Adapter<AnnouncementAdapter.AnnouncementViewHolder>() {
 
     class AnnouncementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,8 +24,14 @@ class AnnouncementAdapter(private val announcementList: List<Announcement>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnnouncementViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_announcement_card, parent, false)
-        return AnnouncementViewHolder(view)
+        if (view.equals("community")){
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_community_feed, parent, false)
+            return AnnouncementViewHolder(view)
+        }else {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.layout_announcement_card, parent, false)
+            return AnnouncementViewHolder(view)
+        }
     }
 
     override fun onBindViewHolder(holder: AnnouncementViewHolder, position: Int) {
