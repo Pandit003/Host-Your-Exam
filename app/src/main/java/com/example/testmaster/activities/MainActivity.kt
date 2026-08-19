@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var db : FirebaseFirestore
 
     private lateinit var firebaseAuth: FirebaseAuth
+    private var backPressedTime: Long = 0
 
     private val requestPermissionLauncher = registerForActivityResult<String, Boolean>(
         ActivityResultContracts.RequestPermission()
@@ -273,7 +275,12 @@ class MainActivity : AppCompatActivity() {
             bottomNavigationView.menu.getItem(0).isChecked = true
             toolbarTitle.text = "Home"
         } else {
-            super.onBackPressed()
+            if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                super.onBackPressed()
+            } else {
+                Toast.makeText(baseContext, "Press back again to exit", Toast.LENGTH_SHORT).show()
+            }
+            backPressedTime = System.currentTimeMillis()
         }
     }
 
