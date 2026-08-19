@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:padding="10dp">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    tools:context=".activities.UserProfileActivity">
 
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/surface"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/outline"
-        app:strokeWidth="1dp">
+        android:layout_height="wrap_content"
+        android:background="@color/surface">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/baseline_arrow_back_24"
+            app:navigationIconTint="@color/onSurface"
+            app:title="User Profile"
+            app:titleTextColor="@color/onSurface" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,14 +52,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="4dp"
-                        android:background="@color/accent"
+                        app:cardBackgroundColor="@color/accent"
                         app:cardCornerRadius="42dp"
                         app:cardElevation="0dp">
 
                         <ImageView
-                            android:id="@+id/iv_stu_img"
+                            android:id="@+id/iv_user_img"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/baseline_account_circle_24" />
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
@@ -67,39 +72,17 @@
                 android:layout_marginTop="12dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingHorizontal="24dp">
+                android:paddingHorizontal="24dp"
+                android:paddingBottom="16dp">
 
                 <TextView
                     android:id="@+id/tv_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rohit Pandit"
+                    android:text="User Name"
                     android:textColor="@color/onSurface"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:src="@drawable/baseline_info_24"
-                        app:tint="@color/onSurfaceVariant" />
-
-                    <TextView
-                        android:id="@+id/tv_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="xxxxx@gmail.com"
-                        android:textColor="@color/onSurfaceVariant"
-                        android:textSize="13sp" />
-                </LinearLayout>
 
                 <!-- Metric columns -->
                 <LinearLayout
@@ -119,10 +102,10 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_total_exams"
+                            android:id="@+id/tv_subscribers_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="13"
+                            android:text="0"
                             android:textColor="@color/onSurface"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -131,7 +114,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Total Exams"
+                            android:text="Subscribers"
                             android:textColor="@color/onSurfaceVariant"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -150,10 +133,10 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_average_score"
+                            android:id="@+id/tv_hosted_exams_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="87%"
+                            android:text="0"
                             android:textColor="@color/onSurface"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -162,33 +145,101 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Average Score"
+                            android:text="Hosted Exams"
                             android:textColor="@color/onSurfaceVariant"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Hidden helper for legacy id compatibility -->
-                <TextView
-                    android:id="@+id/total_examAnd_percentage"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_subscribe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Subscribe"
+                    app:cornerRadius="12dp"
                     android:visibility="gone" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/cancel_button"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="Cancel"
-                    android:textColor="@color/onSurface"
-                    android:textSize="16sp"
-                    app:cornerRadius="14dp"
-                    app:strokeColor="@color/outline" />
             </LinearLayout>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.appbar.AppBarLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_subscribe_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/orange_bg"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/orangetint"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/baseline_info_24"
+                        app:tint="@color/orangetint" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Subscribe to access all exams hosted by this user."
+                        android:textColor="@color/orangetint"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Hosted Exams"
+                android:textColor="@color/onSurface"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hosted_exams"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/layout_hosted_test" />
+
+            <TextView
+                android:id="@+id/tv_no_exams"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="No exams hosted by this user yet."
+                android:textColor="@color/onSurfaceVariant"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

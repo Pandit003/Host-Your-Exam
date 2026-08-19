@@ -148,6 +148,17 @@ class ProgressFragment : Fragment() {
                         putString("highestPercentage", highestPercentage.toString())
                         apply()
                     }
+
+                    // Sync to Firestore personalDetails
+                    val updates = hashMapOf<String, Any>(
+                        "totalExams" to documents.size().toString(),
+                        "avgPercentage" to avgPercentage.toString(),
+                        "highestPercentage" to highestPercentage.toInt().toString()
+                    )
+                    db.collection("personalDetails").document(userId).update(updates)
+                        .addOnFailureListener { e ->
+                            Log.e("ProgressFragment", "Failed to sync stats to Firestore", e)
+                        }
                     // Sort by date for the chart
                     val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
                     historyList.sortBy { exam ->

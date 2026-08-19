@@ -40,6 +40,7 @@ class CreateAnnouncementActivity : AppCompatActivity() {
     private lateinit var llExamFields: LinearLayout
     private lateinit var currentCalendar: Calendar
     private var currentType = "EXAM"
+    private var editAnnouncement: Announcement? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +59,11 @@ class CreateAnnouncementActivity : AppCompatActivity() {
         currentCalendar = Calendar.getInstance()
 
         toolbar.setNavigationOnClickListener { finish() }
+
+        editAnnouncement = intent.getSerializableExtra("edit_announcement") as? Announcement
+        if (editAnnouncement != null) {
+            setupEditMode()
+        }
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -119,6 +125,8 @@ class CreateAnnouncementActivity : AppCompatActivity() {
                     false // false for 12-hour format
                 )
                 timepickerDialog.show()
+                timepickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.onPrimary))
+                timepickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.onPrimary))
             },
             currentCalendar.get(Calendar.YEAR),
             currentCalendar.get(Calendar.MONTH),
@@ -127,6 +135,33 @@ class CreateAnnouncementActivity : AppCompatActivity() {
 
         datePickerDialog.datePicker.minDate = currentCalendar.timeInMillis
         datePickerDialog.show()
+        datePickerDialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.onPrimary))
+        datePickerDialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.onPrimary))
+    }
+
+    private fun setupEditMode() {
+        toolbar.title = "Update Announcement"
+        btnPost.text = "Update Announcement"
+        btnPost.setIconResource(R.drawable.baseline_edit_24)
+
+        editAnnouncement?.let { announcement ->
+            etTitle.setText(announcement.title)
+            etDescription.setText(announcement.description)
+            
+            if (announcement.type == "EXAM") {
+                tabLayout.getTabAt(0)?.select()
+                currentType = "EXAM"
+                llExamFields.visibility = View.VISIBLE
+                etExamDate.setText(announcement.examDate)
+                etDuration.setText(announcement.duration)
+                etQuestions.setText(announcement.noOfQuestions)
+                etMarking.setText(announcement.markingPattern)
+            } else {
+                tabLayout.getTabAt(1)?.select()
+                currentType = "MESSAGE"
+                llExamFields.visibility = View.GONE
+            }
+        }
     }
 
     private fun postAnnouncement() {
@@ -153,7 +188,7 @@ class CreateAnnouncementActivity : AppCompatActivity() {
         db.collection("personalDetails").document(user.uid).get()
             .addOnSuccessListener { doc ->
                 val name = doc.getString("name") ?: "Teacher"
-                val id = db.collection("Announcements").document().id
+                val id = editAnnouncement?.id ?: db.collection("Announcements").document().id
                 
                 val announcement = Announcement(
                     id = id,
@@ -162,7 +197,7 @@ class CreateAnnouncementActivity : AppCompatActivity() {
                     title = title,
                     description = description,
                     examDate = if (currentType == "EXAM") examDate else null,
-                    announcementDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
+                    announcementDate = editAnnouncement?.announcementDate ?: SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date()),
                     duration = if (currentType == "EXAM") duration else null,
                     noOfQuestions = if (currentType == "EXAM") questions else null,
                     markingPattern = if (currentType == "EXAM") marking else null,
@@ -171,12 +206,42 @@ class CreateAnnouncementActivity : AppCompatActivity() {
 
                 db.collection("Announcements").document(id).set(announcement)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Posted successfully", Toast.LENGTH_SHORT).show()
+                        if (editAnnouncement == null) {
+                            notifySubscribersOfAnnouncement(user.uid, name, title, id, doc.getString("imageUrl") ?: "")
+                        }
+                        Toast.makeText(this, if (editAnnouncement != null) "Updated successfully" else "Posted successfully", Toast.LENGTH_SHORT).show()
                         finish()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this, "Failed to post", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Failed to process", Toast.LENGTH_SHORT).show()
                     }
+            }
+    }
+
+    private fun notifySubscribersOfAnnouncement(
+        uid: String,
+        name: String,
+        title: String,
+        announcementId: String,
+        imageUrl: String
+    ) {
+        db.collection("Subscribers").document(uid)
+            .collection("UserSubscribers")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val subscriberId = document.id
+                    val notification = com.example.testmaster.model.Notification(
+                        title = "New Announcement from $name",
+                        message = title,
+                        type = "ANNOUNCEMENT",
+                        fromUserId = uid,
+                        fromUserName = name,
+                        fromUserImage = imageUrl,
+                        targetId = announcementId
+                    )
+                    com.example.testmaster.util.NotificationHelper.sendNotification(this@CreateAnnouncementActivity, subscriberId, notification)
+                }
             }
     }
 }

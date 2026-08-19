@@ -339,7 +339,7 @@ class CreateMcqTest : AppCompatActivity() {
                                 if (isEditMode) {
                                     updateExam(create_questions)
                                 } else {
-                                    hostExam(create_questions)
+                                    hostExam(create_questions, username)
                                 }
                             }
                     }
@@ -351,39 +351,38 @@ class CreateMcqTest : AppCompatActivity() {
         }
     }
 
-    private fun hostExam(create_questions: CreateQuestions) {
+    private fun hostExam(create_questions: CreateQuestions, username: String) {
         val user = firebaseAuth.currentUser?.uid.toString()
-        db.runTransaction {
-            db.collection("CreatedQuestion").document(user)
-                .collection("QuestionsDetails").add(create_questions)
-                .addOnSuccessListener { documentReference ->
-                    setExamId(user) { newExamId ->
-                        documentReference.update("exam_id", newExamId)
-                            .addOnSuccessListener {
-                                db.collection("Exams")
-                                    .add(create_questions)
-                                    .addOnSuccessListener { examDocRef ->
-                                        examDocRef.update("exam_id", newExamId)
-                                        Toast.makeText(this, "Exam Created", Toast.LENGTH_LONG).show()
-                                        startActivity(Intent(this, HostedTest::class.java))
-                                        finish()
-                                    }
-                                    .addOnFailureListener { e ->
-                                        Toast.makeText(this, "Failed to insert data", Toast.LENGTH_LONG).show()
-                                        host_btn.isEnabled = true
-                                    }
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Failed to insert data", Toast.LENGTH_LONG).show()
-                                host_btn.isEnabled = true
-                            }
-                    }
+        db.collection("CreatedQuestion").document(user)
+            .collection("QuestionsDetails").add(create_questions)
+            .addOnSuccessListener { documentReference ->
+                setExamId(user) { newExamId ->
+                    documentReference.update("exam_id", newExamId)
+                        .addOnSuccessListener {
+                            db.collection("Exams")
+                                .add(create_questions)
+                                .addOnSuccessListener { examDocRef ->
+                                    examDocRef.update("exam_id", newExamId)
+                                    notifySubscribersOfExam(user, username, create_questions.sub_nm ?: "", newExamId)
+                                    Toast.makeText(this, "Exam Created", Toast.LENGTH_LONG).show()
+                                    startActivity(Intent(this, HostedTest::class.java))
+                                    finish()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(this, "Failed to insert data", Toast.LENGTH_LONG).show()
+                                    host_btn.isEnabled = true
+                                }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Failed to insert data", Toast.LENGTH_LONG).show()
+                            host_btn.isEnabled = true
+                        }
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Unable to insert the data", Toast.LENGTH_LONG).show()
-                    host_btn.isEnabled = true
-                }
-        }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Unable to insert the data", Toast.LENGTH_LONG).show()
+                host_btn.isEnabled = true
+            }
     }
 
     private fun updateExam(create_questions: CreateQuestions) {
@@ -635,6 +634,37 @@ class CreateMcqTest : AppCompatActivity() {
 
         )
     }
+
+    private fun notifySubscribersOfExam(
+        uid: String,
+        name: String,
+        subject: String,
+        examId: String
+    ) {
+        db.collection("personalDetails").document(uid).get()
+            .addOnSuccessListener { userDoc ->
+                val imageUrl = userDoc.getString("imageUrl") ?: ""
+                db.collection("Subscribers").document(uid)
+                    .collection("UserSubscribers")
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            val subscriberId = document.id
+                            val notification = com.example.testmaster.model.Notification(
+                                title = "New Exam Hosted!",
+                                message = "$name has hosted a new exam on $subject.",
+                                type = "EXAM_HOST",
+                                fromUserId = uid,
+                                fromUserName = name,
+                                fromUserImage = imageUrl,
+                                targetId = examId
+                            )
+                            com.example.testmaster.util.NotificationHelper.sendNotification(this@CreateMcqTest, subscriberId, notification)
+                        }
+                    }
+            }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true

@@ -72,7 +72,7 @@ class SubscribersListFragment : Fragment() {
             } else {
                 tvNoData.visibility = View.GONE
                 rvSubscribers.visibility = View.VISIBLE
-                rvSubscribers.adapter = SubscriberAdapter(list)
+                rvSubscribers.adapter = SubscriberAdapter(list, type ?: "FOLLOWERS")
             }
         }
     }

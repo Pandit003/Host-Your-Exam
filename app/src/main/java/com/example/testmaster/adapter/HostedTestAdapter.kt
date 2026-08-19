@@ -30,20 +30,25 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-class HostedTestAdapter(var context: Context,var HostedTestList : List<CreateQuestions>) : RecyclerView.Adapter<HostedTestAdapter.ViewHolder>() {
+class HostedTestAdapter(
+    var context: Context,
+    var HostedTestList: List<CreateQuestions>,
+    private val isOwner: Boolean = true
+) : RecyclerView.Adapter<HostedTestAdapter.ViewHolder>() {
     private lateinit var firebaseAuth: FirebaseAuth
-    lateinit var db : FirebaseFirestore
-    lateinit var user : String
+    lateinit var db: FirebaseFirestore
+    lateinit var user: String
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HostedTestAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_hosted_test,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_hosted_test, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: HostedTestAdapter.ViewHolder, position: Int) {
+        val exam = HostedTestList[position]
         val originalFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         try {
-            val hostedDate = originalFormat.parse(HostedTestList[position].hosting_date)
+            val hostedDate = originalFormat.parse(exam.hosting_date)
             if (hostedDate != null) {
                 val formattedDate = sdf.format(hostedDate)
                 holder.host_date.text = formattedDate
@@ -55,26 +60,32 @@ class HostedTestAdapter(var context: Context,var HostedTestList : List<CreateQue
             Log.e("HostedTestAdapter", "Error parsing hosting_date: ${e.message}")
         }
 
-        var timeInMillis = HostedTestList[position].exam_duration?.toLong() ?:0
+        var timeInMillis = exam.exam_duration?.toLong() ?: 0
         val hours = timeInMillis / 1000 / 3600
         val minutes = (timeInMillis / 1000 % 3600) / 60
         val seconds = timeInMillis / 1000 % 60
-        holder.exam_duration.text = String.format("%02d:%02d:%02d",hours,minutes,seconds)
-        holder.subject_name.text = HostedTestList[position].sub_nm
-        holder.exam_Id.text = HostedTestList[position].exam_id
-        
+        holder.exam_duration.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        holder.subject_name.text = exam.sub_nm
+        holder.exam_Id.text = exam.exam_id
+
         holder.itemView.setOnClickListener {
-            showExamDetailsBottomSheet(HostedTestList[position])
+            showExamDetailsBottomSheet(exam)
         }
 
-        holder.iv_copy.setOnClickListener{
+        holder.iv_copy.setOnClickListener {
             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Exam ID", holder.exam_Id.text.toString())
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context,"Copied!!",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Copied!!", Toast.LENGTH_SHORT).show()
         }
-        holder.iv_delete.setOnClickListener {
-            deleteExam(HostedTestList[position])
+
+        if (isOwner) {
+            holder.iv_delete.visibility = View.VISIBLE
+            holder.iv_delete.setOnClickListener {
+                deleteExam(exam)
+            }
+        } else {
+            holder.iv_delete.visibility = View.GONE
         }
     }
 
@@ -96,6 +107,7 @@ class HostedTestAdapter(var context: Context,var HostedTestList : List<CreateQue
         val tvEndTime = view.findViewById<TextView>(R.id.bs_end_time)
         val btnDelete = view.findViewById<Button>(R.id.bs_btn_delete)
         val btnEdit = view.findViewById<Button>(R.id.bs_btn_edit)
+        val llOwnerActions = view.findViewById<LinearLayout>(R.id.ll_owner_actions) ?: null
 
         tvSubject.text = exam.sub_nm
         tvExamId.text = "ID: ${exam.exam_id}"
@@ -114,7 +126,7 @@ class HostedTestAdapter(var context: Context,var HostedTestList : List<CreateQue
         tvTotalQuestions.text = questionCount.toString()
         tvMarking.text = "+${exam.pos_mark} / -${exam.neg_mark}"
         tvPassingMark.text = exam.pass_mark
-        
+
         val timeInMillis = exam.exam_duration?.toLong() ?: 0
         val hours = timeInMillis / 1000 / 3600
         val minutes = (timeInMillis / 1000 % 3600) / 60
@@ -130,16 +142,25 @@ class HostedTestAdapter(var context: Context,var HostedTestList : List<CreateQue
             tvEndTime.text = "End: ${exam.end_time}"
         }
 
-        btnDelete.setOnClickListener {
-            bottomSheetDialog.dismiss()
-            deleteExam(exam)
-        }
+        if (isOwner) {
+            btnDelete.visibility = View.VISIBLE
+            btnEdit.visibility = View.VISIBLE
+            btnDelete.setOnClickListener {
+                bottomSheetDialog.dismiss()
+                deleteExam(exam)
+            }
 
-        btnEdit.setOnClickListener {
-            bottomSheetDialog.dismiss()
-            val intent = Intent(context, CreateMcqTest::class.java)
-            intent.putExtra("EDIT_EXAM", exam)
-            context.startActivity(intent)
+            btnEdit.setOnClickListener {
+                bottomSheetDialog.dismiss()
+                val intent = Intent(context, CreateMcqTest::class.java)
+                intent.putExtra("EDIT_EXAM", exam)
+                context.startActivity(intent)
+            }
+        } else {
+            btnDelete.visibility = View.GONE
+            btnEdit.visibility = View.GONE
+            // Also hide the layout container if it exists
+            llOwnerActions?.visibility = View.GONE
         }
 
         bottomSheetDialog.show()

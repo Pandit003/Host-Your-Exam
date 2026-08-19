@@ -6,6 +6,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -14,14 +15,15 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.example.testmaster.R
-import com.example.testmaster.model.personalDetail
 import com.example.testmaster.util.CustomDialogUtils
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -29,6 +31,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
+import com.yalantis.ucrop.UCrop
+import java.io.File
 import java.util.Calendar
 
 class EditProfileActivity : AppCompatActivity() {
@@ -56,6 +60,7 @@ class EditProfileActivity : AppCompatActivity() {
     private var checkRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
         
@@ -262,22 +267,22 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun saveProfileToFirestore(newImageUrl: String, pd: ProgressDialog) {
         val userId = firebaseAuth.currentUser?.uid ?: return
-        val updatedDetail = personalDetail(
-            name = et_username.text.toString().trim(),
-            name_lowercase = et_username.text.toString().trim().lowercase(),
-            email = et_email.text.toString().trim(),
-            phone_no = et_phone_no.text.toString().trim(),
-            dob = et_dob.text.toString().trim(),
-            imageUrl = newImageUrl,
-            subscribersCount = currentSubscribersCount
+        
+        val updates = hashMapOf<String, Any?>(
+            "name" to et_username.text.toString().trim(),
+            "name_lowercase" to et_username.text.toString().trim().lowercase(),
+            "email" to et_email.text.toString().trim(),
+            "phone_no" to et_phone_no.text.toString().trim(),
+            "dob" to et_dob.text.toString().trim(),
+            "imageUrl" to newImageUrl
         )
 
         db.collection("personalDetails").document(userId)
-            .set(updatedDetail)
+            .update(updates)
             .addOnSuccessListener {
                 pd.dismiss()
                 Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
-                originalName = updatedDetail.name ?: ""
+                originalName = et_username.text.toString().trim()
                 finish()
             }
             .addOnFailureListener {
@@ -290,9 +295,39 @@ class EditProfileActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK) {
-            imageUri = data?.data
+            val sourceUri = data?.data
+            if (sourceUri != null) {
+                startCrop(sourceUri)
+            }
+        } else if (requestCode == UCrop.REQUEST_CROP && resultCode == Activity.RESULT_OK) {
+            imageUri = UCrop.getOutput(data!!)
             iv_personimage.setImageURI(imageUri)
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            val cropError = UCrop.getError(data!!)
+            Log.e("UCrop", "Crop error: $cropError")
+            Toast.makeText(this, "Crop failed: ${cropError?.message}", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun startCrop(uri: Uri) {
+        val destinationUri = Uri.fromFile(File(cacheDir, "cropped_image_${System.currentTimeMillis()}.jpg"))
+        val options = UCrop.Options().apply {
+            setCompressionFormat(Bitmap.CompressFormat.JPEG)
+            setCompressionQuality(90)
+            setHideBottomControls(false)
+            setFreeStyleCropEnabled(false)
+            // Optional: Set colors to match your app theme
+            setToolbarColor(ContextCompat.getColor(this@EditProfileActivity, R.color.primary))
+            setStatusBarColor(ContextCompat.getColor(this@EditProfileActivity, R.color.primary))
+            setToolbarWidgetColor(ContextCompat.getColor(this@EditProfileActivity, R.color.onPrimary))
+            setActiveControlsWidgetColor(ContextCompat.getColor(this@EditProfileActivity, R.color.bluetint))
+        }
+
+        UCrop.of(uri, destinationUri)
+            .withAspectRatio(1f, 1f) // Force 1:1 ratio
+            .withMaxResultSize(1000, 1000)
+            .withOptions(options)
+            .start(this)
     }
 
     fun isInternetAvailable(context: Context): Boolean {

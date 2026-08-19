@@ -12,7 +12,8 @@ class personalDetail(
     val avgPercentage : String? = null,
     val highestPercentage : String? = null,
     val imageUrl : String? = null,
-    val subscribersCount : Int = 0
+    val subscribersCount : Int = 0,
+    val fcmToken : String? = null
 ) : Serializable {
     constructor() : this(
         name = null,
@@ -21,6 +22,7 @@ class personalDetail(
         phone_no = null,
         dob = null,
         imageUrl = null,
-        subscribersCount = 0
+        subscribersCount = 0,
+        fcmToken = null
     )
 }

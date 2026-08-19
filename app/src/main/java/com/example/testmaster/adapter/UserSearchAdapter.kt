@@ -1,6 +1,7 @@
 package com.example.testmaster.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
@@ -82,6 +83,12 @@ class UserSearchAdapter(
                 toggleSubscription(targetUserId, user, holder.btnSubscribe)
             }
         }
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, com.example.testmaster.activities.UserProfileActivity::class.java)
+            intent.putExtra("USER_ID", targetUserId)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = userList.size
@@ -145,6 +152,17 @@ class UserSearchAdapter(
                             followRef.set(followingData).addOnSuccessListener {
                                 db.collection("personalDetails").document(targetUserId)
                                     .update("subscribersCount", FieldValue.increment(1))
+
+                                // Send Notification
+                                val appNotification = com.example.testmaster.model.Notification(
+                                    title = "New Subscriber!",
+                                    message = "$currName has subscribed to you.",
+                                    type = "SUBSCRIBE",
+                                    fromUserId = currentUid,
+                                    fromUserName = currName ?: "",
+                                    fromUserImage = currImage ?: ""
+                                )
+                                com.example.testmaster.util.NotificationHelper.sendNotification(context, targetUserId, appNotification)
 
                                 btn.text = "Subscribed"
                                 btn.setIconResource(R.drawable.baseline_playlist_add_check_24)

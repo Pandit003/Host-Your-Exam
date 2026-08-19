@@ -50,6 +50,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     implementation("com.google.firebase:firebase-storage:21.0.0")
     implementation("com.google.firebase:firebase-crashlytics:19.1.0")
+    implementation("com.google.firebase:firebase-messaging:24.0.0")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")

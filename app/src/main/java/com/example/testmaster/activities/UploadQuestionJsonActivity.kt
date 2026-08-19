@@ -10,6 +10,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
 import android.widget.EditText
@@ -197,6 +198,16 @@ class UploadQuestionJsonActivity : AppCompatActivity() {
         etPosMark.addTextChangedListener(commonTextWatcher)
         etNegMark.addTextChangedListener(commonTextWatcher)
         etPassMark.addTextChangedListener(commonTextWatcher)
+
+        etJson.setOnTouchListener { v, event ->
+            if (v.id == R.id.et_json) {
+                v.parent.requestDisallowInterceptTouchEvent(true)
+                when (event.action and MotionEvent.ACTION_MASK) {
+                    MotionEvent.ACTION_UP -> v.parent.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false
+        }
 
         btnHostExam.setOnClickListener {
             val json = etJson.text.toString()

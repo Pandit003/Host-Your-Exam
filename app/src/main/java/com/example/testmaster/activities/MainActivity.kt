@@ -2,15 +2,19 @@ package com.example.testmaster.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testmaster.adapter.ViewPagerAdapter
@@ -28,6 +32,10 @@ import com.example.testmaster.R
 import com.example.testmaster.util.CustomDialogUtils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.messaging.FirebaseMessaging
+import com.example.testmaster.model.Notification
+import com.example.testmaster.util.NotificationHelper
+import com.google.firebase.firestore.DocumentChange
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +54,16 @@ class MainActivity : AppCompatActivity() {
     lateinit var db : FirebaseFirestore
 
     private lateinit var firebaseAuth: FirebaseAuth
+
+    private val requestPermissionLauncher = registerForActivityResult<String, Boolean>(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // Permission granted
+        } else {
+            // Permission denied
+        }
+    }
 
     override fun onStart() {
         super.onStart()
@@ -81,6 +99,10 @@ class MainActivity : AppCompatActivity() {
         ib_notification = findViewById(R.id.ib_notification)
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+
+        askNotificationPermission()
+        updateFcmToken()
+//        startNotificationListener()
 
         if (!isConnectedToInternet()) {
             showInternetSettingsDialog()
@@ -204,12 +226,12 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     if (documentSnapshot != null && documentSnapshot.exists()) {
-                        username = documentSnapshot.getString("name").toString()
-                        imageUrl = documentSnapshot.getString("imageUrl").toString()
+                        username = documentSnapshot.getString("name") ?: "N/A"
+                        imageUrl = documentSnapshot.getString("imageUrl") ?: ""
                         user_name.text = username
                         user_email.text = firebaseAuth.currentUser?.email.toString()
 
-                        if(!imageUrl.isNullOrEmpty()){
+                        if(imageUrl.isNotEmpty()){
                             Picasso.get()
                                 .load(imageUrl).fit()
                                 .into(iv_userimage);
@@ -278,6 +300,59 @@ class MainActivity : AppCompatActivity() {
             }
 
         )
+    }
+
+    private fun askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private fun updateFcmToken() {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("MainActivity", "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+
+            val token = task.result
+            db.collection("personalDetails").document(userId)
+                .update("fcmToken", token)
+                .addOnSuccessListener {
+                    Log.d("MainActivity", "FCM Token updated: $token")
+                }
+        }
+    }
+
+    private fun startNotificationListener() {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+        val startTime = System.currentTimeMillis()
+
+        db.collection("Notifications").document(userId)
+            .collection("UserNotifications")
+            .whereGreaterThan("timestamp", startTime) // Only listen for NEW notifications
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.w("MainActivity", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                for (dc in snapshots!!.documentChanges) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        val notification = dc.document.toObject(Notification::class.java)
+                        NotificationHelper.showSystemNotification(
+                            this,
+                            notification.title,
+                            notification.message
+                        )
+                    }
+                }
+            }
     }
 
 }

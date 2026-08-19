@@ -67,5 +67,18 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_unsubscribe"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Unfollow"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:cornerRadius="20dp"
+            app:strokeColor="@color/error"
+            android:textColor="@color/error"/>
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

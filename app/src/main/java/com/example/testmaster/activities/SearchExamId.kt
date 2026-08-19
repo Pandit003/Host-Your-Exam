@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class SearchExamId : AppCompatActivity() {
 
     lateinit var rv_exam_data : RecyclerView
+    private lateinit var tvNoResults: TextView
     private lateinit var firebaseAuth: FirebaseAuth
     lateinit var db : FirebaseFirestore
     private lateinit var sharedPreferences: SharedPreferences
@@ -52,6 +54,7 @@ class SearchExamId : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         user = firebaseAuth.currentUser?.uid.toString()
         rv_exam_data = findViewById(R.id.rv_exam_data)
+        tvNoResults = findViewById(R.id.tv_no_results)
         rv_exam_data.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         sharedPreferences = getSharedPreferences("search_history", MODE_PRIVATE)
@@ -159,6 +162,7 @@ class SearchExamId : AppCompatActivity() {
         userResultIds.clear()
         examDataList.clear()
         rv_exam_data.adapter = null
+        tvNoResults.visibility = View.GONE
     }
 
     fun searchExams(query: String) {
@@ -291,5 +295,11 @@ class SearchExamId : AppCompatActivity() {
         
         concatAdapter = ConcatAdapter(userSearchAdapter, examDetailsAdapter)
         rv_exam_data.adapter = concatAdapter
+
+        if (examList.isEmpty() && userResultList.isEmpty()) {
+            tvNoResults.visibility = View.VISIBLE
+        } else {
+            tvNoResults.visibility = View.GONE
+        }
     }
 }

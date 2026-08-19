@@ -10,7 +10,7 @@
     android:paddingHorizontal="24dp"
     android:paddingBottom="24dp">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:cardCornerRadius="40dp"
@@ -24,16 +24,15 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            app:tint="@color/onPrimary"
             android:src="@drawable/baseline_account_circle_24" />
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="User Name"
         android:textColor="@color/onPrimary"
         android:textSize="20sp"

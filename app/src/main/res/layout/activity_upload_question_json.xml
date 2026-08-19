@@ -195,6 +195,8 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_active_backgroung"
                             android:gravity="top"
+                            android:maxHeight="450dp"
+                            android:scrollbars="vertical"
                             android:hint="Paste Questions JSON array here..."
                             android:inputType="textMultiLine"
                             android:minHeight="200dp"
